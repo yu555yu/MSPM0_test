@@ -1,0 +1,6 @@
+r
+halt
+loadfile "d:\M0\MSPM0_stepper_test\build\Debug\stepper_motor_test.hex"
+r
+go
+exit

@@ -1,0 +1,127 @@
+{
+    "name": "stepper_motor_test",
+    "target": "Debug",
+    "toolchain": "GCC",
+    "toolchainLocation": "C:\\Users\\22868\\.eide\\tools\\gcc_arm",
+    "toolchainCfgFile": "c:\\Users\\22868\\.vscode\\extensions\\cl.eide-3.27.2\\res\\data\\models/arm.gcc.model.json",
+    "buildMode": "fast|multhread",
+    "showRepathOnLog": true,
+    "threadNum": 16,
+    "rootDir": "d:\\M0\\MSPM0_stepper_test",
+    "dumpPath": "build\\Debug",
+    "outDir": "build\\Debug",
+    "incDirs": [
+        ".cmsis/include",
+        "include",
+        "source",
+        "libraries"
+    ],
+    "libDirs": [
+        "source",
+        "libraries"
+    ],
+    "defines": [],
+    "sourceList": [
+        "libraries/ti/devices/msp/m0p/startup_system_files/gcc/startup_mspm0g350x_gcc.c",
+        "source/Hardware/BlueSerial/DL_30.c",
+        "source/Hardware/BlueSerial/bsp_hc04.c",
+        "source/Hardware/BlueSerial/bsp_hc05.c",
+        "source/Hardware/Board/board.c",
+        "source/Hardware/Buzzer&Light/B&L.c",
+        "source/Hardware/Control/visual_servo.c",
+        "source/Hardware/Encoder/Encoder.c",
+        "source/Hardware/Key/Key.c",
+        "source/Hardware/LCD/lcd.c",
+        "source/Hardware/LCD/lcd_init.c",
+        "source/Hardware/MPU6500/mpu6500.c",
+        "source/Hardware/Motor/42Motor.c",
+        "source/Hardware/Motor/stepper_motor.c",
+        "source/Hardware/TB6612/bsp_tb6612.c",
+        "source/Hardware/jy901s/jy901s.c",
+        "source/app/app_irtracking.c",
+        "source/app/app_key_task.c",
+        "source/app/app_ui.c",
+        "source/main.c",
+        "source/middle/mid_button.c",
+        "source/middle/mid_debug_led.c",
+        "source/middle/mid_pid.c",
+        "source/retarget_syscalls.c",
+        "source/ti_msp_dl_config.c"
+    ],
+    "alwaysInBuildSources": [],
+    "sourceParams": {},
+    "options": {
+        "version": 5,
+        "afterBuildTasks": [
+            {
+                "name": "Copy ELF",
+                "abortAfterFailed": false,
+                "command": "cp \"${ExecutableName}.elf\" \"${OutDirRoot}/executable.elf\"",
+                "disable": true
+            }
+        ],
+        "asm-compiler": {},
+        "beforeBuildTasks": [],
+        "c/cpp-compiler": {
+            "C_FLAGS": "${ArgsFile:source/device.opt}",
+            "language-c": "c11",
+            "language-cpp": "c++11",
+            "one-elf-section-per-data": true,
+            "one-elf-section-per-function": true,
+            "optimization": "level-1",
+            "warnings": "all-warnings"
+        },
+        "global": {
+            "$float-abi-type": "softfp",
+            "misc-control": "--specs=nosys.specs --specs=nano.specs",
+            "output-debug-info": "enable",
+            "toolPrefix": "arm-none-eabi-",
+            "arm-thumb-mode": "thumb",
+            "microcontroller-cpu": "cortex-m0+",
+            "microcontroller-fpu": "cortex-m0+",
+            "microcontroller-float": "cortex-m0+",
+            "$arch-extensions": "",
+            "$clang-arch-extensions": "",
+            "$armlink-arch-extensions": ""
+        },
+        "linker": {
+            "$outputTaskExcludes": [
+                ".bin"
+            ],
+            "$toolName": "gcc",
+            "LD_FLAGS": "-static -u _printf_float",
+            "LIB_FLAGS": "-lm",
+            "output-format": "elf",
+            "remove-unused-input-sections": true,
+            "link-scatter": [
+                "d:/M0/MSPM0_stepper_test/source/device_linker.lds",
+                "d:/M0/MSPM0_stepper_test/source/device.lds.genlibs"
+            ]
+        }
+    },
+    "env": {
+        "workspaceFolder": "d:\\M0\\MSPM0_stepper_test",
+        "workspaceFolderBasename": "MSPM0_stepper_test",
+        "OutDir": "d:\\M0\\MSPM0_stepper_test\\build\\Debug",
+        "OutDirRoot": "build",
+        "OutDirBase": "build\\Debug",
+        "ProjectName": "stepper_motor_test",
+        "ConfigName": "Debug",
+        "ProjectRoot": "d:\\M0\\MSPM0_stepper_test",
+        "ExecutableName": "d:\\M0\\MSPM0_stepper_test\\build\\Debug\\stepper_motor_test",
+        "ChipPackDir": "",
+        "ChipName": "",
+        "SYS_Platform": "win32",
+        "SYS_DirSep": "\\",
+        "SYS_DirSeparator": "\\",
+        "SYS_PathSep": ";",
+        "SYS_PathSeparator": ";",
+        "SYS_EOL": "\r\n",
+        "EIDE_BUILDER_DIR": "c:\\Users\\22868\\.vscode\\extensions\\cl.eide-3.27.2\\res\\tools\\win32\\unify_builder",
+        "EIDE_BINARIES_VER": "12.1.1",
+        "EIDE_MSYS": "C:\\Users\\22868\\.eide\\bin\\builder\\msys\\bin",
+        "EIDE_PY3_CMD": "C:\\Users\\22868\\.eide\\bin\\python36\\python3.exe",
+        "ToolchainRoot": "C:\\Users\\22868\\.eide\\tools\\gcc_arm"
+    },
+    "sysPaths": []
+}

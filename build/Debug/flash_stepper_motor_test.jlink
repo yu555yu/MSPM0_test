@@ -1,0 +1,6 @@
+r
+h
+loadfile build/Debug/stepper_motor_test.hex
+r
+g
+q

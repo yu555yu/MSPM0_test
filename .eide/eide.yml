@@ -1,0 +1,88 @@
+version: "4.1"
+name: stepper_motor_test
+type: ARM
+deviceName: null
+packDir: null
+srcDirs:
+  - source
+virtualFolder:
+  name: <virtual_root>
+  files:
+    - path: libraries/ti/devices/msp/m0p/startup_system_files/gcc/startup_mspm0g350x_gcc.c
+    - path: README.md
+  folders: []
+dependenceList: []
+outDir: build
+miscInfo:
+  uid: d4c2e9f01a7b4c5d8e6f1029384756ab
+targets:
+  Debug:
+    cppPreprocessAttrs:
+      defineList: []
+      incList:
+        - .cmsis/include
+        - include
+        - source
+        - libraries
+      libList:
+        - source
+        - libraries
+    excludeList: []
+    settings:
+      debugger: cortex-debug
+    toolchain: GCC
+    toolchainConfigMap:
+      GCC:
+        archExtensions: ""
+        cpuType: Cortex-M0+
+        floatingPointHardware: none
+        options:
+          version: 5
+          afterBuildTasks:
+            - name: Copy ELF
+              abortAfterFailed: false
+              command: cp "${ExecutableName}.elf" "${OutDirRoot}/executable.elf"
+              disable: true
+          asm-compiler: {}
+          beforeBuildTasks: []
+          c/cpp-compiler:
+            C_FLAGS: ${ArgsFile:source/device.opt}
+            language-c: c11
+            language-cpp: c++11
+            one-elf-section-per-data: true
+            one-elf-section-per-function: true
+            optimization: level-1
+            warnings: all-warnings
+          global:
+            $float-abi-type: softfp
+            misc-control: --specs=nosys.specs --specs=nano.specs
+            output-debug-info: enable
+          linker:
+            $outputTaskExcludes:
+              - .bin
+            $toolName: auto
+            LD_FLAGS: -static -u _printf_float
+            LIB_FLAGS: -lm
+            output-format: elf
+            remove-unused-input-sections: true
+        scatterFilePath: source\device_linker.lds,source\device.lds.genlibs
+        storageLayout:
+          RAM: []
+          ROM: []
+        useCustomScatterFile: true
+    uploadConfigMap:
+      JLink:
+        baseAddr: ""
+        bin: ""
+        cpuInfo:
+          cpuName: MSPM0G3507
+          vendor: TI
+        otherCmds: ""
+        proType: 1
+        speed: 8000
+      OpenOCD:
+        baseAddr: "0x08000000"
+        bin: ""
+        interface: xds110
+        target: ${workspaceFolder}/mspm0l
+    uploader: JLink

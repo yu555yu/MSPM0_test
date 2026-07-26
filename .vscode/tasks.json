@@ -1,0 +1,48 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "syscfg",
+            "type": "shell",
+            "command": "powershell",
+            "args": [
+                "-NoProfile",
+                "-ExecutionPolicy",
+                "Bypass",
+                "-File",
+                "${workspaceFolder}\\tools\\generate_syscfg.ps1",
+                "-ProjectRoot",
+                "${workspaceFolder}"
+            ],
+            "problemMatcher": []
+        },
+        {
+            "label": "build",
+            "type": "shell",
+            "command": "${command:eide.project.build}",
+            "group": "build",
+            "problemMatcher": []
+        },
+        {
+            "label": "flash",
+            "type": "shell",
+            "command": "${command:eide.project.uploadToDevice}",
+            "group": "build",
+            "problemMatcher": []
+        },
+        {
+            "label": "build and flash",
+            "type": "shell",
+            "command": "${command:eide.project.buildAndFlash}",
+            "group": "build",
+            "problemMatcher": []
+        },
+        {
+            "label": "rebuild",
+            "type": "shell",
+            "command": "${command:eide.project.rebuild}",
+            "group": "build",
+            "problemMatcher": []
+        }
+    ]
+}

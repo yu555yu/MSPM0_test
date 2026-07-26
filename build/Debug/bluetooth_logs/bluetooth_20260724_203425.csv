@@ -1,0 +1,2 @@
+﻿timestamp,direction,port,kind,source,event,fields_json,raw
+2026-07-24T20:34:25.825+08:00,TX,COM16,LINK,,PING,{},[PING]

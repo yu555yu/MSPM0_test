@@ -1,0 +1,26 @@
+#include <ti_msp_dl_config.h>
+#include "User.h"
+
+/*************** User LED Control ***************/
+void UserLED_ON(void)
+{
+    DL_GPIO_setPins(USER_PORT, USER_PIN_LED_PIN);
+}
+
+void UserLED_OFF(void)
+{
+    DL_GPIO_clearPins(USER_PORT, USER_PIN_LED_PIN);
+}
+
+void UserLED_Toggle(void)
+{
+    DL_GPIO_togglePins(USER_PORT, USER_PIN_LED_PIN);
+}
+
+/***************** read Key Control *****************/
+
+
+KeyState UserKey_Read(void)
+{
+    return (DL_GPIO_readPins(USER_PORT, USER_PIN_Key_PIN) != 0) ? KEY_RELEASED : KEY_PRESSED;
+}

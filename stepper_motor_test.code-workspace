@@ -1,0 +1,45 @@
+{
+    "folders": [
+        {
+            "path": "."
+        }
+    ],
+    "launch": {
+        "version": "0.2.0",
+        "configurations": [
+            {
+                "type": "cortex-debug",
+                "name": "Debug Stepper: J-Link",
+                "request": "launch",
+                "cwd": "${workspaceRoot}",
+                "toolchainPrefix": "arm-none-eabi",
+                "executable": "build/Debug/stepper_motor_test.elf",
+                "servertype": "jlink",
+                "interface": "swd",
+                "device": "MSPM0G3507",
+                "runToEntryPoint": "main"
+            }
+        ]
+    },
+    "settings": {
+        "clangd.arguments": [
+            "--header-insertion=never"
+        ],
+        "terminal.integrated.shellIntegration.enabled": false,
+        "explorer.autoReveal": false,
+        "files.autoGuessEncoding": true,
+        "C_Cpp.default.configurationProvider": "cl.eide",
+        "C_Cpp.errorSquiggles": "disabled",
+        "files.associations": {
+            ".eideignore": "ignore",
+            "*.h": "c",
+            "*.c": "c"
+        }
+    },
+    "extensions": {
+        "recommendations": [
+            "cl.eide",
+            "marus25.cortex-debug"
+        ]
+    }
+}
