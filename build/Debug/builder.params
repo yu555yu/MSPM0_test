@@ -24,8 +24,8 @@
     "sourceList": [
         "libraries/ti/devices/msp/m0p/startup_system_files/gcc/startup_mspm0g350x_gcc.c",
         "source/Hardware/BlueSerial/DL_30.c",
-        "source/Hardware/BlueSerial/bsp_hc04.c",
         "source/Hardware/BlueSerial/bsp_hc05.c",
+        "source/Hardware/BlueSerial/bsp_hc05_1.c",
         "source/Hardware/Board/board.c",
         "source/Hardware/Buzzer&Light/B&L.c",
         "source/Hardware/Control/visual_servo.c",

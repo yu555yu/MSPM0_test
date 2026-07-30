@@ -25,7 +25,7 @@ void btn_up_cb(flex_button_t *btn)
         case FLEX_BTN_PRESS_DOWN:
             set_debug_led_toggle();
             LineTrackingFlag = 1;
-            speed_PID.Target = 1.5f;
+            speed_PID.Target = 1.2f;
             RunFlag = 1;
             break;
 
@@ -53,6 +53,7 @@ void btn_left_cb(flex_button_t *btn)
     switch (btn->event)
     {
         case FLEX_BTN_PRESS_DOWN:
+            set_debug_led_toggle();
             break;
 
         default:

@@ -10,6 +10,7 @@
 void LineTracking_ShowRawOnLCD(void);
 void LineWalking(void);
 float LineTracking_GetError(void);
+float LineTracking_GetRawTarget(void);
 
 #endif
 

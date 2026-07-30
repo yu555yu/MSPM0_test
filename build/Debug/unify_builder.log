@@ -1,842 +1,369 @@
-[2026-07-24 18:29:55]	[done]
-	build successfully !
-
-[2026-07-24 18:30:46]	[done]
-	build successfully !
-
-[2026-07-24 18:34:39]	[done]
-	build successfully !
-
-[2026-07-24 18:39:39]	[done]
-	build successfully !
-
-[2026-07-24 18:39:57]	[done]
-	build successfully !
-
-[2026-07-24 18:51:52]	[done]
-	build successfully !
-
-[2026-07-24 18:53:26]	[info] incremental build: 3 source files changed
-These source files will be recompiled
----
-'d:\MSPM0_stepper_test\source\Hardware\BlueSerial\bsp_hc04.c': source file has been changed.
-'d:\MSPM0_stepper_test\source\Hardware\BlueSerial\bsp_hc05.c': dependence 'd:\MSPM0_stepper_test\source\Hardware\BlueSerial\bsp_bluetooth_test_config.h' has been changed.
-'d:\MSPM0_stepper_test\source\main.c': source file has been changed.
-
-[2026-07-24 18:53:27]	[done]
-	build successfully !
-
-[2026-07-24 20:35:33]	[done]
-	build successfully !
-
-[2026-07-24 20:46:12]	[done]
-	build successfully !
-
-[2026-07-24 20:46:15]	[done]
-	build successfully !
-
-[2026-07-24 20:58:04]	[info] incremental build: 20 source files changed
-These source files will be recompiled
----
-'d:\MSPM0_stepper_test\source\Hardware\BlueSerial\bsp_hc04.c': dependence 'd:\MSPM0_stepper_test\source\ti_msp_dl_config.h' has been changed.
-'d:\MSPM0_stepper_test\source\Hardware\Board\board.c': dependence 'd:\MSPM0_stepper_test\source\ti_msp_dl_config.h' has been changed.
-'d:\MSPM0_stepper_test\source\Hardware\Buzzer&Light\B&L.c': dependence 'd:\MSPM0_stepper_test\source\ti_msp_dl_config.h' has been changed.
-'d:\MSPM0_stepper_test\source\Hardware\Control\visual_servo.c': dependence 'd:\MSPM0_stepper_test\source\ti_msp_dl_config.h' has been changed.
-'d:\MSPM0_stepper_test\source\Hardware\Encoder\Encoder.c': dependence 'd:\MSPM0_stepper_test\source\ti_msp_dl_config.h' has been changed.
-'d:\MSPM0_stepper_test\source\Hardware\Key\Key.c': dependence 'd:\MSPM0_stepper_test\source\ti_msp_dl_config.h' has been changed.
-'d:\MSPM0_stepper_test\source\Hardware\LCD\lcd.c': dependence 'd:\MSPM0_stepper_test\source\ti_msp_dl_config.h' has been changed.
-'d:\MSPM0_stepper_test\source\Hardware\LCD\lcd_init.c': dependence 'd:\MSPM0_stepper_test\source\ti_msp_dl_config.h' has been changed.
-'d:\MSPM0_stepper_test\source\Hardware\MPU6500\mpu6500.c': dependence 'd:\MSPM0_stepper_test\source\ti_msp_dl_config.h' has been changed.
-'d:\MSPM0_stepper_test\source\Hardware\Motor\42Motor.c': dependence 'd:\MSPM0_stepper_test\source\ti_msp_dl_config.h' has been changed.
-'d:\MSPM0_stepper_test\source\Hardware\Motor\stepper_motor.c': dependence 'd:\MSPM0_stepper_test\source\ti_msp_dl_config.h' has been changed.
-'d:\MSPM0_stepper_test\source\Hardware\TB6612\bsp_tb6612.c': dependence 'd:\MSPM0_stepper_test\source\ti_msp_dl_config.h' has been changed.
-'d:\MSPM0_stepper_test\source\Hardware\jy901s\jy901s.c': dependence 'd:\MSPM0_stepper_test\source\ti_msp_dl_config.h' has been changed.
-'d:\MSPM0_stepper_test\source\app\app_irtracking.c': dependence 'd:\MSPM0_stepper_test\source\ti_msp_dl_config.h' has been changed.
-'d:\MSPM0_stepper_test\source\app\app_key_task.c': dependence 'd:\MSPM0_stepper_test\source\ti_msp_dl_config.h' has been changed.
-'d:\MSPM0_stepper_test\source\app\app_ui.c': dependence 'd:\MSPM0_stepper_test\source\ti_msp_dl_config.h' has been changed.
-'d:\MSPM0_stepper_test\source\main.c': source file has been changed.
-'d:\MSPM0_stepper_test\source\middle\mid_button.c': dependence 'd:\MSPM0_stepper_test\source\ti_msp_dl_config.h' has been changed.
-'d:\MSPM0_stepper_test\source\middle\mid_debug_led.c': dependence 'd:\MSPM0_stepper_test\source\ti_msp_dl_config.h' has been changed.
-'d:\MSPM0_stepper_test\source\ti_msp_dl_config.c': source file has been changed.
-
-[2026-07-24 20:58:06]	[done]
-	build successfully !
-
-[2026-07-24 21:04:27]	[info] incremental build: 25 source files changed
-These source files will be recompiled
----
-'d:\M0\MSPM0_stepper_test\libraries\ti\devices\msp\m0p\startup_system_files\gcc\startup_mspm0g350x_gcc.c': compiler options has been changed.
-'d:\M0\MSPM0_stepper_test\source\Hardware\BlueSerial\DL_30.c': compiler options has been changed.
-'d:\M0\MSPM0_stepper_test\source\Hardware\BlueSerial\bsp_hc04.c': compiler options has been changed.
-'d:\M0\MSPM0_stepper_test\source\Hardware\BlueSerial\bsp_hc05.c': compiler options has been changed.
-'d:\M0\MSPM0_stepper_test\source\Hardware\Board\board.c': compiler options has been changed.
-'d:\M0\MSPM0_stepper_test\source\Hardware\Buzzer&Light\B&L.c': compiler options has been changed.
-'d:\M0\MSPM0_stepper_test\source\Hardware\Control\visual_servo.c': compiler options has been changed.
-'d:\M0\MSPM0_stepper_test\source\Hardware\Encoder\Encoder.c': compiler options has been changed.
-'d:\M0\MSPM0_stepper_test\source\Hardware\Key\Key.c': compiler options has been changed.
-'d:\M0\MSPM0_stepper_test\source\Hardware\LCD\lcd.c': compiler options has been changed.
-'d:\M0\MSPM0_stepper_test\source\Hardware\LCD\lcd_init.c': compiler options has been changed.
-'d:\M0\MSPM0_stepper_test\source\Hardware\MPU6500\mpu6500.c': compiler options has been changed.
-'d:\M0\MSPM0_stepper_test\source\Hardware\Motor\42Motor.c': compiler options has been changed.
-'d:\M0\MSPM0_stepper_test\source\Hardware\Motor\stepper_motor.c': compiler options has been changed.
-'d:\M0\MSPM0_stepper_test\source\Hardware\TB6612\bsp_tb6612.c': compiler options has been changed.
-'d:\M0\MSPM0_stepper_test\source\Hardware\jy901s\jy901s.c': compiler options has been changed.
-'d:\M0\MSPM0_stepper_test\source\app\app_irtracking.c': compiler options has been changed.
-'d:\M0\MSPM0_stepper_test\source\app\app_key_task.c': compiler options has been changed.
-'d:\M0\MSPM0_stepper_test\source\app\app_ui.c': compiler options has been changed.
-'d:\M0\MSPM0_stepper_test\source\main.c': compiler options has been changed.
-'d:\M0\MSPM0_stepper_test\source\middle\mid_button.c': compiler options has been changed.
-'d:\M0\MSPM0_stepper_test\source\middle\mid_debug_led.c': compiler options has been changed.
-'d:\M0\MSPM0_stepper_test\source\middle\mid_pid.c': compiler options has been changed.
-'d:\M0\MSPM0_stepper_test\source\retarget_syscalls.c': compiler options has been changed.
-'d:\M0\MSPM0_stepper_test\source\ti_msp_dl_config.c': compiler options has been changed.
-
-[2026-07-24 21:04:29]	[done]
-	build successfully !
-
-[2026-07-24 21:07:41]	[done]
-	build successfully !
-
-[2026-07-24 21:08:03]	[done]
-	build successfully !
-
-[2026-07-24 21:13:06]	[done]
-	build successfully !
-
-[2026-07-24 21:20:56]	[info] incremental build: 3 source files changed
-These source files will be recompiled
----
-'d:\M0\MSPM0_stepper_test\source\Hardware\Buzzer&Light\B&L.c': source file has been changed.
-'d:\M0\MSPM0_stepper_test\source\Hardware\Control\visual_servo.c': dependence 'd:\M0\MSPM0_stepper_test\source\Hardware\Buzzer&Light\B&L.h' has been changed.
-'d:\M0\MSPM0_stepper_test\source\app\app_key_task.c': dependence 'd:\M0\MSPM0_stepper_test\source\Hardware\Buzzer&Light\B&L.h' has been changed.
-
-[2026-07-24 21:20:57]	compilation failed at : "d:\M0\MSPM0_stepper_test\source\Hardware\Control\visual_servo.c", exit code: 1
-command: 
-  "C:\Users\22868\.eide\tools\gcc_arm\bin\arm-none-eabi-gcc.exe" -c -xc -std=c11 -I.cmsis/include -Iinclude -Isource -Ilibraries -mcpu=cortex-m0plus -mthumb -O1 -Wall -g -ffunction-sections -fdata-sections -funsigned-char --specs=nosys.specs --specs=nano.specs -D__MSPM0G3507__ -D__USE_SYSCONFIG__ -o ./build/Debug/.obj/source/Hardware/Control/visual_servo.o -MMD ./source/Hardware/Control/visual_servo.c
-   at unify_builder.Program.Main(String[] args_)
----
-./source/Hardware/Control/visual_servo.c: In function 'Aim_Update':
-./source/Hardware/Control/visual_servo.c:103:26: error: implicit declaration of function 'BL_ON' [-Wimplicit-function-declaration]
-  103 |     if (cmd == CMD_FIRE) BL_ON();
-      |                          ^~~~~
-./source/Hardware/Control/visual_servo.c:104:26: error: implicit declaration of function 'BL_OFF' [-Wimplicit-function-declaration]
-  104 |     else                 BL_OFF();
-      |                          ^~~~~~
-
-[2026-07-24 21:25:14]	[info] incremental build: 2 source files changed
-These source files will be recompiled
----
-'d:\M0\MSPM0_stepper_test\source\Hardware\Control\visual_servo.c': source file has been changed.
-'d:\M0\MSPM0_stepper_test\source\app\app_key_task.c': dependence 'd:\M0\MSPM0_stepper_test\source\Hardware\Buzzer&Light\B&L.h' has been changed.
-
-[2026-07-24 21:25:14]	[done]
-	build successfully !
-
-[2026-07-24 21:25:32]	[done]
-	build successfully !
-
-[2026-07-24 21:29:05]	[info] incremental build: 1 source files changed
+[2026-07-27 21:46:59]	[info] incremental build: 1 source files changed
 These source files will be recompiled
 ---
 'd:\M0\MSPM0_stepper_test\source\main.c': source file has been changed.
 
-[2026-07-24 21:29:05]	[done]
-	build successfully !
-
-[2026-07-24 21:29:55]	[done]
-	build successfully !
-
-[2026-07-24 21:30:10]	[done]
-	build successfully !
-
-[2026-07-24 21:32:40]	[done]
-	build successfully !
-
-[2026-07-25 16:09:42]	[done]
-	build successfully !
-
-[2026-07-25 16:09:53]	[done]
-	build successfully !
-
-[2026-07-25 16:15:04]	[info] incremental build: 1 source files changed
-These source files will be recompiled
----
-'d:\M0\MSPM0_stepper_test\source\main.c': source file has been changed.
-
-[2026-07-25 16:15:05]	[done]
-	build successfully !
-
-[2026-07-25 16:16:22]	[done]
-	build successfully !
-
-[2026-07-25 19:01:38]	[info] incremental build: 1 source files changed
-These source files will be recompiled
----
-'d:\M0\MSPM0_stepper_test\source\main.c': source file has been changed.
-
-[2026-07-25 19:01:38]	compilation failed at : "d:\M0\MSPM0_stepper_test\source\main.c", exit code: 1
+[2026-07-27 21:46:59]	compilation failed at : "d:\M0\MSPM0_stepper_test\source\main.c", exit code: 1
 command: 
   "C:\Users\22868\.eide\tools\gcc_arm\bin\arm-none-eabi-gcc.exe" -c -xc -std=c11 -I.cmsis/include -Iinclude -Isource -Ilibraries -mcpu=cortex-m0plus -mthumb -O1 -Wall -g -ffunction-sections -fdata-sections -funsigned-char --specs=nosys.specs --specs=nano.specs -D__MSPM0G3507__ -D__USE_SYSCONFIG__ -o ./build/Debug/.obj/source/main.o -MMD ./source/main.c
    at unify_builder.Program.Main(String[] args_)
 ---
 ./source/main.c: In function 'main':
-./source/main.c:91:49: error: 'turn_PID' undeclared (first use in this function)
-   91 |                                                 turn_PID.Kp = atof(Value);
-      |                                                 ^~~~~~~~
-./source/main.c:91:49: note: each undeclared identifier is reported only once for each function it appears in
+./source/main.c:67:5: error: implicit declaration of function 'Bluetooth_Init' [-Wimplicit-function-declaration]
+   67 |     Bluetooth_Init();
+      |     ^~~~~~~~~~~~~~
+./source/main.c:76:13: error: 'BLERX_FLAG' undeclared (first use in this function)
+   76 |         if (BLERX_FLAG == 1)
+      |             ^~~~~~~~~~
+./source/main.c:76:13: note: each undeclared identifier is reported only once for each function it appears in
+./source/main.c:79:41: error: 'BLERX_BUFF' undeclared (first use in this function)
+   79 |              char *Tag = strtok((char *)BLERX_BUFF, ",");
+      |                                         ^~~~~~~~~~
+./source/main.c:139:9: error: implicit declaration of function 'BlueSerial_Printf' [-Wimplicit-function-declaration]
+  139 |         BlueSerial_Printf("[plot,%.1f,%.1f]", YawRate,turn_PID.Target);
+      |         ^~~~~~~~~~~~~~~~~
+
+[2026-07-27 21:47:48]	[info] incremental build: 3 source files changed
+These source files will be recompiled
+---
+'d:\M0\MSPM0_stepper_test\source\Hardware\BlueSerial\bsp_hc05.c': source file has been changed.
+'d:\M0\MSPM0_stepper_test\source\Hardware\BlueSerial\bsp_hc05_1.c': source file has been changed.
+'d:\M0\MSPM0_stepper_test\source\main.c': source file has been changed.
+
+[2026-07-27 21:47:49]	[done]
+	build successfully !
+
+[2026-07-27 21:48:10]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\M0\MSPM0_stepper_test\source\app\app_irtracking.c': source file has been changed.
+
+[2026-07-27 21:48:11]	[done]
+	build successfully !
+
+[2026-07-27 21:48:25]	[done]
+	build successfully !
+
+[2026-07-27 21:51:36]	[done]
+	build successfully !
+
+[2026-07-27 21:52:39]	[done]
+	build successfully !
+
+[2026-07-27 21:52:54]	[done]
+	build successfully !
+
+[2026-07-27 22:08:11]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\M0\MSPM0_stepper_test\source\main.c': source file has been changed.
+
+[2026-07-27 22:08:12]	compilation failed at : "d:\M0\MSPM0_stepper_test\source\main.c", exit code: 1
+command: 
+  "C:\Users\22868\.eide\tools\gcc_arm\bin\arm-none-eabi-gcc.exe" -c -xc -std=c11 -I.cmsis/include -Iinclude -Isource -Ilibraries -mcpu=cortex-m0plus -mthumb -O1 -Wall -g -ffunction-sections -fdata-sections -funsigned-char --specs=nosys.specs --specs=nano.specs -D__MSPM0G3507__ -D__USE_SYSCONFIG__ -o ./build/Debug/.obj/source/main.o -MMD ./source/main.c
+   at unify_builder.Program.Main(String[] args_)
+---
 ./source/main.c: In function 'TIMG0_IRQHandler':
-./source/main.c:143:13: error: 'turn_PID' undeclared (first use in this function)
-  143 |             turn_PID.Actual = YawRate;
-      |             ^~~~~~~~
+./source/main.c:162:9: error: 'Angle' undeclared (first use in this function)
+  162 |         Angle = -Gyro_Data.angle_z;
+      |         ^~~~~
+./source/main.c:162:9: note: each undeclared identifier is reported only once for each function it appears in
 
-[2026-07-25 19:02:07]	[info] incremental build: 1 source files changed
+[2026-07-27 22:08:21]	[info] incremental build: 1 source files changed
 These source files will be recompiled
 ---
 'd:\M0\MSPM0_stepper_test\source\main.c': source file has been changed.
 
-[2026-07-25 19:02:08]	link failed !, exit code: 1
+[2026-07-27 22:08:21]	[done]
+	build successfully !
+
+[2026-07-27 22:08:36]	[done]
+	build successfully !
+
+[2026-07-27 22:09:37]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\M0\MSPM0_stepper_test\source\main.c': source file has been changed.
+
+[2026-07-27 22:09:37]	[done]
+	build successfully !
+
+[2026-07-28 13:47:16]	[done]
+	build successfully !
+
+[2026-07-28 13:52:19]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\M0\MSPM0_stepper_test\source\main.c': source file has been changed.
+
+[2026-07-28 13:52:20]	[done]
+	build successfully !
+
+[2026-07-28 13:52:42]	[done]
+	build successfully !
+
+[2026-07-28 13:56:09]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\M0\MSPM0_stepper_test\source\main.c': source file has been changed.
+
+[2026-07-28 13:56:10]	[done]
+	build successfully !
+
+[2026-07-28 17:33:31]	[info] incremental build: 2 source files changed
+These source files will be recompiled
+---
+'d:\M0\MSPM0_stepper_test\source\Hardware\Board\board.c': source file has been changed.
+'d:\M0\MSPM0_stepper_test\source\main.c': source file has been changed.
+
+[2026-07-28 17:33:32]	[done]
+	build successfully !
+
+[2026-07-28 17:33:46]	[done]
+	build successfully !
+
+[2026-07-28 17:35:47]	[done]
+	build successfully !
+
+[2026-07-29 15:34:29]	[done]
+	build successfully !
+
+[2026-07-29 15:35:02]	[done]
+	build successfully !
+
+[2026-07-29 15:39:19]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\M0\MSPM0_stepper_test\source\main.c': source file has been changed.
+
+[2026-07-29 15:39:20]	compilation failed at : "d:\M0\MSPM0_stepper_test\source\main.c", exit code: 1
+command: 
+  "C:\Users\22868\.eide\tools\gcc_arm\bin\arm-none-eabi-gcc.exe" -c -xc -std=c11 -I.cmsis/include -Iinclude -Isource -Ilibraries -mcpu=cortex-m0plus -mthumb -O1 -Wall -g -ffunction-sections -fdata-sections -funsigned-char --specs=nosys.specs --specs=nano.specs -D__MSPM0G3507__ -D__USE_SYSCONFIG__ -o ./build/Debug/.obj/source/main.o -MMD ./source/main.c
    at unify_builder.Program.Main(String[] args_)
 ---
-C:/Users/22868/.eide/tools/gcc_arm/bin/../lib/gcc/arm-none-eabi/15.2.1/../../../../arm-none-eabi/bin/ld.exe: warning: ./build/Debug/stepper_motor_test.elf has a LOAD segment with RWX permissions
-C:/Users/22868/.eide/tools/gcc_arm/bin/../lib/gcc/arm-none-eabi/15.2.1/../../../../arm-none-eabi/bin/ld.exe: ./build/Debug/.obj/source/app/app_key_task.o: in function `btn_mid_cb':
-d:\M0\MSPM0_stepper_test/./source/app/app_key_task.c:116:(.text.btn_mid_cb+0x60): undefined reference to `TrackFlag'
-Memory region         Used Size  Region Size  %age Used
-           FLASH:       40088 B       128 KB     30.58%
-            SRAM:        2272 B        32 KB      6.93%
-      BCR_CONFIG:           0 B        255 B      0.00%
-      BSL_CONFIG:           0 B        128 B      0.00%
-collect2.exe: error: ld returned 1 exit status
+./source/main.c:445:5: error: redefinition of 'main'
+  445 | int main(void)
+      |     ^~~~
+./source/main.c:89:5: note: previous definition of 'main' with type 'int(void)'
+   89 | int main(void)
+      |     ^~~~
+./source/main.c: In function 'main':
+./source/main.c:447:20: error: 'TRACKING_CHANNELS' undeclared (first use in this function)
+  447 |     uint8_t sensor[TRACKING_CHANNELS];
+      |                    ^~~~~~~~~~~~~~~~~
+./source/main.c:447:20: note: each undeclared identifier is reported only once for each function it appears in
+./source/main.c:460:22: error: 'TRACKING_X_START' undeclared (first use in this function)
+  460 |         uint16_t x = TRACKING_X_START + (uint16_t)channel * TRACKING_X_STEP;
+      |                      ^~~~~~~~~~~~~~~~
+./source/main.c:460:61: error: 'TRACKING_X_STEP' undeclared (first use in this function)
+  460 |         uint16_t x = TRACKING_X_START + (uint16_t)channel * TRACKING_X_STEP;
+      |                                                             ^~~~~~~~~~~~~~~
+./source/main.c:470:9: error: implicit declaration of function 'tracking_read_raw' [-Wimplicit-function-declaration]
+  470 |         tracking_read_raw(sensor);
+      |         ^~~~~~~~~~~~~~~~~
+./source/main.c:479:18: error: 'TRACKING_REFRESH_MS' undeclared (first use in this function)
+  479 |         delay_ms(TRACKING_REFRESH_MS);
+      |                  ^~~~~~~~~~~~~~~~~~~
+./source/main.c:447:13: warning: unused variable 'sensor' [-Wunused-variable]
+  447 |     uint8_t sensor[TRACKING_CHANNELS];
+      |             ^~~~~~
 
-
-[2026-07-25 19:04:02]	[info] incremental build: 1 source files changed
-These source files will be recompiled
----
-'d:\M0\MSPM0_stepper_test\source\app\app_key_task.c': source file has been changed.
-
-[2026-07-25 19:04:03]	[done]
-	build successfully !
-
-[2026-07-25 19:04:21]	[info] incremental build: 1 source files changed
-These source files will be recompiled
----
-'d:\M0\MSPM0_stepper_test\source\app\app_key_task.c': source file has been changed.
-
-[2026-07-25 19:04:22]	[done]
-	build successfully !
-
-[2026-07-25 19:04:36]	[info] incremental build: 1 source files changed
-These source files will be recompiled
----
-'d:\M0\MSPM0_stepper_test\source\app\app_key_task.c': source file has been changed.
-
-[2026-07-25 19:04:36]	[done]
-	build successfully !
-
-[2026-07-25 19:05:04]	[info] incremental build: 1 source files changed
-These source files will be recompiled
----
-'d:\M0\MSPM0_stepper_test\source\app\app_key_task.c': source file has been changed.
-
-[2026-07-25 19:05:04]	[done]
-	build successfully !
-
-[2026-07-25 19:05:58]	[info] incremental build: 1 source files changed
+[2026-07-29 15:39:39]	[info] incremental build: 1 source files changed
 These source files will be recompiled
 ---
 'd:\M0\MSPM0_stepper_test\source\main.c': source file has been changed.
 
-[2026-07-25 19:05:59]	[done]
+[2026-07-29 15:39:40]	[done]
 	build successfully !
 
-[2026-07-25 19:07:25]	[info] incremental build: 1 source files changed
-These source files will be recompiled
----
-'d:\M0\MSPM0_stepper_test\source\main.c': source file has been changed.
-
-[2026-07-25 19:07:25]	[done]
-	build successfully !
-
-[2026-07-25 19:09:14]	[info] incremental build: 1 source files changed
-These source files will be recompiled
----
-'d:\M0\MSPM0_stepper_test\source\main.c': source file has been changed.
-
-[2026-07-25 19:09:14]	[done]
-	build successfully !
-
-[2026-07-25 19:10:14]	[done]
-	build successfully !
-
-[2026-07-25 19:12:20]	[info] incremental build: 1 source files changed
-These source files will be recompiled
----
-'d:\M0\MSPM0_stepper_test\source\main.c': source file has been changed.
-
-[2026-07-25 19:12:20]	[done]
-	build successfully !
-
-[2026-07-25 19:13:01]	[done]
-	build successfully !
-
-[2026-07-25 19:15:15]	[info] incremental build: 1 source files changed
-These source files will be recompiled
----
-'d:\M0\MSPM0_stepper_test\source\main.c': source file has been changed.
-
-[2026-07-25 19:15:15]	[done]
-	build successfully !
-
-[2026-07-25 19:15:24]	[done]
-	build successfully !
-
-[2026-07-25 19:20:56]	[info] incremental build: 1 source files changed
-These source files will be recompiled
----
-'d:\M0\MSPM0_stepper_test\source\main.c': source file has been changed.
-
-[2026-07-25 19:20:57]	[done]
-	build successfully !
-
-[2026-07-25 19:21:07]	[done]
-	build successfully !
-
-[2026-07-25 19:32:54]	[info] incremental build: 1 source files changed
-These source files will be recompiled
----
-'d:\M0\MSPM0_stepper_test\source\main.c': source file has been changed.
-
-[2026-07-25 19:32:54]	[done]
-	build successfully !
-
-[2026-07-25 19:33:10]	[done]
-	build successfully !
-
-[2026-07-25 19:33:37]	[done]
-	build successfully !
-
-[2026-07-25 19:34:56]	[info] incremental build: 1 source files changed
-These source files will be recompiled
----
-'d:\M0\MSPM0_stepper_test\source\main.c': source file has been changed.
-
-[2026-07-25 19:34:56]	[done]
-	build successfully !
-
-[2026-07-25 19:35:05]	[done]
-	build successfully !
-
-[2026-07-25 19:43:03]	[info] incremental build: 2 source files changed
-These source files will be recompiled
----
-'d:\M0\MSPM0_stepper_test\source\Hardware\BlueSerial\bsp_hc05.c': source file has been changed.
-'d:\M0\MSPM0_stepper_test\source\main.c': source file has been changed.
-
-[2026-07-25 19:43:04]	link failed !, exit code: 1
-   at unify_builder.Program.Main(String[] args_)
----
-C:/Users/22868/.eide/tools/gcc_arm/bin/../lib/gcc/arm-none-eabi/15.2.1/../../../../arm-none-eabi/bin/ld.exe: ./build/Debug/.obj/source/Hardware/BlueSerial/bsp_hc05.o: in function `BLE_Send_Bit':
-d:\M0\MSPM0_stepper_test/./source/Hardware/BlueSerial/bsp_hc05.c:71: multiple definition of `BLE_Send_Bit'; ./build/Debug/.obj/source/Hardware/BlueSerial/bsp_hc04.o:d:\M0\MSPM0_stepper_test/./source/Hardware/BlueSerial/bsp_hc04.c:72: first defined here
-C:/Users/22868/.eide/tools/gcc_arm/bin/../lib/gcc/arm-none-eabi/15.2.1/../../../../arm-none-eabi/bin/ld.exe: ./build/Debug/.obj/source/Hardware/BlueSerial/bsp_hc05.o: in function `BLE_send_String':
-d:\M0\MSPM0_stepper_test/./source/Hardware/BlueSerial/bsp_hc05.c:87: multiple definition of `BLE_send_String'; ./build/Debug/.obj/source/Hardware/BlueSerial/bsp_hc04.o:d:\M0\MSPM0_stepper_test/./source/Hardware/BlueSerial/bsp_hc04.c:84: first defined here
-C:/Users/22868/.eide/tools/gcc_arm/bin/../lib/gcc/arm-none-eabi/15.2.1/../../../../arm-none-eabi/bin/ld.exe: ./build/Debug/.obj/source/Hardware/BlueSerial/bsp_hc05.o: in function `Bluetooth_Printf':
-d:\M0\MSPM0_stepper_test/./source/Hardware/BlueSerial/bsp_hc05.c:34: multiple definition of `Bluetooth_Printf'; ./build/Debug/.obj/source/Hardware/BlueSerial/bsp_hc04.o:d:\M0\MSPM0_stepper_test/./source/Hardware/BlueSerial/bsp_hc04.c:42: first defined here
-C:/Users/22868/.eide/tools/gcc_arm/bin/../lib/gcc/arm-none-eabi/15.2.1/../../../../arm-none-eabi/bin/ld.exe: ./build/Debug/.obj/source/Hardware/BlueSerial/bsp_hc05.o: in function `BlueSerial_Printf':
-d:\M0\MSPM0_stepper_test/./source/Hardware/BlueSerial/bsp_hc05.c:52: multiple definition of `BlueSerial_Printf'; ./build/Debug/.obj/source/Hardware/BlueSerial/bsp_hc04.o:d:\M0\MSPM0_stepper_test/./source/Hardware/BlueSerial/bsp_hc04.c:57: first defined here
-C:/Users/22868/.eide/tools/gcc_arm/bin/../lib/gcc/arm-none-eabi/15.2.1/../../../../arm-none-eabi/bin/ld.exe: ./build/Debug/.obj/source/Hardware/BlueSerial/bsp_hc05.o: in function `Clear_BLERX_BUFF':
-d:\M0\MSPM0_stepper_test/./source/Hardware/BlueSerial/bsp_hc05.c:104: multiple definition of `Clear_BLERX_BUFF'; ./build/Debug/.obj/source/Hardware/BlueSerial/bsp_hc04.o:d:\M0\MSPM0_stepper_test/./source/Hardware/BlueSerial/bsp_hc04.c:99: first defined here
-C:/Users/22868/.eide/tools/gcc_arm/bin/../lib/gcc/arm-none-eabi/15.2.1/../../../../arm-none-eabi/bin/ld.exe: ./build/Debug/.obj/source/Hardware/BlueSerial/bsp_hc05.o:d:\M0\MSPM0_stepper_test/./source/Hardware/BlueSerial/bsp_hc05.c:8: multiple definition of `BLERX_LEN'; ./build/Debug/.obj/source/Hardware/BlueSerial/bsp_hc04.o:d:\M0\MSPM0_stepper_test/./source/Hardware/BlueSerial/bsp_hc04.c:14: first defined here
-C:/Users/22868/.eide/tools/gcc_arm/bin/../lib/gcc/arm-none-eabi/15.2.1/../../../../arm-none-eabi/bin/ld.exe: ./build/Debug/.obj/source/Hardware/BlueSerial/bsp_hc05.o:d:\M0\MSPM0_stepper_test/./source/Hardware/BlueSerial/bsp_hc05.c:7: multiple definition of `BLERX_FLAG'; ./build/Debug/.obj/source/Hardware/BlueSerial/bsp_hc04.o:d:\M0\MSPM0_stepper_test/./source/Hardware/BlueSerial/bsp_hc04.c:13: first defined here
-C:/Users/22868/.eide/tools/gcc_arm/bin/../lib/gcc/arm-none-eabi/15.2.1/../../../../arm-none-eabi/bin/ld.exe: ./build/Debug/.obj/source/Hardware/BlueSerial/bsp_hc05.o:d:\M0\MSPM0_stepper_test/./source/Hardware/BlueSerial/bsp_hc05.c:6: multiple definition of `BLERX_BUFF'; ./build/Debug/.obj/source/Hardware/BlueSerial/bsp_hc04.o:d:\M0\MSPM0_stepper_test/./source/Hardware/BlueSerial/bsp_hc04.c:12: first defined here
-C:/Users/22868/.eide/tools/gcc_arm/bin/../lib/gcc/arm-none-eabi/15.2.1/../../../../arm-none-eabi/bin/ld.exe: ./build/Debug/.obj/source/Hardware/BlueSerial/bsp_hc05.o: in function `__NVIC_ClearPendingIRQ':
-d:\M0\MSPM0_stepper_test/.cmsis/include/core_cm0plus.h:836: multiple definition of `Bluetooth_Init'; ./build/Debug/.obj/source/Hardware/BlueSerial/bsp_hc04.o:d:\M0\MSPM0_stepper_test/./source/Hardware/BlueSerial/bsp_hc04.c:112: first defined here
-C:/Users/22868/.eide/tools/gcc_arm/bin/../lib/gcc/arm-none-eabi/15.2.1/../../../../arm-none-eabi/bin/ld.exe: ./build/Debug/.obj/source/Hardware/BlueSerial/bsp_hc05.o: in function `Get_Bluetooth_ConnectFlag':
-d:\M0\MSPM0_stepper_test/./source/Hardware/BlueSerial/bsp_hc05.c:141: multiple definition of `Get_Bluetooth_ConnectFlag'; ./build/Debug/.obj/source/Hardware/BlueSerial/bsp_hc04.o:d:\M0\MSPM0_stepper_test/./source/Hardware/BlueSerial/bsp_hc04.c:167: first defined here
-C:/Users/22868/.eide/tools/gcc_arm/bin/../lib/gcc/arm-none-eabi/15.2.1/../../../../arm-none-eabi/bin/ld.exe: ./build/Debug/.obj/source/Hardware/BlueSerial/bsp_hc05.o:d:\M0\MSPM0_stepper_test/./source/Hardware/BlueSerial/bsp_hc05.c:5: multiple definition of `Bluetooth_ConnectFlag'; ./build/Debug/.obj/source/Hardware/BlueSerial/bsp_hc04.o:d:\M0\MSPM0_stepper_test/./source/Hardware/BlueSerial/bsp_hc04.c:11: first defined here
-C:/Users/22868/.eide/tools/gcc_arm/bin/../lib/gcc/arm-none-eabi/15.2.1/../../../../arm-none-eabi/bin/ld.exe: ./build/Debug/.obj/source/Hardware/BlueSerial/bsp_hc05.o: in function `Bluetooth_Mode':
-d:\M0\MSPM0_stepper_test/./source/Hardware/BlueSerial/bsp_hc05.c:154: multiple definition of `Bluetooth_Mode'; ./build/Debug/.obj/source/Hardware/BlueSerial/bsp_hc04.o:d:\M0\MSPM0_stepper_test/./source/Hardware/BlueSerial/bsp_hc04.c:179: first defined here
-C:/Users/22868/.eide/tools/gcc_arm/bin/../lib/gcc/arm-none-eabi/15.2.1/../../../../arm-none-eabi/bin/ld.exe: ./build/Debug/.obj/source/Hardware/BlueSerial/bsp_hc05.o: in function `Receive_Bluetooth_Data':
-d:\M0\MSPM0_stepper_test/./source/Hardware/BlueSerial/bsp_hc05.c:166: multiple definition of `Receive_Bluetooth_Data'; ./build/Debug/.obj/source/Hardware/BlueSerial/bsp_hc04.o:d:\M0\MSPM0_stepper_test/./source/Hardware/BlueSerial/bsp_hc04.c:188: first defined here
-C:/Users/22868/.eide/tools/gcc_arm/bin/../lib/gcc/arm-none-eabi/15.2.1/../../../../arm-none-eabi/bin/ld.exe: ./build/Debug/.obj/source/Hardware/BlueSerial/bsp_hc05.o: in function `Send_Bluetooth_Data':
-d:\M0\MSPM0_stepper_test/./source/Hardware/BlueSerial/bsp_hc05.c:184: multiple definition of `Send_Bluetooth_Data'; ./build/Debug/.obj/source/Hardware/BlueSerial/bsp_hc04.o:d:\M0\MSPM0_stepper_test/./source/Hardware/BlueSerial/bsp_hc04.c:203: first defined here
-C:/Users/22868/.eide/tools/gcc_arm/bin/../lib/gcc/arm-none-eabi/15.2.1/../../../../arm-none-eabi/bin/ld.exe: ./build/Debug/.obj/source/Hardware/BlueSerial/bsp_hc05.o: in function `DL_UART_getPendingInterrupt':
-d:\M0\MSPM0_stepper_test/libraries/ti/driverlib/dl_uart.h:2865: multiple definition of `UART0_IRQHandler'; ./build/Debug/.obj/source/Hardware/BlueSerial/bsp_hc04.o:d:\M0\MSPM0_stepper_test/libraries/ti/driverlib/dl_uart.h:2865: first defined here
-C:/Users/22868/.eide/tools/gcc_arm/bin/../lib/gcc/arm-none-eabi/15.2.1/../../../../arm-none-eabi/bin/ld.exe: warning: ./build/Debug/stepper_motor_test.elf has a LOAD segment with RWX permissions
-Memory region         Used Size  Region Size  %age Used
-           FLASH:       40144 B       128 KB     30.63%
-            SRAM:        2264 B        32 KB      6.91%
-      BCR_CONFIG:           0 B        255 B      0.00%
-      BSL_CONFIG:           0 B        128 B      0.00%
-collect2.exe: error: ld returned 1 exit status
-
-
-[2026-07-25 19:43:17]	[info] incremental build: 1 source files changed
-These source files will be recompiled
----
-'d:\M0\MSPM0_stepper_test\source\Hardware\BlueSerial\bsp_hc04.c': source file has been changed.
-
-[2026-07-25 19:43:18]	[done]
-	build successfully !
-
-[2026-07-25 19:43:27]	[done]
-	build successfully !
-
-[2026-07-25 19:45:00]	[info] incremental build: 1 source files changed
-These source files will be recompiled
----
-'d:\M0\MSPM0_stepper_test\source\Hardware\BlueSerial\DL_30.c': source file has been changed.
-
-[2026-07-25 19:45:00]	[done]
-	build successfully !
-
-[2026-07-25 19:45:06]	[done]
-	build successfully !
-
-[2026-07-25 19:45:23]	[done]
-	build successfully !
-
-[2026-07-25 19:45:30]	[done]
-	build successfully !
-
-[2026-07-25 19:50:21]	[info] incremental build: 1 source files changed
-These source files will be recompiled
----
-'d:\M0\MSPM0_stepper_test\source\Hardware\BlueSerial\bsp_hc05.c': source file has been changed.
-
-[2026-07-25 19:50:21]	[done]
-	build successfully !
-
-[2026-07-25 19:53:08]	[done]
-	build successfully !
-
-[2026-07-25 19:53:26]	[done]
-	build successfully !
-
-[2026-07-25 19:55:13]	[info] incremental build: 1 source files changed
-These source files will be recompiled
----
-'d:\M0\MSPM0_stepper_test\source\main.c': source file has been changed.
-
-[2026-07-25 19:55:14]	[done]
-	build successfully !
-
-[2026-07-25 19:55:22]	[done]
-	build successfully !
-
-[2026-07-25 19:55:53]	[info] incremental build: 1 source files changed
-These source files will be recompiled
----
-'d:\M0\MSPM0_stepper_test\source\main.c': source file has been changed.
-
-[2026-07-25 19:55:53]	[done]
-	build successfully !
-
-[2026-07-25 19:56:03]	[done]
-	build successfully !
-
-[2026-07-25 19:56:38]	[info] incremental build: 1 source files changed
-These source files will be recompiled
----
-'d:\M0\MSPM0_stepper_test\source\main.c': source file has been changed.
-
-[2026-07-25 19:56:39]	[done]
-	build successfully !
-
-[2026-07-25 19:56:48]	[done]
-	build successfully !
-
-[2026-07-25 19:58:05]	[info] incremental build: 1 source files changed
-These source files will be recompiled
----
-'d:\M0\MSPM0_stepper_test\source\main.c': source file has been changed.
-
-[2026-07-25 19:58:05]	[done]
-	build successfully !
-
-[2026-07-25 19:58:14]	[done]
-	build successfully !
-
-[2026-07-25 20:07:23]	[info] incremental build: 1 source files changed
-These source files will be recompiled
----
-'d:\M0\MSPM0_stepper_test\source\main.c': source file has been changed.
-
-[2026-07-25 20:07:24]	[done]
-	build successfully !
-
-[2026-07-25 20:07:33]	[done]
-	build successfully !
-
-[2026-07-25 20:14:58]	[info] incremental build: 1 source files changed
-These source files will be recompiled
----
-'d:\M0\MSPM0_stepper_test\source\main.c': source file has been changed.
-
-[2026-07-25 20:14:58]	[done]
-	build successfully !
-
-[2026-07-25 20:15:06]	[done]
-	build successfully !
-
-[2026-07-25 20:18:08]	[info] incremental build: 1 source files changed
-These source files will be recompiled
----
-'d:\M0\MSPM0_stepper_test\source\main.c': source file has been changed.
-
-[2026-07-25 20:18:09]	[done]
-	build successfully !
-
-[2026-07-25 20:18:16]	[done]
-	build successfully !
-
-[2026-07-25 20:21:01]	[info] incremental build: 1 source files changed
-These source files will be recompiled
----
-'d:\M0\MSPM0_stepper_test\source\main.c': source file has been changed.
-
-[2026-07-25 20:21:02]	[done]
-	build successfully !
-
-[2026-07-25 20:23:31]	[done]
-	build successfully !
-
-[2026-07-25 20:25:19]	[info] incremental build: 1 source files changed
-These source files will be recompiled
----
-'d:\M0\MSPM0_stepper_test\source\main.c': source file has been changed.
-
-[2026-07-25 20:25:19]	[done]
-	build successfully !
-
-[2026-07-25 20:25:26]	[done]
-	build successfully !
-
-[2026-07-25 20:26:38]	[info] incremental build: 1 source files changed
-These source files will be recompiled
----
-'d:\M0\MSPM0_stepper_test\source\main.c': source file has been changed.
-
-[2026-07-25 20:26:38]	[done]
-	build successfully !
-
-[2026-07-25 20:27:36]	[info] incremental build: 1 source files changed
-These source files will be recompiled
----
-'d:\M0\MSPM0_stepper_test\source\main.c': source file has been changed.
-
-[2026-07-25 20:27:37]	[done]
-	build successfully !
-
-[2026-07-25 20:27:46]	[done]
-	build successfully !
-
-[2026-07-25 20:28:44]	[info] incremental build: 1 source files changed
-These source files will be recompiled
----
-'d:\M0\MSPM0_stepper_test\source\main.c': source file has been changed.
-
-[2026-07-25 20:28:44]	[done]
-	build successfully !
-
-[2026-07-25 20:29:00]	[done]
-	build successfully !
-
-[2026-07-25 20:30:42]	[info] incremental build: 1 source files changed
-These source files will be recompiled
----
-'d:\M0\MSPM0_stepper_test\source\main.c': source file has been changed.
-
-[2026-07-25 20:30:43]	[done]
-	build successfully !
-
-[2026-07-25 20:30:52]	[done]
-	build successfully !
-
-[2026-07-25 20:31:03]	[info] incremental build: 1 source files changed
-These source files will be recompiled
----
-'d:\M0\MSPM0_stepper_test\source\main.c': source file has been changed.
-
-[2026-07-25 20:31:04]	[done]
-	build successfully !
-
-[2026-07-25 20:38:10]	[info] incremental build: 1 source files changed
-These source files will be recompiled
----
-'d:\M0\MSPM0_stepper_test\source\main.c': source file has been changed.
-
-[2026-07-25 20:38:11]	[done]
-	build successfully !
-
-[2026-07-25 20:38:21]	[done]
-	build successfully !
-
-[2026-07-25 20:57:14]	[info] incremental build: 1 source files changed
-These source files will be recompiled
----
-'d:\M0\MSPM0_stepper_test\source\main.c': source file has been changed.
-
-[2026-07-25 20:57:15]	[done]
-	build successfully !
-
-[2026-07-25 20:57:23]	[info] incremental build: 1 source files changed
-These source files will be recompiled
----
-'d:\M0\MSPM0_stepper_test\source\main.c': source file has been changed.
-
-[2026-07-25 20:57:24]	[done]
-	build successfully !
-
-[2026-07-25 20:57:35]	[done]
-	build successfully !
-
-[2026-07-25 21:10:00]	[info] incremental build: 1 source files changed
-These source files will be recompiled
----
-'d:\M0\MSPM0_stepper_test\source\main.c': source file has been changed.
-
-[2026-07-25 21:10:00]	[done]
-	build successfully !
-
-[2026-07-25 21:11:59]	[info] incremental build: 1 source files changed
-These source files will be recompiled
----
-'d:\M0\MSPM0_stepper_test\source\main.c': source file has been changed.
-
-[2026-07-25 21:12:00]	[done]
-	build successfully !
-
-[2026-07-25 21:12:14]	[info] incremental build: 1 source files changed
-These source files will be recompiled
----
-'d:\M0\MSPM0_stepper_test\source\main.c': source file has been changed.
-
-[2026-07-25 21:12:14]	[done]
-	build successfully !
-
-[2026-07-25 21:13:06]	[info] incremental build: 1 source files changed
-These source files will be recompiled
----
-'d:\M0\MSPM0_stepper_test\source\main.c': source file has been changed.
-
-[2026-07-25 21:13:06]	[done]
-	build successfully !
-
-[2026-07-25 21:18:16]	[info] incremental build: 1 source files changed
-These source files will be recompiled
----
-'d:\M0\MSPM0_stepper_test\source\main.c': source file has been changed.
-
-[2026-07-25 21:18:16]	[done]
-	build successfully !
-
-[2026-07-25 21:18:35]	[done]
-	build successfully !
-
-[2026-07-25 21:23:34]	[info] incremental build: 1 source files changed
-These source files will be recompiled
----
-'d:\M0\MSPM0_stepper_test\source\main.c': source file has been changed.
-
-[2026-07-25 21:23:35]	[done]
-	build successfully !
-
-[2026-07-25 21:24:16]	[info] incremental build: 1 source files changed
-These source files will be recompiled
----
-'d:\M0\MSPM0_stepper_test\source\main.c': source file has been changed.
-
-[2026-07-25 21:24:17]	[done]
-	build successfully !
-
-[2026-07-25 21:24:30]	[done]
-	build successfully !
-
-[2026-07-25 21:32:24]	[info] incremental build: 1 source files changed
-These source files will be recompiled
----
-'d:\M0\MSPM0_stepper_test\source\main.c': source file has been changed.
-
-[2026-07-25 21:32:25]	[done]
-	build successfully !
-
-[2026-07-25 21:32:39]	[done]
-	build successfully !
-
-[2026-07-25 21:34:59]	[info] incremental build: 1 source files changed
-These source files will be recompiled
----
-'d:\M0\MSPM0_stepper_test\source\main.c': source file has been changed.
-
-[2026-07-25 21:34:59]	[done]
-	build successfully !
-
-[2026-07-25 21:35:15]	[info] incremental build: 1 source files changed
-These source files will be recompiled
----
-'d:\M0\MSPM0_stepper_test\source\main.c': source file has been changed.
-
-[2026-07-25 21:35:16]	[done]
-	build successfully !
-
-[2026-07-25 21:35:24]	[done]
-	build successfully !
-
-[2026-07-25 21:45:04]	[info] incremental build: 1 source files changed
-These source files will be recompiled
----
-'d:\M0\MSPM0_stepper_test\source\main.c': source file has been changed.
-
-[2026-07-25 21:45:05]	[done]
-	build successfully !
-
-[2026-07-25 21:45:18]	[info] incremental build: 1 source files changed
-These source files will be recompiled
----
-'d:\M0\MSPM0_stepper_test\source\main.c': source file has been changed.
-
-[2026-07-25 21:45:19]	[done]
-	build successfully !
-
-[2026-07-25 21:45:29]	[done]
-	build successfully !
-
-[2026-07-25 21:46:47]	[info] incremental build: 1 source files changed
-These source files will be recompiled
----
-'d:\M0\MSPM0_stepper_test\source\main.c': source file has been changed.
-
-[2026-07-25 21:46:48]	[done]
-	build successfully !
-
-[2026-07-25 21:50:08]	[done]
-	build successfully !
-
-[2026-07-25 21:51:48]	[info] incremental build: 1 source files changed
-These source files will be recompiled
----
-'d:\M0\MSPM0_stepper_test\source\main.c': source file has been changed.
-
-[2026-07-25 21:51:49]	[done]
-	build successfully !
-
-[2026-07-25 21:51:55]	[done]
-	build successfully !
-
-[2026-07-25 21:54:06]	[info] incremental build: 1 source files changed
-These source files will be recompiled
----
-'d:\M0\MSPM0_stepper_test\source\main.c': source file has been changed.
-
-[2026-07-25 21:54:07]	[done]
-	build successfully !
-
-[2026-07-25 22:06:08]	[info] incremental build: 3 source files changed
-These source files will be recompiled
----
-'d:\M0\MSPM0_stepper_test\source\app\app_irtracking.c': source file has been changed.
-'d:\M0\MSPM0_stepper_test\source\app\app_key_task.c': source file has been changed.
-'d:\M0\MSPM0_stepper_test\source\main.c': source file has been changed.
-
-[2026-07-25 22:06:09]	[done]
-	build successfully !
-
-[2026-07-25 22:07:33]	[info] incremental build: 1 source files changed
-These source files will be recompiled
----
-'d:\M0\MSPM0_stepper_test\source\app\app_key_task.c': source file has been changed.
-
-[2026-07-25 22:07:34]	[done]
-	build successfully !
-
-[2026-07-25 22:07:46]	[done]
-	build successfully !
-
-[2026-07-25 22:07:52]	[done]
-	build successfully !
-
-[2026-07-25 22:14:30]	[info] incremental build: 2 source files changed
-These source files will be recompiled
----
-'d:\M0\MSPM0_stepper_test\source\app\app_key_task.c': source file has been changed.
-'d:\M0\MSPM0_stepper_test\source\main.c': source file has been changed.
-
-[2026-07-25 22:14:31]	[done]
-	build successfully !
-
-[2026-07-25 22:17:58]	[info] incremental build: 3 source files changed
-These source files will be recompiled
----
-'d:\M0\MSPM0_stepper_test\source\app\app_irtracking.c': source file has been changed.
-'d:\M0\MSPM0_stepper_test\source\app\app_key_task.c': source file has been changed.
-'d:\M0\MSPM0_stepper_test\source\main.c': source file has been changed.
-
-[2026-07-25 22:17:59]	[done]
-	build successfully !
-
-[2026-07-25 22:18:35]	[info] incremental build: 1 source files changed
+[2026-07-29 15:40:23]	[info] incremental build: 1 source files changed
 These source files will be recompiled
 ---
 'd:\M0\MSPM0_stepper_test\source\app\app_irtracking.c': source file has been changed.
 
-[2026-07-25 22:18:35]	[done]
+[2026-07-29 15:40:24]	[done]
 	build successfully !
 
-[2026-07-25 22:19:45]	[info] incremental build: 2 source files changed
+[2026-07-29 15:40:41]	[done]
+	build successfully !
+
+[2026-07-29 15:42:17]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\M0\MSPM0_stepper_test\source\app\app_irtracking.c': source file has been changed.
+
+[2026-07-29 15:42:18]	[done]
+	build successfully !
+
+[2026-07-29 15:42:30]	[done]
+	build successfully !
+
+[2026-07-29 15:43:44]	[done]
+	build successfully !
+
+[2026-07-29 15:43:49]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\M0\MSPM0_stepper_test\source\app\app_irtracking.c': source file has been changed.
+
+[2026-07-29 15:43:50]	[done]
+	build successfully !
+
+[2026-07-29 15:44:17]	[done]
+	build successfully !
+
+[2026-07-29 15:45:40]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\M0\MSPM0_stepper_test\source\app\app_key_task.c': source file has been changed.
+
+[2026-07-29 15:45:40]	[done]
+	build successfully !
+
+[2026-07-29 15:46:05]	[done]
+	build successfully !
+
+[2026-07-29 16:25:53]	[info] incremental build: 2 source files changed
 These source files will be recompiled
 ---
 'd:\M0\MSPM0_stepper_test\source\app\app_irtracking.c': source file has been changed.
 'd:\M0\MSPM0_stepper_test\source\app\app_key_task.c': source file has been changed.
 
-[2026-07-25 22:19:45]	[done]
+[2026-07-29 16:25:54]	[done]
 	build successfully !
 
-[2026-07-25 22:20:04]	[info] incremental build: 1 source files changed
+[2026-07-29 16:27:08]	[done]
+	build successfully !
+
+[2026-07-29 17:12:28]	[info] incremental build: 2 source files changed
+These source files will be recompiled
+---
+'d:\M0\MSPM0_stepper_test\source\app\app_irtracking.c': source file has been changed.
+'d:\M0\MSPM0_stepper_test\source\app\app_key_task.c': source file has been changed.
+
+[2026-07-29 17:12:29]	[done]
+	build successfully !
+
+[2026-07-29 17:14:12]	[done]
+	build successfully !
+
+[2026-07-29 17:15:45]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\M0\MSPM0_stepper_test\source\app\app_key_task.c': source file has been changed.
+
+[2026-07-29 17:15:46]	[done]
+	build successfully !
+
+[2026-07-29 17:27:32]	[done]
+	build successfully !
+
+[2026-07-29 17:29:21]	[done]
+	build successfully !
+
+[2026-07-29 17:29:36]	[done]
+	build successfully !
+
+[2026-07-29 17:29:47]	[done]
+	build successfully !
+
+[2026-07-29 17:36:03]	[done]
+	build successfully !
+
+[2026-07-29 17:40:09]	[done]
+	build successfully !
+
+[2026-07-29 17:49:02]	[info] incremental build: 1 source files changed
 These source files will be recompiled
 ---
 'd:\M0\MSPM0_stepper_test\source\main.c': source file has been changed.
 
-[2026-07-25 22:20:05]	[done]
+[2026-07-29 17:49:02]	[done]
 	build successfully !
 
-[2026-07-25 22:20:12]	[done]
+[2026-07-29 17:54:39]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\M0\MSPM0_stepper_test\source\main.c': source file has been changed.
+
+[2026-07-29 17:54:39]	[done]
 	build successfully !
 
-[2026-07-25 22:21:21]	[info] incremental build: 1 source files changed
+[2026-07-29 17:55:25]	[done]
+	build successfully !
+
+[2026-07-29 19:05:14]	[done]
+	build successfully !
+
+[2026-07-29 19:14:17]	[done]
+	build successfully !
+
+[2026-07-29 20:27:53]	[done]
+	build successfully !
+
+[2026-07-30 09:13:47]	[done]
+	build successfully !
+
+[2026-07-30 11:56:57]	[done]
+	build successfully !
+
+[2026-07-30 16:29:18]	[done]
+	build successfully !
+
+[2026-07-30 16:30:39]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\M0\MSPM0_stepper_test\source\app\app_key_task.c': source file has been changed.
+
+[2026-07-30 16:30:41]	[done]
+	build successfully !
+
+[2026-07-30 16:32:46]	[done]
+	build successfully !
+
+[2026-07-30 16:39:14]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\M0\MSPM0_stepper_test\source\app\app_key_task.c': source file has been changed.
+
+[2026-07-30 16:39:14]	[done]
+	build successfully !
+
+[2026-07-30 16:40:13]	[done]
+	build successfully !
+
+[2026-07-30 16:40:35]	[info] incremental build: 1 source files changed
 These source files will be recompiled
 ---
 'd:\M0\MSPM0_stepper_test\source\app\app_irtracking.c': source file has been changed.
 
-[2026-07-25 22:21:22]	[done]
+[2026-07-30 16:40:35]	[done]
 	build successfully !
 
-[2026-07-25 22:21:28]	[done]
-	build successfully !
-
-[2026-07-25 22:22:34]	[info] incremental build: 1 source files changed
+[2026-07-30 16:43:57]	[info] incremental build: 1 source files changed
 These source files will be recompiled
 ---
 'd:\M0\MSPM0_stepper_test\source\app\app_irtracking.c': source file has been changed.
 
-[2026-07-25 22:22:34]	[done]
+[2026-07-30 16:43:58]	[done]
 	build successfully !
 
-[2026-07-25 22:23:45]	[done]
+[2026-07-30 16:44:53]	[done]
 	build successfully !
 
-[2026-07-25 22:25:03]	[info] incremental build: 1 source files changed
+[2026-07-30 16:47:06]	[info] incremental build: 1 source files changed
 These source files will be recompiled
 ---
 'd:\M0\MSPM0_stepper_test\source\app\app_irtracking.c': source file has been changed.
 
-[2026-07-25 22:25:04]	[done]
+[2026-07-30 16:47:06]	[done]
 	build successfully !
 
-[2026-07-25 22:25:11]	[done]
-	build successfully !
+[2026-07-30 16:47:16]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\M0\MSPM0_stepper_test\source\app\app_key_task.c': source file has been changed.
 
-[2026-07-26 17:14:50]	[done]
-	build successfully !
-
-[2026-07-26 17:15:01]	[done]
+[2026-07-30 16:47:16]	[done]
 	build successfully !
 

@@ -7,6 +7,7 @@
  * 0：居中
  */
 static float LineTracking_Err = 0;
+static float LineTracking_RawTarget = 0;
 
 /*
  * ================ 加权平均法配置 ================
@@ -30,13 +31,13 @@ static float LineTracking_Err = 0;
  *   - 目标240时实际只有110 → 转向环需要较大误差才能输出足够PWM
  *   - 直线误差在 ±1.5 左右 → 加权平均后直线误差 ≈ 0，比原来更稳定
  *
- * 普通循线增益和直角弯目标分别调节：
- *   TRACK_ERROR_GAIN：普通循线加权误差增益
- *   TRACK_CORNER_YAW_RATE：直角/大弯固定角速度目标
- * 如果转弯不够猛，调大 GAIN；如果直线抖动，适当减小 GAIN
+ * TRACK_ERROR_GAIN：加权平均结果到角速度目标的增益。
+ * TRACK_FILTER_ALPHA：目标低通滤波系数，越小越平滑。
+ * TRACK_TARGET_LIMIT：角速度目标限幅。
  */
-#define TRACK_ERROR_GAIN       25.0f
-#define TRACK_CORNER_YAW_RATE  120.0f
+#define TRACK_ERROR_GAIN       10.0f
+#define TRACK_TARGET_LIMIT     120.0f
+#define TRACK_FILTER_ALPHA     0.10f
 
 /*
  * 丢线保护：连续丢线多少次后，误差归零（防止沿上一次误差一直转圈）
@@ -107,28 +108,7 @@ void LineWalking(void)
      * err < 0：车往右修正
      */
 
-    // ============ 直角/大弯：固定大误差，优先处理 ============
-
-    // 左直角/左大弯：左边检测到黑线，且最右边是白底
-    if ((x1 == 0 || x2 == 0) && x8 == 1)
-    {
-        LineTracking_Err = -TRACK_CORNER_YAW_RATE;
-#if TRACK_LOSS_TIMEOUT > 0
-        loss_count = 0;
-#endif
-    }
-
-    // 右直角/右大弯：右边检测到黑线，且最左边是白底
-    else if ((x7 == 0 || x8 == 0) && x1 == 1)
-    {
-        LineTracking_Err = TRACK_CORNER_YAW_RATE;
-#if TRACK_LOSS_TIMEOUT > 0
-        loss_count = 0;
-#endif
-    }
-
-    // ============ 普通循线：加权平均 ============
-    else
+    // 直线和圆弧统一使用加权平均，不再单独判断直角弯。
     {
         /*
          * 将传感器值转为"有效信号"
@@ -157,7 +137,20 @@ void LineWalking(void)
 
         if (denominator > 0)
         {
-            LineTracking_Err = (float)numerator / (float)denominator * TRACK_ERROR_GAIN;
+            LineTracking_RawTarget =
+                (float)numerator / (float)denominator * TRACK_ERROR_GAIN;
+
+            if (LineTracking_RawTarget > TRACK_TARGET_LIMIT)
+            {
+                LineTracking_RawTarget = TRACK_TARGET_LIMIT;
+            }
+            else if (LineTracking_RawTarget < -TRACK_TARGET_LIMIT)
+            {
+                LineTracking_RawTarget = -TRACK_TARGET_LIMIT;
+            }
+
+            LineTracking_Err +=
+                TRACK_FILTER_ALPHA * (LineTracking_RawTarget - LineTracking_Err);
 #if TRACK_LOSS_TIMEOUT > 0
             loss_count = 0;
 #endif
@@ -173,7 +166,9 @@ void LineWalking(void)
             loss_count++;
             if (loss_count >= TRACK_LOSS_TIMEOUT)
             {
-                LineTracking_Err = 0;
+                LineTracking_RawTarget = 0;
+                LineTracking_Err +=
+                    TRACK_FILTER_ALPHA * (LineTracking_RawTarget - LineTracking_Err);
             }
         }
 #endif
@@ -187,4 +182,9 @@ void LineWalking(void)
 float LineTracking_GetError(void)
 {
     return LineTracking_Err;
+}
+
+float LineTracking_GetRawTarget(void)
+{
+    return LineTracking_RawTarget;
 }

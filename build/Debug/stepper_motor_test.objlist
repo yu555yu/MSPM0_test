@@ -1,7 +1,7 @@
 ./build/Debug/.obj/libraries/ti/devices/msp/m0p/startup_system_files/gcc/startup_mspm0g350x_gcc.o
 ./build/Debug/.obj/source/Hardware/BlueSerial/DL_30.o
-./build/Debug/.obj/source/Hardware/BlueSerial/bsp_hc04.o
 ./build/Debug/.obj/source/Hardware/BlueSerial/bsp_hc05.o
+./build/Debug/.obj/source/Hardware/BlueSerial/bsp_hc05_1.o
 ./build/Debug/.obj/source/Hardware/Board/board.o
 ./build/Debug/.obj/source/Hardware/Buzzer&Light/B&L.o
 ./build/Debug/.obj/source/Hardware/Control/visual_servo.o
