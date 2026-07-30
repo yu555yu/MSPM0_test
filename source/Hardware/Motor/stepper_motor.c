@@ -1,579 +1,697 @@
-#include "42Motor.h"
-#include "stepper_motor.h"
-#include "Hardware/Board/board.h"
+#include "Hardware/Motor/42Motor.h"
+#include "Hardware/Motor/stepper_motor.h"
+#include "Hardware/Buzzer&Light/B&L.h"
+#include "ti_msp_dl_config.h"
 
-// 比赛连续绕圈时 PAN 需要持续跟随；置 0 仅关闭 RelativeControl 的 PAN 软件限幅。
-// TILT 相对限幅和 AbsoluteControl 双轴绝对限幅始终保留。
-#define PAN_RELATIVE_LIMIT_ENABLE  0
+#include <limits.h>
 
-// 全局电机状态（[0]=pan, [1]=tilt），UART2 中断里写、主循环读
-volatile MotorState motorState[2] = {0};
+volatile bool if_return_balance = false;
+volatile bool if_recore_balance = false;
+volatile bool if_ball_open_loop_start = false;
+volatile bool if_lift_down_test = false;
 
-volatile uint8_t pose_query_flag  = 0;
-volatile uint8_t bias_print_flag  = 0;
-volatile uint8_t stepper_config_status = 0;
+extern volatile uint8_t RunFlag;
 
-#define TILT_CONFIG_FRAME_LEN      33u
-#define TILT_CONFIG_PARAM_COUNT    21u
-#define PAN_CONFIG_FRAME_LEN       37u
-#define PAN_CONFIG_PARAM_COUNT     24u
-#define DRIVER_CONFIG_DATA_OFFSET   4u
-#define TILT_CONFIG_DATA_LEN       28u
-#define PAN_CONFIG_DATA_LEN        32u
-#define PAN_CONFIG_ID_OFFSET       22u
-#define CONFIG_REPLY_TIMEOUT_TICKS 50u   // TIMER_0 为 10ms：等待回包 500ms
-#define CONFIG_WRITE_SETTLE_TICKS  20u   // EEPROM 写入后等待 200ms 再读回
-
-extern volatile uint32_t ControlTick10ms;
-
-typedef enum {
-    CONFIG_IDLE = 0,
-    CONFIG_REQUESTED,
-    CONFIG_WAIT_TILT,
-    CONFIG_READ_PAN_REQUESTED,
-    CONFIG_WAIT_PAN_SOURCE,
-    CONFIG_READY_WRITE,
-    CONFIG_WRITE_SETTLE,
-    CONFIG_VERIFY_REQUESTED,
-    CONFIG_WAIT_PAN_VERIFY,
-    CONFIG_TEST_READY,
-    CONFIG_FINISHED,
-    CONFIG_FAILED,
-} StepperConfigState;
-
-static volatile StepperConfigState configState = CONFIG_IDLE;
-static uint8_t tiltDriverConfig[TILT_CONFIG_DATA_LEN];
-static uint8_t panDriverConfig[PAN_CONFIG_DATA_LEN];
-static volatile uint32_t configDeadlineTick = 0;
-
-static bool config_deadline_reached(void)
+typedef enum
 {
-    return (int32_t)(ControlTick10ms - configDeadlineTick) >= 0;
+    RX_WAIT_ADDR = 0,
+    RX_WAIT_CMD,
+    RX_COLLECT,
+} LiftRxState;
+
+typedef struct
+{
+    LiftRxState state;
+    uint8_t buf[8];
+    uint8_t index;
+    uint8_t expected_length;
+} LiftRxContext;
+
+static volatile LiftMotorState g_lift_state = {0};
+static LiftRxContext g_rx = {RX_WAIT_ADDR, {0}, 0, 0};
+static uint16_t g_motion_rpm = LIFT_MOTOR_DEFAULT_RPM;
+static uint8_t g_motion_acc = LIFT_MOTOR_DEFAULT_ACC;
+static uint8_t g_next_query_is_flags = 0U;
+static volatile LiftMotorStartupState g_startup_state =
+    LIFT_STARTUP_NOT_INITIALIZED;
+static uint16_t g_status_request_count = 0U;
+static uint32_t g_enable_status_baseline = 0U;
+static volatile uint32_t g_lift_tick_10ms = 0U;
+static volatile LiftBallTaskState g_ball_task_state =
+    LIFT_BALL_TASK_IDLE;
+static volatile LiftBallTaskResult g_ball_task_result =
+    LIFT_BALL_RESULT_NONE;
+static uint32_t g_ball_task_deadline = 0U;
+/* 临时硬件标定入口：J-Link写入非零脉冲后由主循环执行，标定完成后删除。 */
+volatile int32_t g_lift_debug_delta_pulse = 0;
+
+#define LIFT_MS_TO_10MS_TICKS(ms) (((ms) + 9U) / 10U)
+#define LIFT_FLAG_ARRIVED         0x02U
+
+static void lift_set_startup_state(LiftMotorStartupState state)
+{
+    g_startup_state = state;
+    g_lift_state.startup_state = (uint8_t)state;
 }
 
-// Emm_V5(TILT) 与 X系列V2(PAN)字段布局不同；只映射语义相同的字段。
-// PAN 独有字段（Lock/LPFilter/Vm_Limit/CurBW/S_PosTDP）保留自身当前值。
-static void map_tilt_config_to_pan_v2(void)
+static void lift_set_ball_task_state(LiftBallTaskState state)
 {
-    panDriverConfig[1] = (tiltDriverConfig[1] == 2u) ? 1u : 0u; // 闭环/开环控制模式
-    panDriverConfig[2] = 1u;                                   // P_PUL：使能脉冲端口
-    panDriverConfig[3] = tiltDriverConfig[2];                   // P_Serial
-    panDriverConfig[4] = tiltDriverConfig[3];                   // En
-    panDriverConfig[5] = tiltDriverConfig[4];                   // Dir
-    panDriverConfig[6] = tiltDriverConfig[5];                   // MStep
-    panDriverConfig[7] = tiltDriverConfig[6];                   // MPlyer
-    panDriverConfig[8] = tiltDriverConfig[7];                   // AutoSDD
-    panDriverConfig[10] = tiltDriverConfig[8];                  // Ma
-    panDriverConfig[11] = tiltDriverConfig[9];
-    panDriverConfig[12] = tiltDriverConfig[10];                 // Ma_Limit
-    panDriverConfig[13] = tiltDriverConfig[11];
-    panDriverConfig[18] = tiltDriverConfig[14];                 // UartBaud
-    panDriverConfig[19] = tiltDriverConfig[15];                 // CAN_Baud
-    panDriverConfig[20] = tiltDriverConfig[17];                 // Checksum（旧格式16为ID）
-    panDriverConfig[21] = tiltDriverConfig[18];                 // Response
-    panDriverConfig[23] = tiltDriverConfig[19];                 // Clog_Pro
-    panDriverConfig[24] = tiltDriverConfig[20];                 // Clog_Rpm
-    panDriverConfig[25] = tiltDriverConfig[21];
-    panDriverConfig[26] = tiltDriverConfig[22];                 // Clog_Ma
-    panDriverConfig[27] = tiltDriverConfig[23];
-    panDriverConfig[28] = tiltDriverConfig[24];                 // Clog_Ms
-    panDriverConfig[29] = tiltDriverConfig[25];
-    panDriverConfig[30] = tiltDriverConfig[26];                 // 到位窗口
-    panDriverConfig[31] = tiltDriverConfig[27];
+    g_ball_task_state = state;
+    g_lift_state.ball_task_state = (uint8_t)state;
 }
 
-// === 静态配置实例 ===
-const StepperCfg panCfg = {
-    .addr        = 0x01,
-    .motType     = 1.8f,
-    .mStep       = 16,
-    .dirPolarity = 0,
-    .vel         = 2000,
-    .acc         = 200,
-    .angleAbsMax =  180.0f,
-    .angleAbsMin = -180.0f,
-    .angleRelMax =  180.0f,    // pan 相对模式 ±180
-    .angleRelMin = -180.0f,
-};
-
-const StepperCfg tiltCfg = {
-    .addr        = 0x02,
-    .motType     = 1.8f,
-    .mStep       = 16,
-    .dirPolarity = 0,
-    .vel         = 2000,
-    .acc         = 200,
-    .angleAbsMax =  45.0f,
-    .angleAbsMin = -45.0f,
-    .angleRelMax =   45.0f,    // tilt 相对模式 ±45
-    .angleRelMin =  -45.0f,
-};
-
-// 步进电机回零
-void stepper_motor_reset_zero(void)
+static void lift_set_ball_task_result(LiftBallTaskResult result)
 {
-    Emm_V5_Origin_Trigger_Return(0x01, 0, false, UART_2_INST);
-    Emm_V5_Origin_Trigger_Return(0x02, 0, false, UART_2_INST);
+    g_ball_task_result = result;
+    g_lift_state.ball_task_result = (uint8_t)result;
 }
 
-
-// 位置归零设置
-void stepper_motor_set_zero(bool is_store)
+static bool lift_tick_due(uint32_t deadline)
 {
-    Emm_V5_Origin_Set_O(0x01, is_store, UART_2_INST);
-    Emm_V5_Origin_Set_O(0x02, is_store, UART_2_INST);
+    return ((int32_t)(g_lift_tick_10ms - deadline) >= 0);
 }
 
-
-// 控制步进电机的串口进行初始化
-void stepper_motor_init(void)
+static void lift_reset_status_request_count(void)
 {
-    //串口初始化
+    g_status_request_count = 0U;
+    g_lift_state.status_request_count = 0U;
+}
+
+static void lift_request_status(void)
+{
+    Emm_V5_Read_Sys_Params(LIFT_MOTOR_ADDR, S_FLAG, UART_2_INST);
+    if (g_status_request_count < UINT16_MAX)
+    {
+        g_status_request_count++;
+        g_lift_state.status_request_count = g_status_request_count;
+    }
+}
+
+static uint32_t pulse_magnitude(int32_t pulse)
+{
+    if (pulse >= 0)
+    {
+        return (uint32_t)pulse;
+    }
+
+    return (uint32_t)(-(int64_t)pulse);
+}
+
+static uint8_t pulse_direction(int32_t pulse)
+{
+    uint8_t direction = (pulse >= 0) ? 0U : 1U;
+
+#if LIFT_MOTOR_DIRECTION_INVERT
+    direction ^= 1U;
+#endif
+
+    return direction;
+}
+
+static uint32_t bytes_be_u32(const uint8_t *data)
+{
+    return ((uint32_t)data[0] << 24) |
+           ((uint32_t)data[1] << 16) |
+           ((uint32_t)data[2] << 8) |
+           (uint32_t)data[3];
+}
+
+static uint8_t expected_packet_length(uint8_t command)
+{
+    switch (command)
+    {
+        case 0x36:
+            return 8U; /* S_CPOS: addr+cmd+sign+4B+0x6B */
+
+        case 0x3A:
+            return 4U; /* S_FLAG: addr+cmd+flags+0x6B */
+
+        default:
+            return 0U;
+    }
+}
+
+static void dispatch_packet(const uint8_t *packet)
+{
+    if (packet[1] == 0x36)
+    {
+        uint32_t magnitude = bytes_be_u32(&packet[3]);
+        if (magnitude <= (uint32_t)INT32_MAX)
+        {
+            int32_t signed_position = (int32_t)magnitude;
+            g_lift_state.position_count = packet[2] ? -signed_position : signed_position;
+            g_lift_state.position_update_count++;
+        }
+    }
+    else if (packet[1] == 0x3A)
+    {
+        g_lift_state.flags = packet[2];
+        g_lift_state.flags_update_count++;
+    }
+}
+
+void LiftMotor_Init(void)
+{
+    if (g_lift_state.initialized != 0U)
+    {
+        return;
+    }
+
+    /* 清空 RX FIFO 残留数据，防止上电瞬间的噪声字节卡住状态机 */
+    while (!DL_UART_Main_isRXFIFOEmpty(UART_2_INST))
+    {
+        (void)DL_UART_Main_receiveData(UART_2_INST);
+    }
     DL_UART_Main_clearInterruptStatus(UART_2_INST, DL_UART_MAIN_INTERRUPT_RX);
     DL_UART_Main_enableInterrupt(UART_2_INST, DL_UART_MAIN_INTERRUPT_RX);
+    NVIC_ClearPendingIRQ(UART_2_INST_INT_IRQN);
     NVIC_EnableIRQ(UART_2_INST_INT_IRQN);
 
-    //使用串口2并使能12多机同步
-    Emm_V5_En_Control(1, true, false, UART_2_INST);
-    Emm_V5_En_Control(2, true, false, UART_2_INST);
+    g_lift_state.initialized = 1U;
+    lift_set_startup_state(LIFT_STARTUP_WAIT_STATUS);
+    lift_reset_status_request_count();
+    Light_OFF();
 
-    stepper_motor_set_zero(true);  // 设置当前角度为零点并存储
-    stepper_motor_reset_zero();    // 回零
+    /* 先读取状态，不在尚未确认通信时盲目重初始化或使能。 */
+    lift_request_status();
 }
 
-
-// 请求一次性把 TILT(0x02) 的驱动配置复制并存储到 PAN(0x01)。
-// 本函数可由按键中断调用，只置状态，不在中断中收发长帧。
-void Stepper_RequestPanConfigCopy(void)
+void LiftMotor_Enable(bool enable)
 {
-    configState = CONFIG_REQUESTED;
-    stepper_config_status = 1;
+    if (g_lift_state.initialized == 0U)
+    {
+        return;
+    }
+
+    Emm_V5_En_Control(LIFT_MOTOR_ADDR, enable, false, UART_2_INST);
 }
 
-
-// 主循环中的配置任务：读 TILT -> 写 PAN -> 收到成功回包后做 +10° 测试。
-void Stepper_ConfigTask(void)
+void LiftMotor_SetProfile(uint16_t rpm, uint8_t acc)
 {
-    uint8_t cmd[PAN_CONFIG_FRAME_LEN];
+    if (rpm == 0U)
+    {
+        rpm = 1U;
+    }
+    else if (rpm > LIFT_MOTOR_MAX_RPM)
+    {
+        rpm = LIFT_MOTOR_MAX_RPM;
+    }
 
-    switch (configState) {
-        case CONFIG_REQUESTED:
-            DL_UART_Main_clearInterruptStatus(UART_2_INST, DL_UART_MAIN_INTERRUPT_RX);
-            DL_UART_Main_enableInterrupt(UART_2_INST, DL_UART_MAIN_INTERRUPT_RX);
-            NVIC_ClearPendingIRQ(UART_2_INST_INT_IRQN);
-            NVIC_EnableIRQ(UART_2_INST_INT_IRQN);
+    g_motion_rpm = rpm;
+    g_motion_acc = acc;
+}
 
-            configState = CONFIG_WAIT_TILT;
-            configDeadlineTick = ControlTick10ms + CONFIG_REPLY_TIMEOUT_TICKS;
-            Emm_V5_Read_Sys_Params(tiltCfg.addr, S_Conf, UART_2_INST);
-            break;
+int32_t Height_Trans(float height)
+{
+    float pulse = height * (float)LIFT_MOTOR_PULSES_PER_REV / LIFT_SCREW_LEAD_MM;
 
-        case CONFIG_WAIT_TILT:
-            if (config_deadline_reached()) {
-                configState = CONFIG_FAILED;
+    if (pulse >= 0.0f)
+    {
+        return (int32_t)(pulse + 0.5f);
+    }
+
+    return (int32_t)(pulse - 0.5f);
+}
+
+bool LiftMotor_Ctrl(float height)
+{
+    return LiftMotor_MoveRelativePulse(Height_Trans(height));
+}
+
+bool LiftMotor_MoveRelativePulse(int32_t delta_pulse)
+{
+    int64_t next_command;
+
+    if ((g_lift_state.initialized == 0U) ||
+        (g_startup_state != LIFT_STARTUP_READY) ||
+        (delta_pulse == 0))
+    {
+        return false;
+    }
+
+    next_command = (int64_t)g_lift_state.command_pulse + delta_pulse;
+    if ((next_command > INT32_MAX) || (next_command < INT32_MIN))
+    {
+        return false;
+    }
+
+    Emm_V5_Pos_Control(LIFT_MOTOR_ADDR,
+                       pulse_direction(delta_pulse),
+                       g_motion_rpm,
+                       g_motion_acc,
+                       pulse_magnitude(delta_pulse),
+                       false,
+                       false,
+                       UART_2_INST);
+    g_lift_state.command_pulse = (int32_t)next_command;
+    return true;
+}
+
+bool LiftMotor_MoveAbsolutePulse(int32_t target_pulse)
+{
+    if ((g_lift_state.initialized == 0U) ||
+        (g_startup_state != LIFT_STARTUP_READY) ||
+        (g_lift_state.balance_valid == 0U))
+    {
+        return false;
+    }
+
+    Emm_V5_Pos_Control(LIFT_MOTOR_ADDR,
+                       pulse_direction(target_pulse),
+                       g_motion_rpm,
+                       g_motion_acc,
+                       pulse_magnitude(target_pulse),
+                       true,
+                       false,
+                       UART_2_INST);
+    g_lift_state.command_pulse = target_pulse;
+    return true;
+}
+
+void LiftMotor_Stop(void)
+{
+    if (g_lift_state.initialized != 0U)
+    {
+        Emm_V5_Stop_Now(LIFT_MOTOR_ADDR, false, UART_2_INST);
+    }
+}
+
+bool LiftMotor_RecordBalanceHere(void)
+{
+    if (g_lift_state.initialized == 0U)
+    {
+        return false;
+    }
+
+    Emm_V5_Reset_CurPos_To_Zero(LIFT_MOTOR_ADDR, UART_2_INST);
+    g_lift_state.command_pulse = 0;
+    g_lift_state.balance_valid = 1U;
+    return true;
+}
+
+void LiftMotor_RecordBalance(void)
+{
+    (void)LiftMotor_RecordBalanceHere();
+}
+
+bool LiftMotor_BalanceDetect(void)
+{
+    /* 当前没有物理原点传感器，只表示本次上电是否已人工记录平衡点。 */
+    return (g_lift_state.balance_valid != 0U);
+}
+
+bool LiftMotor_ReturnToBalance(void)
+{
+    if (g_lift_state.balance_valid == 0U)
+    {
+        return false;
+    }
+
+    return LiftMotor_MoveAbsolutePulse(0);
+}
+
+void LiftMotor_Tick10ms(void)
+{
+    g_lift_tick_10ms++;
+}
+
+static bool lift_ball_task_start(void)
+{
+    int32_t plus_target;
+
+    if ((g_ball_task_state != LIFT_BALL_TASK_IDLE) ||
+        (g_startup_state != LIFT_STARTUP_READY) ||
+        (RunFlag != 0U) ||
+        (g_lift_state.balance_valid == 0U) ||
+        (g_lift_state.command_pulse != 0) ||
+        ((g_lift_state.flags & LIFT_FLAG_ARRIVED) == 0U))
+    {
+        lift_set_ball_task_result(LIFT_BALL_RESULT_REJECTED);
+        return false;
+    }
+
+    /*
+     * 当前 +4mm 会让机构向下、小球向 -5cm 运动；
+     * 因此第一步使用绝对 -4mm，让机构反向倾斜并使小球先去 +5cm。
+     */
+    plus_target = Height_Trans(-LIFT_BALL_TILT_MM);
+    if (!LiftMotor_MoveAbsolutePulse(plus_target))
+    {
+        lift_set_ball_task_result(LIFT_BALL_RESULT_COMMAND_FAILED);
+        return false;
+    }
+
+    g_ball_task_deadline =
+        g_lift_tick_10ms +
+        LIFT_MS_TO_10MS_TICKS(LIFT_BALL_TO_PLUS_TIME_MS);
+    lift_set_ball_task_state(LIFT_BALL_TASK_TO_PLUS);
+    lift_set_ball_task_result(LIFT_BALL_RESULT_RUNNING);
+    return true;
+}
+
+static void lift_ball_task_fail(void)
+{
+    (void)LiftMotor_MoveAbsolutePulse(0);
+    lift_set_ball_task_state(LIFT_BALL_TASK_IDLE);
+    lift_set_ball_task_result(LIFT_BALL_RESULT_COMMAND_FAILED);
+}
+
+static void lift_ball_task_process(void)
+{
+    switch (g_ball_task_state)
+    {
+        case LIFT_BALL_TASK_TO_PLUS:
+            if (lift_tick_due(g_ball_task_deadline))
+            {
+                int32_t minus_target = Height_Trans(LIFT_BALL_TILT_MM);
+
+                if (!LiftMotor_MoveAbsolutePulse(minus_target))
+                {
+                    lift_ball_task_fail();
+                    return;
+                }
+
+                g_ball_task_deadline =
+                    g_lift_tick_10ms +
+                    LIFT_MS_TO_10MS_TICKS(
+                        LIFT_BALL_TO_MINUS_TIME_MS);
+                lift_set_ball_task_state(LIFT_BALL_TASK_TO_MINUS);
             }
             break;
 
-        case CONFIG_READ_PAN_REQUESTED:
-            configState = CONFIG_WAIT_PAN_SOURCE;
-            configDeadlineTick = ControlTick10ms + CONFIG_REPLY_TIMEOUT_TICKS;
-            Emm_V5_Read_Sys_Params(panCfg.addr, S_Conf, UART_2_INST);
-            break;
+        case LIFT_BALL_TASK_TO_MINUS:
+            if (lift_tick_due(g_ball_task_deadline))
+            {
+                int32_t brake_target =
+                    Height_Trans(-LIFT_BALL_BRAKE_MM);
 
-        case CONFIG_WAIT_PAN_SOURCE:
-            if (config_deadline_reached()) {
-                configState = CONFIG_FAILED;
+                /*
+                 * 小球正向 -5cm 运动时，短暂反向倾斜产生制动力，
+                 * 先消除负方向速度，再恢复水平。
+                 */
+                if (!LiftMotor_MoveAbsolutePulse(brake_target))
+                {
+                    lift_ball_task_fail();
+                    return;
+                }
+
+                g_ball_task_deadline =
+                    g_lift_tick_10ms +
+                    LIFT_MS_TO_10MS_TICKS(
+                        LIFT_BALL_BRAKE_TIME_MS);
+                lift_set_ball_task_state(LIFT_BALL_TASK_BRAKE);
             }
             break;
 
-        case CONFIG_READY_WRITE:
-            cmd[0] = panCfg.addr;
-            cmd[1] = 0x48;
-            cmd[2] = 0xD1;
-            cmd[3] = 0x01;  // 存入驱动器，后续上电不需要重复初始化
-            for (uint8_t i = 0; i < PAN_CONFIG_DATA_LEN; ++i) {
-                cmd[DRIVER_CONFIG_DATA_OFFSET + i] = panDriverConfig[i];
-            }
-            cmd[PAN_CONFIG_FRAME_LEN - 1u] = 0x6B;
+        case LIFT_BALL_TASK_BRAKE:
+            if (lift_tick_due(g_ball_task_deadline))
+            {
+                if (!LiftMotor_MoveAbsolutePulse(0))
+                {
+                    lift_ball_task_fail();
+                    return;
+                }
 
-            configState = CONFIG_WRITE_SETTLE;
-            configDeadlineTick = ControlTick10ms + CONFIG_WRITE_SETTLE_TICKS;
-            my_transmintData_s(UART_2_INST, cmd, PAN_CONFIG_FRAME_LEN);
-            break;
-
-        case CONFIG_WRITE_SETTLE:
-            // 部分驱动器关闭了修改命令应答，超时后主动读回，不依赖 0x48 回包。
-            if (config_deadline_reached()) {
-                configState = CONFIG_VERIFY_REQUESTED;
+                g_ball_task_deadline =
+                    g_lift_tick_10ms +
+                    LIFT_MS_TO_10MS_TICKS(
+                        LIFT_BALL_RETURN_SETTLE_MS);
+                lift_set_ball_task_state(
+                    LIFT_BALL_TASK_RETURN_ZERO);
             }
             break;
 
-        case CONFIG_VERIFY_REQUESTED:
-            configState = CONFIG_WAIT_PAN_VERIFY;
-            configDeadlineTick = ControlTick10ms + CONFIG_REPLY_TIMEOUT_TICKS;
-            Emm_V5_Read_Sys_Params(panCfg.addr, S_Conf, UART_2_INST);
-            break;
-
-        case CONFIG_WAIT_PAN_VERIFY:
-            if (config_deadline_reached()) {
-                configState = CONFIG_FAILED;
+        case LIFT_BALL_TASK_RETURN_ZERO:
+            if (lift_tick_due(g_ball_task_deadline))
+            {
+                lift_set_ball_task_state(LIFT_BALL_TASK_IDLE);
+                lift_set_ball_task_result(
+                    LIFT_BALL_RESULT_COMPLETED);
             }
             break;
 
-        case CONFIG_TEST_READY:
-            Emm_V5_En_Control(panCfg.addr, true, false, UART_2_INST);
-            delay_ms(2);
-            Emm_V5_En_Control(tiltCfg.addr, true, false, UART_2_INST);
-            delay_ms(2);
-            RelativeControl(10.0f, 10.0f);
-            stepper_config_status = 2;
-            configState = CONFIG_FINISHED;
-            break;
-
-        case CONFIG_FAILED:
-            stepper_config_status = 3;
-            configState = CONFIG_IDLE;
-            break;
-
+        case LIFT_BALL_TASK_IDLE:
         default:
             break;
     }
 }
 
-
-// 脉冲计算
-static StepperCmd calcAxis(float delta, const StepperCfg* cfg)
+void LiftMotor_Task(void)
 {
-    float pulsesPerDeg = (float)cfg->mStep / cfg->motType;   // 16/0.9 ≈ 17.778
-    float pulseF       = delta * pulsesPerDeg;
-    int32_t pulseI     = (int32_t)(pulseF + (pulseF >= 0 ? 0.5f : -0.5f));
+    int32_t debug_delta = g_lift_debug_delta_pulse;
 
-    uint8_t dir = (pulseI >= 0) ? 0 : 1;
-    if (cfg->dirPolarity) dir = !dir;
+    if (g_startup_state == LIFT_STARTUP_WAIT_STATUS)
+    {
+        if (g_lift_state.flags_update_count == 0U)
+        {
+            return;
+        }
 
-    StepperCmd cmd;
-    cmd.dir        = dir;
-    cmd.clk        = (uint32_t)(pulseI >= 0 ? pulseI : -pulseI);
-    cmd.angleDelta = delta;
-    return cmd;
-}
+        if ((g_lift_state.flags & 0x01U) != 0U)
+        {
+            lift_set_startup_state(LIFT_STARTUP_READY);
+            Light_ON();
+        }
+        else
+        {
+            g_enable_status_baseline = g_lift_state.flags_update_count;
+            Emm_V5_En_Control(
+                LIFT_MOTOR_ADDR, true, false, UART_2_INST);
+            lift_reset_status_request_count();
+            lift_set_startup_state(LIFT_STARTUP_ENABLE_SENT);
+        }
+        return;
+    }
 
+    if (g_startup_state == LIFT_STARTUP_ENABLE_SENT)
+    {
+        if (g_lift_state.flags_update_count <= g_enable_status_baseline)
+        {
+            return;
+        }
 
-// ============================================================
-//  控制层：软件设定点
-//
-//  MCU 自己维护"指令角度" cmd_deg[]，所有限位都在它身上做，再用绝对模式
-//  开过去。回包(motorState)只用于监控、不参与限位——即使回包链路断了
-//  (cnt 不涨)，限位依旧有效(fail-safe)。上电 stepper_motor_init() 已回零，
-//  故 cmd_deg 初值 0 与硬件零点对齐。
-// ============================================================
+        if ((g_lift_state.flags & 0x01U) != 0U)
+        {
+            lift_set_startup_state(LIFT_STARTUP_READY);
+            Light_ON();
+        }
+        else if (g_status_request_count >= LIFT_MOTOR_STATUS_MAX_REQUESTS)
+        {
+            lift_set_startup_state(LIFT_STARTUP_ENABLE_FAILED);
+        }
+        return;
+    }
 
-// 软件设定点 [0]=pan [1]=tilt（度）：当前指令位置
-static float cmd_deg[2]    = {0.0f, 0.0f};
-// 记录点：State_Record 拍下 cmd_deg 快照，State_Restore 据此归位
-static float record_deg[2] = {0.0f, 0.0f};
-static bool  record_valid  = false;   // 是否记录过有效姿态
+    if (g_startup_state != LIFT_STARTUP_READY)
+    {
+        return;
+    }
 
-// 限幅
-static float clampf(float v, float min, float max)
-{
-    if (v > max) return max;
-    if (v < min) return min;
-    return v;
-}
+    if (g_ball_task_state != LIFT_BALL_TASK_IDLE)
+    {
+        /* 任务运行期间忽略重复中键和重新记录请求。右键仍可安全取消并回零。 */
+        if_ball_open_loop_start = false;
+        if_recore_balance = false;
+        if_lift_down_test = false;
+        g_lift_debug_delta_pulse = 0;
 
-// 双轴发命令 + 多机同步。absolute=true 走绝对模式(raF=true)；false 走相对模式(raF=false)
-static void sendStepper(StepperCmd pan, StepperCmd tilt, bool absolute)
-{
-    Emm_V5_Pos_Control(panCfg.addr, pan.dir, panCfg.vel, panCfg.acc,
-                       pan.clk, absolute, true, UART_2_INST);
-    delay_ms(2);
-    Emm_V5_Pos_Control(tiltCfg.addr, tilt.dir, tiltCfg.vel, tiltCfg.acc,
-                       tilt.clk, absolute, true, UART_2_INST);
-    delay_ms(2);
-    Emm_V5_Synchronous_motion(PRIMARY_BUS, UART_2_INST);
-}
+        if (if_return_balance)
+        {
+            if_return_balance = false;
+            (void)LiftMotor_ReturnToBalance();
+            lift_set_ball_task_state(LIFT_BALL_TASK_IDLE);
+            lift_set_ball_task_result(LIFT_BALL_RESULT_CANCELED);
+            return;
+        }
 
-// 绝对控制器：把云台开到绝对角（按工作空间 ±limit 夹幅）。绝对模式(raF=true)脉冲以零点
-// 为基准，故"目标角"本身即可经 calcAxis 转脉冲；末尾同步软件设定点。
-void AbsoluteControl(float pan_target, float tilt_target)
-{
-    pan_target  = clampf(pan_target,  panCfg.angleAbsMin,  panCfg.angleAbsMax);
-    tilt_target = clampf(tilt_target, tiltCfg.angleAbsMin, tiltCfg.angleAbsMax);
+        lift_ball_task_process();
+        return;
+    }
 
-    sendStepper(calcAxis(pan_target, &panCfg), calcAxis(tilt_target, &tiltCfg), true);
+    if (debug_delta != 0)
+    {
+        g_lift_debug_delta_pulse = 0;
+        (void)LiftMotor_MoveRelativePulse(debug_delta);
+        return;
+    }
 
-    cmd_deg[0] = pan_target;
-    cmd_deg[1] = tilt_target;
-}
+    if (if_recore_balance)
+    {
+        if_recore_balance = false;
+        g_lift_state.last_action = 1U;
+        g_lift_state.action_count++;
+        LiftMotor_RecordBalance();
+        return;
+    }
 
-// 相对控制器：软件设定点累加增量 → 夹相对限位 → 发【相对模式(raF=false)】命令。
-// 限位基准是本地 cmd_deg（不读回包，fail-safe）；相对模式让电机从当前物理位置挪
-// real_delta，不依赖绝对帧，断电/重定零后也不会跳位。
-void RelativeControl(float delta_pan, float delta_tilt)
-{
-    // 1. 目标 = 设定点 + 增量，夹相对限位
-    float tgt_pan  = cmd_deg[0] + delta_pan;
-    float tgt_tilt = clampf(cmd_deg[1] + delta_tilt, tiltCfg.angleRelMin, tiltCfg.angleRelMax);
+    if (if_return_balance)
+    {
+        if_return_balance = false;
+        g_lift_state.last_action = 2U;
+        g_lift_state.action_count++;
+        (void)LiftMotor_ReturnToBalance();
+        return;
+    }
 
-#if PAN_RELATIVE_LIMIT_ENABLE
-    tgt_pan = clampf(tgt_pan, panCfg.angleRelMin, panCfg.angleRelMax);
-#endif
+    if (if_ball_open_loop_start)
+    {
+        if_ball_open_loop_start = false;
+        g_lift_state.last_action = 3U;
+        g_lift_state.action_count++;
+        (void)lift_ball_task_start();
+        return;
+    }
 
-    // 2. 夹幅后实际可执行的增量
-    float real_dp = tgt_pan  - cmd_deg[0];
-    float real_dt = tgt_tilt - cmd_deg[1];
-
-    // 3. 相对模式发命令（raF=false）
-    sendStepper(calcAxis(real_dp, &panCfg), calcAxis(real_dt, &tiltCfg), false);
-
-    // 4. 更新设定点（= 累计已发增量）
-    cmd_deg[0] = tgt_pan;
-    cmd_deg[1] = tgt_tilt;
-}
-
-// 记录当前姿态：拍下软件设定点快照
-void State_Record(void)
-{
-    record_deg[0] = cmd_deg[0];
-    record_deg[1] = cmd_deg[1];
-    record_valid  = true;
-}
-
-// 恢复记录的姿态：开回记录点（没记录过就不动，避免误回 (0,0)）
-void State_Restore(void)
-{
-    if (!record_valid) return;
-    AbsoluteControl(record_deg[0], record_deg[1]);
-}
-
-// 只读访问（监控/打印用）
-void Pose_GetCmd(float *pan, float *tilt)    { *pan = cmd_deg[0];    *tilt = cmd_deg[1];    }
-void Pose_GetRecord(float *pan, float *tilt) { *pan = record_deg[0]; *tilt = record_deg[1]; }
-
-
-// ============================================================
-//  Emm_V5 回包解析
-// ============================================================
-
-
-
-// 协议解析状态机
-typedef enum { RX_WAIT_ADDR, RX_WAIT_CMD, RX_COLLECT } RxState;
-static struct {
-    RxState  state;
-    uint8_t  buf[PAN_CONFIG_FRAME_LEN];
-    uint8_t  idx;
-    uint8_t  expectLen;
-} rxCtx = { RX_WAIT_ADDR, {0}, 0, 0 };
-
-// 根据命令字返回完整帧长（含 addr + cmd + payload + 0x6B）
-static uint8_t packet_expect_len(uint8_t addr, uint8_t cmd)
-{
-    switch (cmd) {
-        case 0x31: return 5;   // S_ENCL: addr+cmd+H+L+0x6B
-        case 0x33: return 8;   // S_TPOS: addr+cmd+sign+4B+0x6B
-        case 0x35: return 6;   // S_VEL : addr+cmd+sign+H+L+0x6B
-        case 0x36: return 8;   // S_CPOS
-        case 0x37: return 8;   // S_PERR
-        case 0x3A: return 4;   // S_FLAG: addr+cmd+flags+0x6B（暂未用）
-        case 0x3B: return 4;   // S_ORG （暂未用）
-        case 0x42: return (addr == panCfg.addr) ? PAN_CONFIG_FRAME_LEN
-                                                : TILT_CONFIG_FRAME_LEN;
-        case 0x48: return 4;   // 写驱动配置应答：addr+cmd+status+0x6B
-        default:   return 0;   // 未知命令字，整包丢弃
+    if (if_lift_down_test)
+    {
+        if_lift_down_test = false;
+        g_lift_state.last_action = 4U;
+        g_lift_state.action_count++;
+        (void)LiftMotor_Ctrl(-LIFT_MOTOR_BUTTON_STEP_MM);
     }
 }
 
-// 4 字节大端转无符号
-static uint32_t bytes_be_u32(const volatile uint8_t* b)
+void LiftMotor_RequestState(void)
 {
-    return ((uint32_t)b[0] << 24) | ((uint32_t)b[1] << 16) |
-           ((uint32_t)b[2] << 8)  | (uint32_t)b[3];
-}
-
-// Emm_V5 位置回包：65536 脉冲 = 360°
-static float pulses_to_deg(uint32_t pulses, uint8_t sign)
-{
-    float deg = (float)pulses * 360.0f / 65536.0f;
-    return sign ? -deg : deg;
-}
-
-// 解析一帧（已确认末字节是 0x6B），按 addr/cmd 分发到 motorState
-static void dispatch_packet(const uint8_t* p, uint8_t len)
-{
-    uint8_t idx;
-    if      (p[0] == panCfg.addr)  idx = 0;
-    else if (p[0] == tiltCfg.addr) idx = 1;
-    else return;
-
-    switch (p[1]) {
-        case 0x42: { // S_Conf：接收 TILT 源配置，或读回 PAN 做逐字节校验
-            bool tiltFrameValid = len == TILT_CONFIG_FRAME_LEN &&
-                                  p[2] == TILT_CONFIG_FRAME_LEN &&
-                                  p[3] == TILT_CONFIG_PARAM_COUNT;
-            bool panFrameValid = len == PAN_CONFIG_FRAME_LEN &&
-                                 p[2] == PAN_CONFIG_FRAME_LEN &&
-                                 p[3] == PAN_CONFIG_PARAM_COUNT;
-
-            if (p[0] == tiltCfg.addr && configState == CONFIG_WAIT_TILT && tiltFrameValid) {
-                for (uint8_t i = 0; i < TILT_CONFIG_DATA_LEN; ++i) {
-                    tiltDriverConfig[i] = p[DRIVER_CONFIG_DATA_OFFSET + i];
-                }
-                configState = CONFIG_READ_PAN_REQUESTED;
-            } else if (p[0] == panCfg.addr &&
-                       configState == CONFIG_WAIT_PAN_SOURCE && panFrameValid) {
-                for (uint8_t i = 0; i < PAN_CONFIG_DATA_LEN; ++i) {
-                    panDriverConfig[i] = p[DRIVER_CONFIG_DATA_OFFSET + i];
-                }
-                map_tilt_config_to_pan_v2();
-                configState = CONFIG_READY_WRITE;
-            } else if (p[0] == panCfg.addr &&
-                       configState == CONFIG_WAIT_PAN_VERIFY && panFrameValid) {
-                bool same = true;
-                for (uint8_t i = 0; i < PAN_CONFIG_DATA_LEN; ++i) {
-                    // ID 地址必须保留 PAN 自己的 0x01，批量配置命令也不会修改该字段。
-                    if (i != PAN_CONFIG_ID_OFFSET &&
-                        p[DRIVER_CONFIG_DATA_OFFSET + i] != panDriverConfig[i]) {
-                        same = false;
-                        break;
-                    }
-                }
-                configState = same ? CONFIG_TEST_READY : CONFIG_FAILED;
-            } else if (configState == CONFIG_WAIT_TILT ||
-                       configState == CONFIG_WAIT_PAN_SOURCE ||
-                       configState == CONFIG_WAIT_PAN_VERIFY) {
-                configState = CONFIG_FAILED;
-            }
-            break;
-        }
-
-        case 0x48:   // PAN 写配置回包，0x02 表示成功
-            if (p[0] == panCfg.addr && configState == CONFIG_WRITE_SETTLE) {
-                configState = (p[2] == 0x02) ? CONFIG_VERIFY_REQUESTED : CONFIG_FAILED;
-            }
-            break;
-
-        case 0x31:   // S_ENCL: addr cmd H L 0x6B
-            motorState[idx].encl = ((uint16_t)p[2] << 8) | p[3];
-            break;
-
-        case 0x33:   // S_TPOS: addr cmd sign b3 b2 b1 b0 0x6B
-            motorState[idx].tpos_deg = pulses_to_deg(bytes_be_u32(&p[3]), p[2]);
-            break;
-
-        case 0x35: { // S_VEL: addr cmd sign H L 0x6B
-            uint16_t rpm = ((uint16_t)p[3] << 8) | p[4];
-            float    v   = (float)rpm;
-            motorState[idx].vel_rpm = p[2] ? -v : v;
-            break;
-        }
-
-        case 0x36:   // S_CPOS
-            motorState[idx].cpos_deg = pulses_to_deg(bytes_be_u32(&p[3]), p[2]);
-            break;
-
-        case 0x37:   // S_PERR
-            motorState[idx].perr_deg = pulses_to_deg(bytes_be_u32(&p[3]), p[2]);
-            break;
-
-        case 0x3A:   // S_FLAG: addr cmd flags 0x6B
-            motorState[idx].flags = p[2];
-            break;
-
-        case 0x3B:   // S_ORG: addr cmd status 0x6B
-            motorState[idx].org = p[2];
-            break;
-
-        default: break;
+    if (g_lift_state.initialized == 0U)
+    {
+        return;
     }
 
-    motorState[idx].updateCount++;
+    if ((g_startup_state == LIFT_STARTUP_WAIT_STATUS) ||
+        (g_startup_state == LIFT_STARTUP_ENABLE_SENT))
+    {
+        if (g_status_request_count >= LIFT_MOTOR_STATUS_MAX_REQUESTS)
+        {
+            if (g_lift_state.flags_update_count == 0U)
+            {
+                lift_set_startup_state(
+                    (g_lift_state.rx_byte_count == 0U) ?
+                    LIFT_STARTUP_NO_RX : LIFT_STARTUP_INVALID_RX);
+            }
+            else if (g_startup_state == LIFT_STARTUP_ENABLE_SENT)
+            {
+                lift_set_startup_state(LIFT_STARTUP_ENABLE_FAILED);
+            }
+            return;
+        }
+
+        lift_request_status();
+        return;
+    }
+
+    if (g_startup_state != LIFT_STARTUP_READY)
+    {
+        return;
+    }
+
+    if (g_next_query_is_flags == 0U)
+    {
+        Emm_V5_Read_Sys_Params(LIFT_MOTOR_ADDR, S_CPOS, UART_2_INST);
+        g_next_query_is_flags = 1U;
+    }
+    else
+    {
+        Emm_V5_Read_Sys_Params(LIFT_MOTOR_ADDR, S_FLAG, UART_2_INST);
+        g_next_query_is_flags = 0U;
+    }
 }
 
-// 查询两轴实时位置（S_CPOS）；回包由 UART2_IRQHandler 异步写入 motorState（仅监控用）
-void GetMotorState(void)
+void LiftMotor_GetState(LiftMotorState *state)
 {
-    Emm_V5_Read_Sys_Params(panCfg.addr,  S_CPOS, UART_2_INST);
-    delay_ms(2);   // 等 PAN 回包收完，避免总线冲突
-    Emm_V5_Read_Sys_Params(panCfg.addr,  S_FLAG, UART_2_INST);
-    delay_ms(2);
-    Emm_V5_Read_Sys_Params(tiltCfg.addr, S_CPOS, UART_2_INST);
-    delay_ms(2);   // 等 TILT 回包收完
-    Emm_V5_Read_Sys_Params(tiltCfg.addr, S_FLAG, UART_2_INST);
-    delay_ms(2);
+    if (state == NULL)
+    {
+        return;
+    }
+
+    state->command_pulse = g_lift_state.command_pulse;
+    state->position_count = g_lift_state.position_count;
+    state->flags = g_lift_state.flags;
+    state->initialized = g_lift_state.initialized;
+    state->balance_valid = g_lift_state.balance_valid;
+    state->command_rpm = g_motion_rpm;
+    state->command_acc = g_motion_acc;
+    state->position_update_count = g_lift_state.position_update_count;
+    state->flags_update_count = g_lift_state.flags_update_count;
+    state->rx_byte_count = g_lift_state.rx_byte_count;
+    state->action_count = g_lift_state.action_count;
+    state->last_rx_byte = g_lift_state.last_rx_byte;
+    state->last_action = g_lift_state.last_action;
+    state->status_request_count = g_status_request_count;
+    state->startup_state = (uint8_t)g_startup_state;
+    state->ball_task_state = (uint8_t)g_ball_task_state;
+    state->ball_task_result = (uint8_t)g_ball_task_result;
 }
 
-//解析电机回包
 void UART2_IRQHandler(void)
 {
     switch (DL_UART_Main_getPendingInterrupt(UART_2_INST))
     {
-    case DL_UART_MAIN_IIDX_RX:
-        while (!DL_UART_Main_isRXFIFOEmpty(UART_2_INST))
-        {
-            uint8_t b = DL_UART_Main_receiveData(UART_2_INST);
+        case DL_UART_MAIN_IIDX_RX:
+            while (!DL_UART_Main_isRXFIFOEmpty(UART_2_INST))
+            {
+                uint8_t byte = DL_UART_Main_receiveData(UART_2_INST);
+                g_lift_state.last_rx_byte = byte;
+                g_lift_state.rx_byte_count++;
 
-            switch (rxCtx.state) {
-            case RX_WAIT_ADDR:
-                // 仅以 0x01 / 0x02 作为帧起始（panCfg.addr / tiltCfg.addr）
-                if (b == panCfg.addr || b == tiltCfg.addr) {
-                    rxCtx.buf[0] = b;
-                    rxCtx.idx = 1;
-                    rxCtx.state = RX_WAIT_CMD;
-                }
-                break;
+                switch (g_rx.state)
+                {
+                    case RX_WAIT_ADDR:
+                        if (byte == LIFT_MOTOR_ADDR)
+                        {
+                            g_rx.buf[0] = byte;
+                            g_rx.index = 1U;
+                            g_rx.state = RX_WAIT_CMD;
+                        }
+                        break;
 
-            case RX_WAIT_CMD:
-                rxCtx.buf[rxCtx.idx++] = b;
-                rxCtx.expectLen = packet_expect_len(rxCtx.buf[0], b);
-                if (rxCtx.expectLen == 0) {
-                    // 未知命令字，重置等下一个对齐点
-                    rxCtx.state = RX_WAIT_ADDR;
-                    rxCtx.idx   = 0;
-                } else {
-                    rxCtx.state = RX_COLLECT;
-                }
-                break;
+                    case RX_WAIT_CMD:
+                        g_rx.buf[g_rx.index++] = byte;
+                        g_rx.expected_length = expected_packet_length(byte);
+                        if (g_rx.expected_length == 0U)
+                        {
+                            g_rx.state = RX_WAIT_ADDR;
+                            g_rx.index = 0U;
+                        }
+                        else
+                        {
+                            g_rx.state = RX_COLLECT;
+                        }
+                        break;
 
-            case RX_COLLECT:
-                rxCtx.buf[rxCtx.idx++] = b;
-                if (rxCtx.idx >= rxCtx.expectLen) {
-                    // 末字节必须是 0x6B（Emm_V5 默认校验）
-                    if (rxCtx.buf[rxCtx.idx - 1] == 0x6B) {
-                        dispatch_packet((const uint8_t*)rxCtx.buf, rxCtx.idx);
-                    }
-                    rxCtx.state = RX_WAIT_ADDR;
-                    rxCtx.idx   = 0;
+                    case RX_COLLECT:
+                        if (g_rx.index < (uint8_t)sizeof(g_rx.buf))
+                        {
+                            g_rx.buf[g_rx.index++] = byte;
+                        }
+                        else
+                        {
+                            g_rx.state = RX_WAIT_ADDR;
+                            g_rx.index = 0U;
+                            break;
+                        }
+
+                        if (g_rx.index >= g_rx.expected_length)
+                        {
+                            if (g_rx.buf[g_rx.index - 1U] == 0x6B)
+                            {
+                                dispatch_packet(g_rx.buf);
+                            }
+
+                            g_rx.state = RX_WAIT_ADDR;
+                            g_rx.index = 0U;
+                        }
+                        break;
+
+                    default:
+                        g_rx.state = RX_WAIT_ADDR;
+                        g_rx.index = 0U;
+                        break;
                 }
-                break;
             }
-        }
-        break;
-    default:
-        break;
-    }
-}
+            break;
 
-// STEP_TIM (TIMG6)：10kHz / 0.1ms 周期中断，软件分频出周期标志。
-// 注：定时器中断一旦使能就必须保留本处理函数、并在其中清中断标志（读 IIDX 即清），
-//     否则缺失向量会落入 Default_Handler 死循环、整机卡死。
-#define TICK_HZ           10000u
-#define POSE_QUERY_TICKS  (TICK_HZ / 1000u * 50u)    // 50ms：触发一次位置查询
-#define BIAS_PRINT_TICKS  (TICK_HZ / 1000u * 500u)   // 500ms：触发一次 bias 打印
-
-void STEP_TIM_INST_IRQHandler(void)
-{
-    switch (DL_TimerG_getPendingInterrupt(STEP_TIM_INST)) {   // 读 IIDX 顺带清中断（TIMG6 是 TimerG）
-    case DL_TIMER_IIDX_ZERO:
-    {
-        static uint16_t pos_cnt  = 0;
-        static uint16_t bias_cnt = 0;
-        if (++pos_cnt  >= POSE_QUERY_TICKS) { pos_cnt  = 0; pose_query_flag = 1; }
-        if (++bias_cnt >= BIAS_PRINT_TICKS) { bias_cnt = 0; bias_print_flag = 1; }
-        // lc_printf("tick=%lu\r\n", (unsigned long)pos_cnt);
-        break;
-    }
-    default: break;
+        default:
+            break;
     }
 }

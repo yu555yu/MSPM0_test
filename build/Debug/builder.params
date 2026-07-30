@@ -28,7 +28,6 @@
         "source/Hardware/BlueSerial/bsp_hc05_1.c",
         "source/Hardware/Board/board.c",
         "source/Hardware/Buzzer&Light/B&L.c",
-        "source/Hardware/Control/visual_servo.c",
         "source/Hardware/Encoder/Encoder.c",
         "source/Hardware/Key/Key.c",
         "source/Hardware/LCD/lcd.c",

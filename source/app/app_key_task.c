@@ -54,6 +54,7 @@ void btn_left_cb(flex_button_t *btn)
     {
         case FLEX_BTN_PRESS_DOWN:
             set_debug_led_toggle();
+            if_recore_balance = true;
             break;
 
         default:
@@ -69,6 +70,7 @@ void btn_right_cb(flex_button_t *btn)
     {
         case FLEX_BTN_PRESS_CLICK:
             set_debug_led_toggle();
+            if_return_balance = true;
             break;
 
         default:
@@ -83,7 +85,7 @@ void btn_mid_cb(flex_button_t *btn)
     switch (btn->event)
     {
         case FLEX_BTN_PRESS_DOWN:
-            set_debug_led_toggle();
+            if_ball_open_loop_start = true;
             break;
 
         case FLEX_BTN_PRESS_LONG_HOLD:

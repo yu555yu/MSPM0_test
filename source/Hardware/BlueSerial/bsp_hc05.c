@@ -70,9 +70,12 @@ void BlueSerial_Printf(char *format, ...)
 void BLE_Send_Bit(unsigned char ch)
 {
     //当串口0忙的时候等待，不忙的时候再发送传进来的字符
-    while( DL_UART_isBusy(UART_0_INST) == true );
+    /*
+     * 只等待 TX FIFO 可写。DL_UART_isBusy() 同时受 RX 活动影响，
+     * RX 持续忙或 FIFO 满时会永久卡住主循环。
+     */
     //发送单个字符
-    DL_UART_Main_transmitData(UART_0_INST, ch);
+    DL_UART_Main_transmitDataBlocking(UART_0_INST, ch);
 }
 
 /******************************************************************

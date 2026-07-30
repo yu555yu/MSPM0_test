@@ -56,4 +56,4 @@ build/Debug/.obj/source/Hardware/Motor/stepper_motor.o: \
  libraries/ti/driverlib/dl_vref.h libraries/ti/driverlib/dl_wwdt.h \
  libraries/ti/driverlib/m0p/dl_interrupt.h \
  libraries/ti/driverlib/m0p/dl_systick.h \
- source/Hardware/Motor/stepper_motor.h source/Hardware/Board/board.h
+ source/Hardware/Motor/stepper_motor.h source/Hardware/Buzzer&Light/B&L.h

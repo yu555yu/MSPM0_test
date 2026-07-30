@@ -61,4 +61,4 @@ build/Debug/.obj/source/main.o: source/main.c source/ti_msp_dl_config.h \
  source/app/app_ui.h source/Hardware/LCD/lcd.h source/app/app_key_task.h \
  source/middle/mid_button.h source/Hardware/BlueSerial/bsp_hc05.h \
  source/Hardware/jy901s/jy901s.h source/app/app_irtracking.h \
- source/Hardware/Buzzer&Light/B&L.h
+ source/Hardware/Buzzer&Light/B&L.h source/Hardware/Motor/stepper_motor.h

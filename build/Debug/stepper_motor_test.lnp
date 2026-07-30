@@ -6,7 +6,6 @@
 ./build/Debug/.obj/source/Hardware/BlueSerial/bsp_hc05_1.o
 ./build/Debug/.obj/source/Hardware/Board/board.o
 ./build/Debug/.obj/source/Hardware/Buzzer&Light/B&L.o
-./build/Debug/.obj/source/Hardware/Control/visual_servo.o
 ./build/Debug/.obj/source/Hardware/Encoder/Encoder.o
 ./build/Debug/.obj/source/Hardware/Key/Key.o
 ./build/Debug/.obj/source/Hardware/LCD/lcd.o

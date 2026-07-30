@@ -367,3 +367,603 @@ These source files will be recompiled
 [2026-07-30 16:47:16]	[done]
 	build successfully !
 
+[2026-07-30 21:12:08]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\M0\MSPM0_stepper_test\source\main.c': source file has been changed.
+
+[2026-07-30 21:12:09]	[done]
+	build successfully !
+
+[2026-07-30 21:13:41]	[info] incremental build: 3 source files changed
+These source files will be recompiled
+---
+'d:\M0\MSPM0_stepper_test\source\Hardware\Control\visual_servo.c': dependence 'd:\M0\MSPM0_stepper_test\source\Hardware\Motor\stepper_motor.h' has been changed.
+'d:\M0\MSPM0_stepper_test\source\Hardware\Motor\stepper_motor.c': source file has been changed.
+'d:\M0\MSPM0_stepper_test\source\app\app_key_task.c': dependence 'd:\M0\MSPM0_stepper_test\source\Hardware\Motor\stepper_motor.h' has been changed.
+
+[2026-07-30 21:13:42]	compilation failed at : "d:\M0\MSPM0_stepper_test\source\Hardware\Control\visual_servo.c", exit code: 1
+command: 
+  "C:\Users\22868\.eide\tools\gcc_arm\bin\arm-none-eabi-gcc.exe" -c -xc -std=c11 -I.cmsis/include -Iinclude -Isource -Ilibraries -mcpu=cortex-m0plus -mthumb -O1 -Wall -g -ffunction-sections -fdata-sections -funsigned-char --specs=nosys.specs --specs=nano.specs -D__MSPM0G3507__ -D__USE_SYSCONFIG__ -o ./build/Debug/.obj/source/Hardware/Control/visual_servo.o -MMD ./source/Hardware/Control/visual_servo.c
+   at unify_builder.Program.Main(String[] args_)
+---
+./source/Hardware/Control/visual_servo.c: In function 'Aim_Search':
+./source/Hardware/Control/visual_servo.c:72:5: error: implicit declaration of function 'Pose_GetCmd' [-Wimplicit-function-declaration]
+   72 |     Pose_GetCmd(&cur_pan, &cur_tilt);   // 从当前设定点续扫，不跳回
+      |     ^~~~~~~~~~~
+./source/Hardware/Control/visual_servo.c:78:5: error: implicit declaration of function 'AbsoluteControl' [-Wimplicit-function-declaration]
+   78 |     AbsoluteControl(next, cur_tilt);    // tilt 保持不动，只横扫 pan
+      |     ^~~~~~~~~~~~~~~
+./source/Hardware/Control/visual_servo.c: In function 'Aim_Update':
+./source/Hardware/Control/visual_servo.c:136:5: error: implicit declaration of function 'RelativeControl' [-Wimplicit-function-declaration]
+  136 |     RelativeControl(dpan, dtilt);              // 在软件设定点上相�?jog（带 ±limit 硬保护）
+      |     ^~~~~~~~~~~~~~~
+
+[2026-07-30 22:32:55]	[info] incremental build: 3 source files changed
+These source files will be recompiled
+---
+'d:\M0\MSPM0_stepper_test\source\Hardware\Control\visual_servo.c': dependence 'd:\M0\MSPM0_stepper_test\source\Hardware\Motor\stepper_motor.h' has been changed.
+'d:\M0\MSPM0_stepper_test\source\Hardware\Motor\stepper_motor.c': source file has been changed.
+'d:\M0\MSPM0_stepper_test\source\app\app_key_task.c': dependence 'd:\M0\MSPM0_stepper_test\source\Hardware\Motor\stepper_motor.h' has been changed.
+
+[2026-07-30 22:32:56]	compilation failed at : "d:\M0\MSPM0_stepper_test\source\Hardware\Control\visual_servo.c", exit code: 1
+command: 
+  "C:\Users\22868\.eide\tools\gcc_arm\bin\arm-none-eabi-gcc.exe" -c -xc -std=c11 -I.cmsis/include -Iinclude -Isource -Ilibraries -mcpu=cortex-m0plus -mthumb -O1 -Wall -g -ffunction-sections -fdata-sections -funsigned-char --specs=nosys.specs --specs=nano.specs -D__MSPM0G3507__ -D__USE_SYSCONFIG__ -o ./build/Debug/.obj/source/Hardware/Control/visual_servo.o -MMD ./source/Hardware/Control/visual_servo.c
+   at unify_builder.Program.Main(String[] args_)
+---
+./source/Hardware/Control/visual_servo.c: In function 'Aim_Search':
+./source/Hardware/Control/visual_servo.c:72:5: error: implicit declaration of function 'Pose_GetCmd' [-Wimplicit-function-declaration]
+   72 |     Pose_GetCmd(&cur_pan, &cur_tilt);   // 从当前设定点续扫，不跳回
+      |     ^~~~~~~~~~~
+./source/Hardware/Control/visual_servo.c:78:5: error: implicit declaration of function 'AbsoluteControl' [-Wimplicit-function-declaration]
+   78 |     AbsoluteControl(next, cur_tilt);    // tilt 保持不动，只横扫 pan
+      |     ^~~~~~~~~~~~~~~
+./source/Hardware/Control/visual_servo.c: In function 'Aim_Update':
+./source/Hardware/Control/visual_servo.c:136:5: error: implicit declaration of function 'RelativeControl' [-Wimplicit-function-declaration]
+  136 |     RelativeControl(dpan, dtilt);              // 在软件设定点上相�?jog（带 ±limit 硬保护）
+      |     ^~~~~~~~~~~~~~~
+
+[2026-07-30 22:33:08]	[info] incremental build: 3 source files changed
+These source files will be recompiled
+---
+'d:\M0\MSPM0_stepper_test\source\Hardware\Control\visual_servo.c': source file has been changed.
+'d:\M0\MSPM0_stepper_test\source\Hardware\Motor\stepper_motor.c': source file has been changed.
+'d:\M0\MSPM0_stepper_test\source\app\app_key_task.c': dependence 'd:\M0\MSPM0_stepper_test\source\Hardware\Motor\stepper_motor.h' has been changed.
+
+[2026-07-30 22:33:08]	compilation failed at : "d:\M0\MSPM0_stepper_test\source\Hardware\Motor\stepper_motor.c", exit code: 1
+command: 
+  "C:\Users\22868\.eide\tools\gcc_arm\bin\arm-none-eabi-gcc.exe" -c -xc -std=c11 -I.cmsis/include -Iinclude -Isource -Ilibraries -mcpu=cortex-m0plus -mthumb -O1 -Wall -g -ffunction-sections -fdata-sections -funsigned-char --specs=nosys.specs --specs=nano.specs -D__MSPM0G3507__ -D__USE_SYSCONFIG__ -o ./build/Debug/.obj/source/Hardware/Motor/stepper_motor.o -MMD ./source/Hardware/Motor/stepper_motor.c
+   at unify_builder.Program.Main(String[] args_)
+---
+./source/Hardware/Motor/stepper_motor.c: In function 'LiftMotor_Init':
+./source/Hardware/Motor/stepper_motor.c:116:5: error: too few arguments to function 'Emm_V5_En_Control'; expected 4, have 3
+  116 |     Emm_V5_En_Control(LIFT_MOTOR_ADDR, true, UART_2_INST);
+      |     ^~~~~~~~~~~~~~~~~
+In file included from ./source/Hardware/Motor/stepper_motor.c:1:
+source/Hardware/Motor/42Motor.h:43:6: note: declared here
+   43 | void Emm_V5_En_Control(uint8_t addr, bool state, bool snF,UART_Regs * uart); // 电机使能控制
+      |      ^~~~~~~~~~~~~~~~~
+./source/Hardware/Motor/stepper_motor.c: In function 'LiftMotor_Enable':
+./source/Hardware/Motor/stepper_motor.c:126:5: error: too few arguments to function 'Emm_V5_En_Control'; expected 4, have 3
+  126 |     Emm_V5_En_Control(LIFT_MOTOR_ADDR, enable, UART_2_INST);
+      |     ^~~~~~~~~~~~~~~~~
+source/Hardware/Motor/42Motor.h:43:6: note: declared here
+   43 | void Emm_V5_En_Control(uint8_t addr, bool state, bool snF,UART_Regs * uart); // 电机使能控制
+      |      ^~~~~~~~~~~~~~~~~
+./source/Hardware/Motor/stepper_motor.c: In function 'LiftMotor_MoveRelativePulse':
+./source/Hardware/Motor/stepper_motor.c:176:5: error: too few arguments to function 'Emm_V5_Pos_Control'; expected 8, have 7
+  176 |     Emm_V5_Pos_Control(LIFT_MOTOR_ADDR,
+      |     ^~~~~~~~~~~~~~~~~~
+source/Hardware/Motor/42Motor.h:45:6: note: declared here
+   45 | void Emm_V5_Pos_Control(uint8_t addr, uint8_t dir, uint16_t vel, uint8_t acc, uint32_t clk, bool raF, bool snF,UART_Regs * uart); // 位置模式控制
+      |      ^~~~~~~~~~~~~~~~~~
+./source/Hardware/Motor/stepper_motor.c: In function 'LiftMotor_MoveAbsolutePulse':
+./source/Hardware/Motor/stepper_motor.c:195:5: error: too few arguments to function 'Emm_V5_Pos_Control'; expected 8, have 7
+  195 |     Emm_V5_Pos_Control(LIFT_MOTOR_ADDR,
+      |     ^~~~~~~~~~~~~~~~~~
+source/Hardware/Motor/42Motor.h:45:6: note: declared here
+   45 | void Emm_V5_Pos_Control(uint8_t addr, uint8_t dir, uint16_t vel, uint8_t acc, uint32_t clk, bool raF, bool snF,UART_Regs * uart); // 位置模式控制
+      |      ^~~~~~~~~~~~~~~~~~
+./source/Hardware/Motor/stepper_motor.c: In function 'LiftMotor_Stop':
+./source/Hardware/Motor/stepper_motor.c:210:9: error: too few arguments to function 'Emm_V5_Stop_Now'; expected 3, have 2
+  210 |         Emm_V5_Stop_Now(LIFT_MOTOR_ADDR, UART_2_INST);
+      |         ^~~~~~~~~~~~~~~
+source/Hardware/Motor/42Motor.h:49:6: note: declared here
+   49 | void Emm_V5_Stop_Now(uint8_t addr, bool snF,UART_Regs * uart); // 让电机立即停止运�?      |      ^~~~~~~~~~~~~~~
+
+[2026-07-30 22:33:40]	[info] incremental build: 3 source files changed
+These source files will be recompiled
+---
+'d:\M0\MSPM0_stepper_test\source\Hardware\Control\visual_servo.c': source file has been changed.
+'d:\M0\MSPM0_stepper_test\source\Hardware\Motor\stepper_motor.c': source file has been changed.
+'d:\M0\MSPM0_stepper_test\source\app\app_key_task.c': dependence 'd:\M0\MSPM0_stepper_test\source\Hardware\Motor\stepper_motor.h' has been changed.
+
+[2026-07-30 22:33:40]	compilation failed at : "d:\M0\MSPM0_stepper_test\source\Hardware\Control\visual_servo.c", exit code: 1
+command: 
+  "C:\Users\22868\.eide\tools\gcc_arm\bin\arm-none-eabi-gcc.exe" -c -xc -std=c11 -I.cmsis/include -Iinclude -Isource -Ilibraries -mcpu=cortex-m0plus -mthumb -O1 -Wall -g -ffunction-sections -fdata-sections -funsigned-char --specs=nosys.specs --specs=nano.specs -D__MSPM0G3507__ -D__USE_SYSCONFIG__ -o ./build/Debug/.obj/source/Hardware/Control/visual_servo.o -MMD ./source/Hardware/Control/visual_servo.c
+   at unify_builder.Program.Main(String[] args_)
+---
+./source/Hardware/Control/visual_servo.c: In function 'Aim_Search':
+./source/Hardware/Control/visual_servo.c:72:5: error: implicit declaration of function 'Pose_GetCmd' [-Wimplicit-function-declaration]
+   72 |     Pose_GetCmd(&cur_pan, &cur_tilt);   // 从当前设定点续扫，不跳回
+      |     ^~~~~~~~~~~
+./source/Hardware/Control/visual_servo.c:78:5: error: implicit declaration of function 'AbsoluteControl' [-Wimplicit-function-declaration]
+   78 |     AbsoluteControl(next, cur_tilt);    // tilt 保持不动，只横扫 pan
+      |     ^~~~~~~~~~~~~~~
+./source/Hardware/Control/visual_servo.c: In function 'Aim_Update':
+./source/Hardware/Control/visual_servo.c:136:5: error: implicit declaration of function 'RelativeControl' [-Wimplicit-function-declaration]
+  136 |     RelativeControl(dpan, dtilt);              // 在软件设定点上相�?jog（带 ±limit 硬保护）
+      |     ^~~~~~~~~~~~~~~
+
+[2026-07-30 22:35:09]	[info] incremental build: 3 source files changed
+These source files will be recompiled
+---
+'d:\M0\MSPM0_stepper_test\source\Hardware\Control\visual_servo.c': source file has been changed.
+'d:\M0\MSPM0_stepper_test\source\Hardware\Motor\stepper_motor.c': source file has been changed.
+'d:\M0\MSPM0_stepper_test\source\app\app_key_task.c': dependence 'd:\M0\MSPM0_stepper_test\source\Hardware\Motor\stepper_motor.h' has been changed.
+
+[2026-07-30 22:35:09]	compilation failed at : "d:\M0\MSPM0_stepper_test\source\Hardware\Control\visual_servo.c", exit code: 1
+command: 
+  "C:\Users\22868\.eide\tools\gcc_arm\bin\arm-none-eabi-gcc.exe" -c -xc -std=c11 -I.cmsis/include -Iinclude -Isource -Ilibraries -mcpu=cortex-m0plus -mthumb -O1 -Wall -g -ffunction-sections -fdata-sections -funsigned-char --specs=nosys.specs --specs=nano.specs -D__MSPM0G3507__ -D__USE_SYSCONFIG__ -o ./build/Debug/.obj/source/Hardware/Control/visual_servo.o -MMD ./source/Hardware/Control/visual_servo.c
+   at unify_builder.Program.Main(String[] args_)
+---
+./source/Hardware/Control/visual_servo.c: In function 'Aim_Search':
+./source/Hardware/Control/visual_servo.c:72:5: error: implicit declaration of function 'Pose_GetCmd' [-Wimplicit-function-declaration]
+   72 |     Pose_GetCmd(&cur_pan, &cur_tilt);   // 从当前设定点续扫，不跳回
+      |     ^~~~~~~~~~~
+./source/Hardware/Control/visual_servo.c:78:5: error: implicit declaration of function 'AbsoluteControl' [-Wimplicit-function-declaration]
+   78 |     AbsoluteControl(next, cur_tilt);    // tilt 保持不动，只横扫 pan
+      |     ^~~~~~~~~~~~~~~
+./source/Hardware/Control/visual_servo.c: In function 'Aim_Update':
+./source/Hardware/Control/visual_servo.c:136:5: error: implicit declaration of function 'RelativeControl' [-Wimplicit-function-declaration]
+  136 |     RelativeControl(dpan, dtilt);              // 在软件设定点上相�?jog（带 ±limit 硬保护）
+      |     ^~~~~~~~~~~~~~~
+
+[2026-07-30 22:42:45]	[info] incremental build: 11 source files changed
+These source files will be recompiled
+---
+'d:\M0\MSPM0_stepper_test\source\Hardware\BlueSerial\bsp_hc05.c': dependence 'd:\M0\MSPM0_stepper_test\source\Hardware\Board\board.h' has been changed.
+'d:\M0\MSPM0_stepper_test\source\Hardware\Board\board.c': source file has been changed.
+'d:\M0\MSPM0_stepper_test\source\Hardware\Encoder\Encoder.c': dependence 'd:\M0\MSPM0_stepper_test\source\Hardware\Board\board.h' has been changed.
+'d:\M0\MSPM0_stepper_test\source\Hardware\LCD\lcd.c': dependence 'd:\M0\MSPM0_stepper_test\source\Hardware\Board\board.h' has been changed.
+'d:\M0\MSPM0_stepper_test\source\Hardware\LCD\lcd_init.c': dependence 'd:\M0\MSPM0_stepper_test\source\Hardware\Board\board.h' has been changed.
+'d:\M0\MSPM0_stepper_test\source\Hardware\Motor\stepper_motor.c': source file has been changed.
+'d:\M0\MSPM0_stepper_test\source\Hardware\TB6612\bsp_tb6612.c': dependence 'd:\M0\MSPM0_stepper_test\source\Hardware\Board\board.h' has been changed.
+'d:\M0\MSPM0_stepper_test\source\app\app_irtracking.c': dependence 'd:\M0\MSPM0_stepper_test\source\Hardware\Board\board.h' has been changed.
+'d:\M0\MSPM0_stepper_test\source\app\app_key_task.c': dependence 'd:\M0\MSPM0_stepper_test\source\Hardware\Board\board.h' has been changed.
+'d:\M0\MSPM0_stepper_test\source\app\app_ui.c': dependence 'd:\M0\MSPM0_stepper_test\source\Hardware\Board\board.h' has been changed.
+'d:\M0\MSPM0_stepper_test\source\main.c': dependence 'd:\M0\MSPM0_stepper_test\source\Hardware\Board\board.h' has been changed.
+
+[2026-07-30 22:42:46]	compilation failed at : "d:\M0\MSPM0_stepper_test\source\Hardware\Motor\stepper_motor.c", exit code: 1
+command: 
+  "C:\Users\22868\.eide\tools\gcc_arm\bin\arm-none-eabi-gcc.exe" -c -xc -std=c11 -I.cmsis/include -Iinclude -Isource -Ilibraries -mcpu=cortex-m0plus -mthumb -O1 -Wall -g -ffunction-sections -fdata-sections -funsigned-char --specs=nosys.specs --specs=nano.specs -D__MSPM0G3507__ -D__USE_SYSCONFIG__ -o ./build/Debug/.obj/source/Hardware/Motor/stepper_motor.o -MMD ./source/Hardware/Motor/stepper_motor.c
+   at unify_builder.Program.compileByMulThread(Int32 thrNum, CmdInfo[] cmds_, List`1 errLogs)
+   at unify_builder.Program.Main(String[] args_)
+---
+./source/Hardware/Motor/stepper_motor.c: In function 'LiftMotor_Init':
+./source/Hardware/Motor/stepper_motor.c:116:5: error: too few arguments to function 'Emm_V5_En_Control'; expected 4, have 3
+  116 |     Emm_V5_En_Control(LIFT_MOTOR_ADDR, true, UART_2_INST);
+      |     ^~~~~~~~~~~~~~~~~
+In file included from ./source/Hardware/Motor/stepper_motor.c:1:
+source/Hardware/Motor/42Motor.h:43:6: note: declared here
+   43 | void Emm_V5_En_Control(uint8_t addr, bool state, bool snF,UART_Regs * uart); // 电机使能控制
+      |      ^~~~~~~~~~~~~~~~~
+./source/Hardware/Motor/stepper_motor.c: In function 'LiftMotor_Enable':
+./source/Hardware/Motor/stepper_motor.c:126:5: error: too few arguments to function 'Emm_V5_En_Control'; expected 4, have 3
+  126 |     Emm_V5_En_Control(LIFT_MOTOR_ADDR, enable, UART_2_INST);
+      |     ^~~~~~~~~~~~~~~~~
+source/Hardware/Motor/42Motor.h:43:6: note: declared here
+   43 | void Emm_V5_En_Control(uint8_t addr, bool state, bool snF,UART_Regs * uart); // 电机使能控制
+      |      ^~~~~~~~~~~~~~~~~
+./source/Hardware/Motor/stepper_motor.c: In function 'LiftMotor_MoveRelativePulse':
+./source/Hardware/Motor/stepper_motor.c:176:5: error: too few arguments to function 'Emm_V5_Pos_Control'; expected 8, have 7
+  176 |     Emm_V5_Pos_Control(LIFT_MOTOR_ADDR,
+      |     ^~~~~~~~~~~~~~~~~~
+source/Hardware/Motor/42Motor.h:45:6: note: declared here
+   45 | void Emm_V5_Pos_Control(uint8_t addr, uint8_t dir, uint16_t vel, uint8_t acc, uint32_t clk, bool raF, bool snF,UART_Regs * uart); // 位置模式控制
+      |      ^~~~~~~~~~~~~~~~~~
+./source/Hardware/Motor/stepper_motor.c: In function 'LiftMotor_MoveAbsolutePulse':
+./source/Hardware/Motor/stepper_motor.c:195:5: error: too few arguments to function 'Emm_V5_Pos_Control'; expected 8, have 7
+  195 |     Emm_V5_Pos_Control(LIFT_MOTOR_ADDR,
+      |     ^~~~~~~~~~~~~~~~~~
+source/Hardware/Motor/42Motor.h:45:6: note: declared here
+   45 | void Emm_V5_Pos_Control(uint8_t addr, uint8_t dir, uint16_t vel, uint8_t acc, uint32_t clk, bool raF, bool snF,UART_Regs * uart); // 位置模式控制
+      |      ^~~~~~~~~~~~~~~~~~
+./source/Hardware/Motor/stepper_motor.c: In function 'LiftMotor_Stop':
+./source/Hardware/Motor/stepper_motor.c:210:9: error: too few arguments to function 'Emm_V5_Stop_Now'; expected 3, have 2
+  210 |         Emm_V5_Stop_Now(LIFT_MOTOR_ADDR, UART_2_INST);
+      |         ^~~~~~~~~~~~~~~
+source/Hardware/Motor/42Motor.h:49:6: note: declared here
+   49 | void Emm_V5_Stop_Now(uint8_t addr, bool snF,UART_Regs * uart); // 让电机立即停止运�?      |      ^~~~~~~~~~~~~~~
+
+[2026-07-30 22:45:38]	[info] incremental build: 4 source files changed
+These source files will be recompiled
+---
+'d:\M0\MSPM0_stepper_test\source\Hardware\Motor\stepper_motor.c': source file has been changed.
+'d:\M0\MSPM0_stepper_test\source\app\app_key_task.c': dependence 'd:\M0\MSPM0_stepper_test\source\Hardware\Board\board.h' has been changed.
+'d:\M0\MSPM0_stepper_test\source\app\app_ui.c': dependence 'd:\M0\MSPM0_stepper_test\source\Hardware\Board\board.h' has been changed.
+'d:\M0\MSPM0_stepper_test\source\main.c': dependence 'd:\M0\MSPM0_stepper_test\source\Hardware\Board\board.h' has been changed.
+
+[2026-07-30 22:45:39]	[done]
+	build successfully !
+
+[2026-07-30 22:47:04]	[done]
+	build successfully !
+
+[2026-07-30 23:59:59]	[info] incremental build: 2 source files changed
+These source files will be recompiled
+---
+'d:\M0\MSPM0_stepper_test\source\Hardware\Motor\stepper_motor.c': source file has been changed.
+'d:\M0\MSPM0_stepper_test\source\app\app_key_task.c': dependence 'd:\M0\MSPM0_stepper_test\source\Hardware\Motor\stepper_motor.h' has been changed.
+
+[2026-07-31 00:00:00]	[done]
+	build successfully !
+
+[2026-07-31 00:07:51]	[done]
+	build successfully !
+
+[2026-07-31 00:08:22]	[done]
+	build successfully !
+
+[2026-07-31 00:21:33]	[done]
+	build successfully !
+
+[2026-07-31 00:25:33]	[done]
+	build successfully !
+
+[2026-07-31 00:26:29]	[done]
+	build successfully !
+
+[2026-07-31 00:32:56]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\M0\MSPM0_stepper_test\source\app\app_key_task.c': source file has been changed.
+
+[2026-07-31 00:32:57]	[done]
+	build successfully !
+
+[2026-07-31 00:33:39]	[done]
+	build successfully !
+
+[2026-07-31 00:38:26]	[done]
+	build successfully !
+
+[2026-07-31 00:40:00]	[done]
+	build successfully !
+
+[2026-07-31 00:41:10]	[done]
+	build successfully !
+
+[2026-07-31 00:41:22]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\M0\MSPM0_stepper_test\source\app\app_key_task.c': source file has been changed.
+
+[2026-07-31 00:41:23]	[done]
+	build successfully !
+
+[2026-07-31 00:49:59]	[done]
+	build successfully !
+
+[2026-07-31 00:50:06]	[done]
+	build successfully !
+
+[2026-07-31 01:09:01]	[info] incremental build: 3 source files changed
+These source files will be recompiled
+---
+'d:\M0\MSPM0_stepper_test\source\Hardware\Motor\stepper_motor.c': dependence 'd:\M0\MSPM0_stepper_test\source\Hardware\Motor\stepper_motor.h' has been changed.
+'d:\M0\MSPM0_stepper_test\source\app\app_key_task.c': dependence 'd:\M0\MSPM0_stepper_test\source\Hardware\Motor\stepper_motor.h' has been changed.
+'d:\M0\MSPM0_stepper_test\source\main.c': dependence 'd:\M0\MSPM0_stepper_test\source\Hardware\Motor\stepper_motor.h' has been changed.
+
+[2026-07-31 01:09:03]	[done]
+	build successfully !
+
+[2026-07-31 01:09:18]	[done]
+	build successfully !
+
+[2026-07-31 01:11:56]	[done]
+	build successfully !
+
+[2026-07-31 01:14:53]	[done]
+	build successfully !
+
+[2026-07-31 01:15:13]	[done]
+	build successfully !
+
+[2026-07-31 01:18:09]	[done]
+	build successfully !
+
+[2026-07-31 01:18:18]	[done]
+	build successfully !
+
+[2026-07-31 01:18:26]	[done]
+	build successfully !
+
+[2026-07-31 01:19:29]	[done]
+	build successfully !
+
+[2026-07-31 01:39:51]	[done]
+	build successfully !
+
+[2026-07-31 01:53:33]	[info] incremental build: 3 source files changed
+These source files will be recompiled
+---
+'d:\M0\MSPM0_stepper_test\source\Hardware\Motor\stepper_motor.c': dependence 'd:\M0\MSPM0_stepper_test\source\Hardware\Motor\stepper_motor.h' has been changed.
+'d:\M0\MSPM0_stepper_test\source\app\app_key_task.c': dependence 'd:\M0\MSPM0_stepper_test\source\Hardware\Motor\stepper_motor.h' has been changed.
+'d:\M0\MSPM0_stepper_test\source\main.c': dependence 'd:\M0\MSPM0_stepper_test\source\Hardware\Motor\stepper_motor.h' has been changed.
+
+[2026-07-31 01:53:35]	[done]
+	build successfully !
+
+[2026-07-31 01:54:32]	[info] incremental build: 3 source files changed
+These source files will be recompiled
+---
+'d:\M0\MSPM0_stepper_test\source\Hardware\Motor\stepper_motor.c': dependence 'd:\M0\MSPM0_stepper_test\source\Hardware\Motor\stepper_motor.h' has been changed.
+'d:\M0\MSPM0_stepper_test\source\app\app_key_task.c': dependence 'd:\M0\MSPM0_stepper_test\source\Hardware\Motor\stepper_motor.h' has been changed.
+'d:\M0\MSPM0_stepper_test\source\main.c': dependence 'd:\M0\MSPM0_stepper_test\source\Hardware\Motor\stepper_motor.h' has been changed.
+
+[2026-07-31 01:54:34]	[done]
+	build successfully !
+
+[2026-07-31 01:55:15]	[info] incremental build: 3 source files changed
+These source files will be recompiled
+---
+'d:\M0\MSPM0_stepper_test\source\Hardware\Motor\stepper_motor.c': dependence 'd:\M0\MSPM0_stepper_test\source\Hardware\Motor\stepper_motor.h' has been changed.
+'d:\M0\MSPM0_stepper_test\source\app\app_key_task.c': dependence 'd:\M0\MSPM0_stepper_test\source\Hardware\Motor\stepper_motor.h' has been changed.
+'d:\M0\MSPM0_stepper_test\source\main.c': dependence 'd:\M0\MSPM0_stepper_test\source\Hardware\Motor\stepper_motor.h' has been changed.
+
+[2026-07-31 01:55:17]	[done]
+	build successfully !
+
+[2026-07-31 01:55:40]	[done]
+	build successfully !
+
+[2026-07-31 01:56:04]	[done]
+	build successfully !
+
+[2026-07-31 02:01:04]	[info] incremental build: 3 source files changed
+These source files will be recompiled
+---
+'d:\M0\MSPM0_stepper_test\source\Hardware\Motor\stepper_motor.c': dependence 'd:\M0\MSPM0_stepper_test\source\Hardware\Motor\stepper_motor.h' has been changed.
+'d:\M0\MSPM0_stepper_test\source\app\app_key_task.c': dependence 'd:\M0\MSPM0_stepper_test\source\Hardware\Motor\stepper_motor.h' has been changed.
+'d:\M0\MSPM0_stepper_test\source\main.c': dependence 'd:\M0\MSPM0_stepper_test\source\Hardware\Motor\stepper_motor.h' has been changed.
+
+[2026-07-31 02:01:06]	[done]
+	build successfully !
+
+[2026-07-31 02:01:44]	[info] incremental build: 3 source files changed
+These source files will be recompiled
+---
+'d:\M0\MSPM0_stepper_test\source\Hardware\Motor\stepper_motor.c': dependence 'd:\M0\MSPM0_stepper_test\source\Hardware\Motor\stepper_motor.h' has been changed.
+'d:\M0\MSPM0_stepper_test\source\app\app_key_task.c': dependence 'd:\M0\MSPM0_stepper_test\source\Hardware\Motor\stepper_motor.h' has been changed.
+'d:\M0\MSPM0_stepper_test\source\main.c': dependence 'd:\M0\MSPM0_stepper_test\source\Hardware\Motor\stepper_motor.h' has been changed.
+
+[2026-07-31 02:01:46]	[done]
+	build successfully !
+
+[2026-07-31 02:02:55]	[info] incremental build: 3 source files changed
+These source files will be recompiled
+---
+'d:\M0\MSPM0_stepper_test\source\Hardware\Motor\stepper_motor.c': dependence 'd:\M0\MSPM0_stepper_test\source\Hardware\Motor\stepper_motor.h' has been changed.
+'d:\M0\MSPM0_stepper_test\source\app\app_key_task.c': dependence 'd:\M0\MSPM0_stepper_test\source\Hardware\Motor\stepper_motor.h' has been changed.
+'d:\M0\MSPM0_stepper_test\source\main.c': dependence 'd:\M0\MSPM0_stepper_test\source\Hardware\Motor\stepper_motor.h' has been changed.
+
+[2026-07-31 02:02:57]	[done]
+	build successfully !
+
+[2026-07-31 02:04:06]	[info] incremental build: 3 source files changed
+These source files will be recompiled
+---
+'d:\M0\MSPM0_stepper_test\source\Hardware\Motor\stepper_motor.c': dependence 'd:\M0\MSPM0_stepper_test\source\Hardware\Motor\stepper_motor.h' has been changed.
+'d:\M0\MSPM0_stepper_test\source\app\app_key_task.c': dependence 'd:\M0\MSPM0_stepper_test\source\Hardware\Motor\stepper_motor.h' has been changed.
+'d:\M0\MSPM0_stepper_test\source\main.c': dependence 'd:\M0\MSPM0_stepper_test\source\Hardware\Motor\stepper_motor.h' has been changed.
+
+[2026-07-31 02:04:08]	[done]
+	build successfully !
+
+[2026-07-31 02:04:36]	[done]
+	build successfully !
+
+[2026-07-31 02:06:14]	[done]
+	build successfully !
+
+[2026-07-31 02:06:33]	[done]
+	build successfully !
+
+[2026-07-31 02:07:07]	[info] incremental build: 3 source files changed
+These source files will be recompiled
+---
+'d:\M0\MSPM0_stepper_test\source\Hardware\Motor\stepper_motor.c': dependence 'd:\M0\MSPM0_stepper_test\source\Hardware\Motor\stepper_motor.h' has been changed.
+'d:\M0\MSPM0_stepper_test\source\app\app_key_task.c': dependence 'd:\M0\MSPM0_stepper_test\source\Hardware\Motor\stepper_motor.h' has been changed.
+'d:\M0\MSPM0_stepper_test\source\main.c': dependence 'd:\M0\MSPM0_stepper_test\source\Hardware\Motor\stepper_motor.h' has been changed.
+
+[2026-07-31 02:07:08]	[done]
+	build successfully !
+
+[2026-07-31 02:07:34]	[info] incremental build: 3 source files changed
+These source files will be recompiled
+---
+'d:\M0\MSPM0_stepper_test\source\Hardware\Motor\stepper_motor.c': dependence 'd:\M0\MSPM0_stepper_test\source\Hardware\Motor\stepper_motor.h' has been changed.
+'d:\M0\MSPM0_stepper_test\source\app\app_key_task.c': dependence 'd:\M0\MSPM0_stepper_test\source\Hardware\Motor\stepper_motor.h' has been changed.
+'d:\M0\MSPM0_stepper_test\source\main.c': dependence 'd:\M0\MSPM0_stepper_test\source\Hardware\Motor\stepper_motor.h' has been changed.
+
+[2026-07-31 02:07:35]	[done]
+	build successfully !
+
+[2026-07-31 02:09:50]	[info] incremental build: 3 source files changed
+These source files will be recompiled
+---
+'d:\M0\MSPM0_stepper_test\source\Hardware\Motor\stepper_motor.c': dependence 'd:\M0\MSPM0_stepper_test\source\Hardware\Motor\stepper_motor.h' has been changed.
+'d:\M0\MSPM0_stepper_test\source\app\app_key_task.c': dependence 'd:\M0\MSPM0_stepper_test\source\Hardware\Motor\stepper_motor.h' has been changed.
+'d:\M0\MSPM0_stepper_test\source\main.c': dependence 'd:\M0\MSPM0_stepper_test\source\Hardware\Motor\stepper_motor.h' has been changed.
+
+[2026-07-31 02:09:51]	[done]
+	build successfully !
+
+[2026-07-31 02:10:17]	[info] incremental build: 3 source files changed
+These source files will be recompiled
+---
+'d:\M0\MSPM0_stepper_test\source\Hardware\Motor\stepper_motor.c': dependence 'd:\M0\MSPM0_stepper_test\source\Hardware\Motor\stepper_motor.h' has been changed.
+'d:\M0\MSPM0_stepper_test\source\app\app_key_task.c': dependence 'd:\M0\MSPM0_stepper_test\source\Hardware\Motor\stepper_motor.h' has been changed.
+'d:\M0\MSPM0_stepper_test\source\main.c': dependence 'd:\M0\MSPM0_stepper_test\source\Hardware\Motor\stepper_motor.h' has been changed.
+
+[2026-07-31 02:10:18]	[done]
+	build successfully !
+
+[2026-07-31 02:10:32]	[done]
+	build successfully !
+
+[2026-07-31 02:10:56]	[info] incremental build: 3 source files changed
+These source files will be recompiled
+---
+'d:\M0\MSPM0_stepper_test\source\Hardware\Motor\stepper_motor.c': dependence 'd:\M0\MSPM0_stepper_test\source\Hardware\Motor\stepper_motor.h' has been changed.
+'d:\M0\MSPM0_stepper_test\source\app\app_key_task.c': dependence 'd:\M0\MSPM0_stepper_test\source\Hardware\Motor\stepper_motor.h' has been changed.
+'d:\M0\MSPM0_stepper_test\source\main.c': dependence 'd:\M0\MSPM0_stepper_test\source\Hardware\Motor\stepper_motor.h' has been changed.
+
+[2026-07-31 02:10:57]	[done]
+	build successfully !
+
+[2026-07-31 02:11:03]	[done]
+	build successfully !
+
+[2026-07-31 02:11:26]	[done]
+	build successfully !
+
+[2026-07-31 02:15:20]	[done]
+	build successfully !
+
+[2026-07-31 02:16:23]	[info] incremental build: 3 source files changed
+These source files will be recompiled
+---
+'d:\M0\MSPM0_stepper_test\source\Hardware\Motor\stepper_motor.c': dependence 'd:\M0\MSPM0_stepper_test\source\Hardware\Motor\stepper_motor.h' has been changed.
+'d:\M0\MSPM0_stepper_test\source\app\app_key_task.c': dependence 'd:\M0\MSPM0_stepper_test\source\Hardware\Motor\stepper_motor.h' has been changed.
+'d:\M0\MSPM0_stepper_test\source\main.c': dependence 'd:\M0\MSPM0_stepper_test\source\Hardware\Motor\stepper_motor.h' has been changed.
+
+[2026-07-31 02:16:24]	[done]
+	build successfully !
+
+[2026-07-31 02:21:40]	[done]
+	build successfully !
+
+[2026-07-31 02:27:02]	[done]
+	build successfully !
+
+[2026-07-31 02:36:32]	[done]
+	build successfully !
+
+[2026-07-31 02:42:55]	[info] incremental build: 3 source files changed
+These source files will be recompiled
+---
+'d:\M0\MSPM0_stepper_test\source\Hardware\Motor\stepper_motor.c': dependence 'd:\M0\MSPM0_stepper_test\source\Hardware\Motor\stepper_motor.h' has been changed.
+'d:\M0\MSPM0_stepper_test\source\app\app_key_task.c': dependence 'd:\M0\MSPM0_stepper_test\source\Hardware\Motor\stepper_motor.h' has been changed.
+'d:\M0\MSPM0_stepper_test\source\main.c': dependence 'd:\M0\MSPM0_stepper_test\source\Hardware\Motor\stepper_motor.h' has been changed.
+
+[2026-07-31 02:42:56]	[done]
+	build successfully !
+
+[2026-07-31 02:43:09]	[done]
+	build successfully !
+
+[2026-07-31 02:48:08]	[info] incremental build: 3 source files changed
+These source files will be recompiled
+---
+'d:\M0\MSPM0_stepper_test\source\Hardware\Motor\stepper_motor.c': dependence 'd:\M0\MSPM0_stepper_test\source\Hardware\Motor\stepper_motor.h' has been changed.
+'d:\M0\MSPM0_stepper_test\source\app\app_key_task.c': dependence 'd:\M0\MSPM0_stepper_test\source\Hardware\Motor\stepper_motor.h' has been changed.
+'d:\M0\MSPM0_stepper_test\source\main.c': dependence 'd:\M0\MSPM0_stepper_test\source\Hardware\Motor\stepper_motor.h' has been changed.
+
+[2026-07-31 02:48:09]	[done]
+	build successfully !
+
+[2026-07-31 02:48:22]	[done]
+	build successfully !
+
+[2026-07-31 02:49:19]	[info] incremental build: 3 source files changed
+These source files will be recompiled
+---
+'d:\M0\MSPM0_stepper_test\source\Hardware\Motor\stepper_motor.c': dependence 'd:\M0\MSPM0_stepper_test\source\Hardware\Motor\stepper_motor.h' has been changed.
+'d:\M0\MSPM0_stepper_test\source\app\app_key_task.c': dependence 'd:\M0\MSPM0_stepper_test\source\Hardware\Motor\stepper_motor.h' has been changed.
+'d:\M0\MSPM0_stepper_test\source\main.c': dependence 'd:\M0\MSPM0_stepper_test\source\Hardware\Motor\stepper_motor.h' has been changed.
+
+[2026-07-31 02:49:20]	[done]
+	build successfully !
+
+[2026-07-31 02:49:24]	[done]
+	build successfully !
+
+[2026-07-31 02:50:29]	[info] incremental build: 3 source files changed
+These source files will be recompiled
+---
+'d:\M0\MSPM0_stepper_test\source\Hardware\Motor\stepper_motor.c': dependence 'd:\M0\MSPM0_stepper_test\source\Hardware\Motor\stepper_motor.h' has been changed.
+'d:\M0\MSPM0_stepper_test\source\app\app_key_task.c': dependence 'd:\M0\MSPM0_stepper_test\source\Hardware\Motor\stepper_motor.h' has been changed.
+'d:\M0\MSPM0_stepper_test\source\main.c': dependence 'd:\M0\MSPM0_stepper_test\source\Hardware\Motor\stepper_motor.h' has been changed.
+
+[2026-07-31 02:50:30]	[done]
+	build successfully !
+
+[2026-07-31 02:51:16]	[info] incremental build: 3 source files changed
+These source files will be recompiled
+---
+'d:\M0\MSPM0_stepper_test\source\Hardware\Motor\stepper_motor.c': dependence 'd:\M0\MSPM0_stepper_test\source\Hardware\Motor\stepper_motor.h' has been changed.
+'d:\M0\MSPM0_stepper_test\source\app\app_key_task.c': dependence 'd:\M0\MSPM0_stepper_test\source\Hardware\Motor\stepper_motor.h' has been changed.
+'d:\M0\MSPM0_stepper_test\source\main.c': dependence 'd:\M0\MSPM0_stepper_test\source\Hardware\Motor\stepper_motor.h' has been changed.
+
+[2026-07-31 02:51:17]	[done]
+	build successfully !
+
+[2026-07-31 02:51:34]	[done]
+	build successfully !
+
+[2026-07-31 02:51:55]	[info] incremental build: 3 source files changed
+These source files will be recompiled
+---
+'d:\M0\MSPM0_stepper_test\source\Hardware\Motor\stepper_motor.c': dependence 'd:\M0\MSPM0_stepper_test\source\Hardware\Motor\stepper_motor.h' has been changed.
+'d:\M0\MSPM0_stepper_test\source\app\app_key_task.c': dependence 'd:\M0\MSPM0_stepper_test\source\Hardware\Motor\stepper_motor.h' has been changed.
+'d:\M0\MSPM0_stepper_test\source\main.c': dependence 'd:\M0\MSPM0_stepper_test\source\Hardware\Motor\stepper_motor.h' has been changed.
+
+[2026-07-31 02:51:57]	[done]
+	build successfully !
+
+[2026-07-31 02:52:02]	[done]
+	build successfully !
+
+[2026-07-31 02:56:24]	[done]
+	build successfully !
+
+[2026-07-31 03:01:41]	[done]
+	build successfully !
+
+[2026-07-31 03:20:33]	[done]
+	build successfully !
+
+[2026-07-31 03:24:36]	[info] incremental build: 3 source files changed
+These source files will be recompiled
+---
+'d:\M0\MSPM0_stepper_test\source\Hardware\Motor\stepper_motor.c': dependence 'd:\M0\MSPM0_stepper_test\source\Hardware\Motor\stepper_motor.h' has been changed.
+'d:\M0\MSPM0_stepper_test\source\app\app_key_task.c': dependence 'd:\M0\MSPM0_stepper_test\source\Hardware\Motor\stepper_motor.h' has been changed.
+'d:\M0\MSPM0_stepper_test\source\main.c': dependence 'd:\M0\MSPM0_stepper_test\source\Hardware\Motor\stepper_motor.h' has been changed.
+
+[2026-07-31 03:24:37]	[done]
+	build successfully !
+
+[2026-07-31 03:25:09]	[info] incremental build: 3 source files changed
+These source files will be recompiled
+---
+'d:\M0\MSPM0_stepper_test\source\Hardware\Motor\stepper_motor.c': dependence 'd:\M0\MSPM0_stepper_test\source\Hardware\Motor\stepper_motor.h' has been changed.
+'d:\M0\MSPM0_stepper_test\source\app\app_key_task.c': dependence 'd:\M0\MSPM0_stepper_test\source\Hardware\Motor\stepper_motor.h' has been changed.
+'d:\M0\MSPM0_stepper_test\source\main.c': dependence 'd:\M0\MSPM0_stepper_test\source\Hardware\Motor\stepper_motor.h' has been changed.
+
+[2026-07-31 03:25:10]	[done]
+	build successfully !
+
+[2026-07-31 03:38:47]	[done]
+	build successfully !
+
+[2026-07-31 03:50:42]	[done]
+	build successfully !
+
+[2026-07-31 04:01:23]	[done]
+	build successfully !
+
+[2026-07-31 05:06:40]	[done]
+	build successfully !
+

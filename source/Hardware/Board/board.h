@@ -72,48 +72,15 @@ void delay_1us(int __us);
  */
 void delay_1ms(int __ms);
 
-/* ================ UART1 接口函数 =================== */
-
-/**
- * @brief 初始化 UART1 并使能接收中断。
- */
-void uart1_init(void);
-
-/**
- * @brief 通过 UART1 阻塞发送一个字节。
- */
-void uart1_sendChar(uint8_t dat);
-
-/**
- * @brief 通过 UART1 发送以 \0 结尾的字符串。
- */
-void uart1_sendString(char* str);
-
-/** @brief UART1 接收缓冲区 */
-extern volatile uint8_t uart1_rx_buffer[256];
-/** @brief UART1 接收数据长度 */
-extern volatile uint16_t uart1_rx_len;
-
-extern volatile uint8_t uart1_rx_flag;
-/** @brief 最近一次收到的原始数据包（8 数据字节 + 1 校验和） */
-extern volatile uint8_t uart1_rx_raw[9];
-/** @brief 新原始数据包标志 */
-extern volatile uint8_t uart1_rx_raw_flag;
-
 extern volatile uint32_t Tick;
 void Tick_delay(uint32_t t);
 void Tick_SysTickCallback(void);
 void SysTick_Handler(void);
 
-/* ── UART1 ISR 诊断计数器 ── */
-extern volatile uint16_t uart1_diag_sync;       /* 收到 0xFF 的次数 */
-extern volatile uint16_t uart1_diag_frame_ok;   /* 完整帧解析成功次数 */
-extern volatile uint16_t uart1_diag_st2_fail;   /* state2 失败次数（缺 0x0D） */
-void UART1_GetParsedData(uint16_t *cmd, uint16_t *task, int16_t *bias_x, int16_t *bias_y);
-
 void uart2_init(void);
 void uart3_init(void);
 
+/* UART1 已弃用（原云台 Jetson 通信），保留声明以通过链接。 */
 void UART1_IRQHandler(void);
 void UART2_IRQHandler(void);
 void UART3_IRQHandler(void);

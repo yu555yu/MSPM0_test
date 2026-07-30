@@ -39,7 +39,8 @@ _Min_Stack_Size = 0x80; /* required amount of stack */
 /* Specify the memory areas */
 MEMORY
 {
-    FLASH           (RX)  : ORIGIN = 0x00000000, LENGTH = 0x00020000
+    FLASH           (RX)  : ORIGIN = 0x00000000, LENGTH = 0x0001FC00
+    LIFT_CONFIG     (R)   : ORIGIN = 0x0001FC00, LENGTH = 0x00000400
     SRAM            (RWX) : ORIGIN = 0x20200000, LENGTH = 0x00008000
     BCR_CONFIG      (R)   : ORIGIN = 0x41C00000, LENGTH = 0x000000FF
     BSL_CONFIG      (R)   : ORIGIN = 0x41C00100, LENGTH = 0x00000080
@@ -198,4 +199,5 @@ SECTIONS
 
     __StackTop = ORIGIN(REGION_STACK) + LENGTH(REGION_STACK);
     PROVIDE(__stack = __StackTop);
+    PROVIDE(__lift_config_start__ = ORIGIN(LIFT_CONFIG));
 }
