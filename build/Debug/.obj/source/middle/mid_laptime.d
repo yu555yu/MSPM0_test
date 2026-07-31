@@ -1,7 +1,7 @@
-build/Debug/.obj/source/Hardware/Motor/stepper_motor.o: \
- source/Hardware/Motor/stepper_motor.c source/Hardware/Motor/42Motor.h \
- source/ti_msp_dl_config.h libraries/ti/devices/msp/msp.h \
- libraries/ti/devices/DeviceFamily.h \
+build/Debug/.obj/source/middle/mid_laptime.o: source/middle/mid_laptime.c \
+ source/middle/mid_laptime.h source/Hardware/LCD/lcd.h \
+ source/Hardware/Board/board.h source/ti_msp_dl_config.h \
+ libraries/ti/devices/msp/msp.h libraries/ti/devices/DeviceFamily.h \
  libraries/ti/devices/msp/m0p/mspm0g350x.h .cmsis/include/core_cm0plus.h \
  .cmsis/include/cmsis_version.h .cmsis/include/cmsis_compiler.h \
  .cmsis/include/cmsis_gcc.h .cmsis/include/mpu_armv7.h \
@@ -55,5 +55,4 @@ build/Debug/.obj/source/Hardware/Motor/stepper_motor.o: \
  libraries/ti/driverlib/dl_uart.h libraries/ti/driverlib/dl_uart_main.h \
  libraries/ti/driverlib/dl_vref.h libraries/ti/driverlib/dl_wwdt.h \
  libraries/ti/driverlib/m0p/dl_interrupt.h \
- libraries/ti/driverlib/m0p/dl_systick.h \
- source/Hardware/Motor/stepper_motor.h
+ libraries/ti/driverlib/m0p/dl_systick.h

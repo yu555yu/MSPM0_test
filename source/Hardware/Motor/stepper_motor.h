@@ -9,24 +9,21 @@
 #define LIFT_MOTOR_PULSES_PER_REV       3200U
 
 #define LIFT_MOTOR_BUTTON_STEP_MM       4.0f
-#define LIFT_BALL_TILT_MM               4.0f
-#define LIFT_BALL_TO_PLUS_TIME_MS       1100U
-#define LIFT_BALL_TO_MINUS_TIME_MS      900U
-#define LIFT_BALL_BRAKE_MM              4.0f
-#define LIFT_BALL_BRAKE_TIME_MS         300U
-#define LIFT_BALL_RETURN_SETTLE_MS      200U
+
+/* 本次机械响应测试以人工记录的平衡点为中心，所有运动统一限制在+-24mm。 */
+#define LIFT_MOTOR_LIMIT_MM             24.0f
+#define LIFT_MOTOR_LIMIT_PULSE          6400
 
 /* 当前使用临时调试；以后更换电机地址只改这一处。 */
 #define LIFT_MOTOR_ADDR                 0x01U
 
-/* Emm_V5硬件规格为3000RPM+；比赛机构在实测前先限制到1000RPM。
+/* Emm_V5硬件规格为3000RPM+；比赛机构在实测前先限制到1000RPM。 
 
    硬件配置参数(我感觉还需要一些参数控制,有必要吗感觉速度很重要)
 */
-#define LIFT_MOTOR_DEFAULT_RPM          300U
+#define LIFT_MOTOR_DEFAULT_RPM          350U
 #define LIFT_MOTOR_MAX_RPM             1000U
-#define LIFT_MOTOR_DEFAULT_ACC          100U
-#define LIFT_MOTOR_STATUS_MAX_REQUESTS  20U
+#define LIFT_MOTOR_DEFAULT_ACC          180U
 
 /* 抬升方向判断标志位 */
 #define LIFT_MOTOR_DIRECTION_INVERT      0U
@@ -34,38 +31,8 @@
 //判断位
 extern volatile bool if_return_balance;
 extern volatile bool if_recore_balance;
-extern volatile bool if_ball_open_loop_start;
+extern volatile bool if_lift_up_test;
 extern volatile bool if_lift_down_test;
-
-typedef enum
-{
-    LIFT_STARTUP_NOT_INITIALIZED = 0,
-    LIFT_STARTUP_WAIT_STATUS,
-    LIFT_STARTUP_READY,
-    LIFT_STARTUP_ENABLE_SENT,
-    LIFT_STARTUP_NO_RX,
-    LIFT_STARTUP_INVALID_RX,
-    LIFT_STARTUP_ENABLE_FAILED,
-} LiftMotorStartupState;
-
-typedef enum
-{
-    LIFT_BALL_TASK_IDLE = 0,
-    LIFT_BALL_TASK_TO_PLUS,
-    LIFT_BALL_TASK_TO_MINUS,
-    LIFT_BALL_TASK_BRAKE,
-    LIFT_BALL_TASK_RETURN_ZERO,
-} LiftBallTaskState;
-
-typedef enum
-{
-    LIFT_BALL_RESULT_NONE = 0,
-    LIFT_BALL_RESULT_RUNNING,
-    LIFT_BALL_RESULT_COMPLETED,
-    LIFT_BALL_RESULT_REJECTED,
-    LIFT_BALL_RESULT_COMMAND_FAILED,
-    LIFT_BALL_RESULT_CANCELED,
-} LiftBallTaskResult;
 
 typedef struct
 {
@@ -81,12 +48,11 @@ typedef struct
     uint32_t flags_update_count;    /* 用于确认UART状态回包持续更新 */
     uint32_t rx_byte_count;         /* UART2收到的全部原始字节，不要求协议正确 */
     uint32_t action_count;          /* 主循环实际处理的按键动作次数 */
+    uint32_t command_reply_count;   /* 驱动器对使能、清零、运动命令的应答次数 */
     uint8_t last_rx_byte;
     uint8_t last_action;            /* 1记录、2恢复、3上升1mm、4下降1mm */
-    uint16_t status_request_count;  /* 启动阶段已发送的 S_FLAG 查询次数 */
-    uint8_t startup_state;          /* LiftMotorStartupState：通信与使能诊断结果 */
-    uint8_t ball_task_state;        /* LiftBallTaskState：开环小球任务阶段 */
-    uint8_t ball_task_result;       /* LiftBallTaskResult：最近一次任务结果 */
+    uint8_t last_command_reply;     /* 最近应答的功能码：0xF3/0x0A/0xFD */
+    uint8_t last_command_status;    /* 最近命令应答状态字节，用于J-Link诊断 */
 } LiftMotorState;
 
 /* 只调用一次：开启UART接收并使能单个Emm_V5电机，不自动运动或写零点。 */
@@ -115,11 +81,11 @@ bool LiftMotor_Ctrl(float height);
 
 /* 按键中断只置请求位；主循环调用本函数执行UART命令。 */
 void LiftMotor_Task(void);
-/* 在10ms定时器中断中调用，只累加开环任务时基，不执行UART操作。 */
-void LiftMotor_Tick10ms(void);
 
 /* 每次调用交替请求位置和状态，回包由UART2中断异步解析。 */
 //懒得看了兄弟,你评估一下会不会阻塞,能不能快速响应,有什么改进空间和遗留问题
 void LiftMotor_RequestState(void);
+void LiftMotor_RequestPosition(void);
+void LiftMotor_RequestFlags(void);
 
 #endif

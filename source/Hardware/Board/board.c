@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdarg.h>
 #include "Hardware/User/User.h"
+#include "CTRL/Jetson/serial_ctrl.h"
 #include "board.h"
 #include "ti/driverlib/m0p/dl_core.h"
 
@@ -92,5 +93,18 @@ void Tick_SysTickCallback(void) {
  */
 void UART1_IRQHandler(void)
 {
+    switch (DL_UART_Main_getPendingInterrupt(UART_1_INST))
+    {
+        case DL_UART_MAIN_IIDX_RX:
+            while (!DL_UART_Main_isRXFIFOEmpty(UART_1_INST))
+            {
+                Serial_RxByteISR(
+                    DL_UART_Main_receiveData(UART_1_INST));
+            }
+            break;
+
+        default:
+            break;
+    }
 }
 

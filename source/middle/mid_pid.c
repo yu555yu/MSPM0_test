@@ -57,3 +57,45 @@ void PID_Update(PID_t *p)
 	p->Actual1 = p->Actual;
 }
 
+void PID_UpdateWithRate(PID_t *p, float actual_rate, float dt_s)
+{
+	p->Error1 = p->Error0;
+	p->Error0 = p->Target - p->Actual;
+
+	if (p->Ki != 0.0f)
+	{
+		p->ErrorInt += p->Error0 * dt_s;
+		if (p->ErrorInt > p->ErrorIntMax)
+		{
+			p->ErrorInt = p->ErrorIntMax;
+		}
+		if (p->ErrorInt < p->ErrorIntMin)
+		{
+			p->ErrorInt = p->ErrorIntMin;
+		}
+	}
+	else
+	{
+		p->ErrorInt = 0.0f;
+	}
+
+	/*
+	 * actual_rate has the same sign as Actual:
+	 * moving toward +position produces a negative damping term.
+	 */
+	p->Out = p->Kp * p->Error0
+		   + p->Ki * p->ErrorInt
+		   - p->Kd * actual_rate;
+
+	if (p->Out > p->OutMax)
+	{
+		p->Out = p->OutMax;
+	}
+	if (p->Out < p->OutMin)
+	{
+		p->Out = p->OutMin;
+	}
+
+	p->Actual1 = p->Actual;
+}
+

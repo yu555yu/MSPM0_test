@@ -35,9 +35,9 @@ static float LineTracking_RawTarget = 0;
  * TRACK_FILTER_ALPHA：目标低通滤波系数，越小越平滑。
  * TRACK_TARGET_LIMIT：角速度目标限幅。
  */
-#define TRACK_ERROR_GAIN       10.0f
+#define TRACK_ERROR_GAIN       15.0f
 #define TRACK_TARGET_LIMIT     120.0f
-#define TRACK_FILTER_ALPHA     0.10f
+#define TRACK_FILTER_ALPHA     0.20f
 
 /*
  * 丢线保护：连续丢线多少次后，误差归零（防止沿上一次误差一直转圈）

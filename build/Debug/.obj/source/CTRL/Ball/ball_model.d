@@ -1,5 +1,7 @@
-build/Debug/.obj/source/Hardware/Motor/stepper_motor.o: \
- source/Hardware/Motor/stepper_motor.c source/Hardware/Motor/42Motor.h \
+build/Debug/.obj/source/CTRL/Ball/ball_model.o: \
+ source/CTRL/Ball/ball_model.c source/CTRL/Ball/ball_model.h \
+ source/CTRL/Jetson/serial_ctrl.h source/CTRL/Ball/ball_control.h \
+ source/middle/mid_pid.h source/Hardware/Motor/stepper_motor.h \
  source/ti_msp_dl_config.h libraries/ti/devices/msp/msp.h \
  libraries/ti/devices/DeviceFamily.h \
  libraries/ti/devices/msp/m0p/mspm0g350x.h .cmsis/include/core_cm0plus.h \
@@ -55,5 +57,4 @@ build/Debug/.obj/source/Hardware/Motor/stepper_motor.o: \
  libraries/ti/driverlib/dl_uart.h libraries/ti/driverlib/dl_uart_main.h \
  libraries/ti/driverlib/dl_vref.h libraries/ti/driverlib/dl_wwdt.h \
  libraries/ti/driverlib/m0p/dl_interrupt.h \
- libraries/ti/driverlib/m0p/dl_systick.h \
- source/Hardware/Motor/stepper_motor.h
+ libraries/ti/driverlib/m0p/dl_systick.h

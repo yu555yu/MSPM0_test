@@ -967,3 +967,424 @@ These source files will be recompiled
 [2026-07-31 05:06:40]	[done]
 	build successfully !
 
+[2026-07-31 06:03:45]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\M0\MSPM0_stepper_test\source\app\app_key_task.c': source file has been changed.
+
+[2026-07-31 06:03:46]	[done]
+	build successfully !
+
+[2026-07-31 06:04:15]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\M0\MSPM0_stepper_test\source\app\app_irtracking.c': source file has been changed.
+
+[2026-07-31 06:04:15]	[done]
+	build successfully !
+
+[2026-07-31 06:12:36]	[info] incremental build: 2 source files changed
+These source files will be recompiled
+---
+'d:\M0\MSPM0_stepper_test\source\app\app_key_task.c': source file has been changed.
+'d:\M0\MSPM0_stepper_test\source\main.c': source file has been changed.
+
+[2026-07-31 06:12:36]	[done]
+	build successfully !
+
+[2026-07-31 12:44:43]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\M0\MSPM0_stepper_test\source\CTRL\Jetson\serial_ctrl.c': object (.o) file not exist
+
+[2026-07-31 12:44:47]	[done]
+	build successfully !
+
+[2026-07-31 13:24:42]	[info] incremental build: 6 source files changed
+These source files will be recompiled
+---
+'d:\M0\MSPM0_stepper_test\source\CTRL\Ball\ball_control.c': object (.o) file not exist
+'d:\M0\MSPM0_stepper_test\source\CTRL\Jetson\serial_ctrl.c': source file has been changed.
+'d:\M0\MSPM0_stepper_test\source\Hardware\Board\board.c': source file has been changed.
+'d:\M0\MSPM0_stepper_test\source\app\app_key_task.c': source file has been changed.
+'d:\M0\MSPM0_stepper_test\source\main.c': source file has been changed.
+'d:\M0\MSPM0_stepper_test\source\middle\mid_pid.c': source file has been changed.
+
+[2026-07-31 13:24:44]	[done]
+	build successfully !
+
+[2026-07-31 13:25:52]	[done]
+	build successfully !
+
+[2026-07-31 13:27:17]	[done]
+	build successfully !
+
+[2026-07-31 13:28:04]	[done]
+	build successfully !
+
+[2026-07-31 13:28:53]	[done]
+	build successfully !
+
+[2026-07-31 13:29:10]	[done]
+	build successfully !
+
+[2026-07-31 13:30:04]	[done]
+	build successfully !
+
+[2026-07-31 13:31:49]	[done]
+	build successfully !
+
+[2026-07-31 13:32:25]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\M0\MSPM0_stepper_test\source\app\app_key_task.c': source file has been changed.
+
+[2026-07-31 13:32:25]	[done]
+	build successfully !
+
+[2026-07-31 13:39:23]	[info] incremental build: 3 source files changed
+These source files will be recompiled
+---
+'d:\M0\MSPM0_stepper_test\source\CTRL\Ball\ball_control.c': source file has been changed.
+'d:\M0\MSPM0_stepper_test\source\app\app_key_task.c': dependence 'd:\M0\MSPM0_stepper_test\source\CTRL\Ball\ball_control.h' has been changed.
+'d:\M0\MSPM0_stepper_test\source\main.c': dependence 'd:\M0\MSPM0_stepper_test\source\CTRL\Ball\ball_control.h' has been changed.
+
+[2026-07-31 13:39:25]	[done]
+	build successfully !
+
+[2026-07-31 13:41:21]	[done]
+	build successfully !
+
+[2026-07-31 13:45:26]	[info] incremental build: 3 source files changed
+These source files will be recompiled
+---
+'d:\M0\MSPM0_stepper_test\source\CTRL\Ball\ball_control.c': source file has been changed.
+'d:\M0\MSPM0_stepper_test\source\app\app_key_task.c': dependence 'd:\M0\MSPM0_stepper_test\source\CTRL\Ball\ball_control.h' has been changed.
+'d:\M0\MSPM0_stepper_test\source\main.c': dependence 'd:\M0\MSPM0_stepper_test\source\CTRL\Ball\ball_control.h' has been changed.
+
+[2026-07-31 13:45:27]	[done]
+	build successfully !
+
+[2026-07-31 13:48:44]	[done]
+	build successfully !
+
+[2026-07-31 13:49:44]	[done]
+	build successfully !
+
+[2026-07-31 13:55:38]	[info] incremental build: 3 source files changed
+These source files will be recompiled
+---
+'d:\M0\MSPM0_stepper_test\source\CTRL\Ball\ball_control.c': source file has been changed.
+'d:\M0\MSPM0_stepper_test\source\app\app_key_task.c': dependence 'd:\M0\MSPM0_stepper_test\source\CTRL\Ball\ball_control.h' has been changed.
+'d:\M0\MSPM0_stepper_test\source\main.c': dependence 'd:\M0\MSPM0_stepper_test\source\CTRL\Ball\ball_control.h' has been changed.
+
+[2026-07-31 13:55:39]	[done]
+	build successfully !
+
+[2026-07-31 13:58:11]	[done]
+	build successfully !
+
+[2026-07-31 14:01:49]	[info] incremental build: 3 source files changed
+These source files will be recompiled
+---
+'d:\M0\MSPM0_stepper_test\source\CTRL\Ball\ball_control.c': source file has been changed.
+'d:\M0\MSPM0_stepper_test\source\app\app_key_task.c': dependence 'd:\M0\MSPM0_stepper_test\source\CTRL\Ball\ball_control.h' has been changed.
+'d:\M0\MSPM0_stepper_test\source\main.c': dependence 'd:\M0\MSPM0_stepper_test\source\CTRL\Ball\ball_control.h' has been changed.
+
+[2026-07-31 14:01:50]	[done]
+	build successfully !
+
+[2026-07-31 14:10:11]	[info] incremental build: 3 source files changed
+These source files will be recompiled
+---
+'d:\M0\MSPM0_stepper_test\source\CTRL\Ball\ball_control.c': source file has been changed.
+'d:\M0\MSPM0_stepper_test\source\app\app_key_task.c': dependence 'd:\M0\MSPM0_stepper_test\source\CTRL\Ball\ball_control.h' has been changed.
+'d:\M0\MSPM0_stepper_test\source\main.c': dependence 'd:\M0\MSPM0_stepper_test\source\CTRL\Ball\ball_control.h' has been changed.
+
+[2026-07-31 14:10:13]	[done]
+	build successfully !
+
+[2026-07-31 14:12:19]	[done]
+	build successfully !
+
+[2026-07-31 14:15:30]	[done]
+	build successfully !
+
+[2026-07-31 15:07:45]	[info] incremental build: 5 source files changed
+These source files will be recompiled
+---
+'d:\M0\MSPM0_stepper_test\source\CTRL\Ball\ball_control.c': source file has been changed.
+'d:\M0\MSPM0_stepper_test\source\CTRL\Ball\ball_model.c': object (.o) file not exist
+'d:\M0\MSPM0_stepper_test\source\Hardware\Motor\stepper_motor.c': source file has been changed.
+'d:\M0\MSPM0_stepper_test\source\app\app_key_task.c': source file has been changed.
+'d:\M0\MSPM0_stepper_test\source\main.c': source file has been changed.
+
+[2026-07-31 15:07:46]	[done]
+	build successfully !
+
+[2026-07-31 15:10:21]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\M0\MSPM0_stepper_test\source\CTRL\Ball\ball_model.c': source file has been changed.
+
+[2026-07-31 15:10:21]	[done]
+	build successfully !
+
+[2026-07-31 15:10:52]	[done]
+	build successfully !
+
+[2026-07-31 15:16:00]	[done]
+	build successfully !
+
+[2026-07-31 15:20:25]	[done]
+	build successfully !
+
+[2026-07-31 15:43:58]	[done]
+	build successfully !
+
+[2026-07-31 17:05:29]	[done]
+	build successfully !
+
+[2026-07-31 17:05:47]	[done]
+	build successfully !
+
+[2026-07-31 17:30:27]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\M0\MSPM0_stepper_test\source\main.c': source file has been changed.
+
+[2026-07-31 17:30:28]	[done]
+	build successfully !
+
+[2026-07-31 17:34:52]	[done]
+	build successfully !
+
+[2026-07-31 17:35:11]	[done]
+	build successfully !
+
+[2026-07-31 18:14:41]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\M0\MSPM0_stepper_test\source\main.c': source file has been changed.
+
+[2026-07-31 18:14:42]	[done]
+	build successfully !
+
+[2026-07-31 18:15:19]	[done]
+	build successfully !
+
+[2026-07-31 18:16:13]	[done]
+	build successfully !
+
+[2026-07-31 18:18:06]	[done]
+	build successfully !
+
+[2026-07-31 18:23:39]	[done]
+	build successfully !
+
+[2026-07-31 18:23:48]	[done]
+	build successfully !
+
+[2026-07-31 18:27:17]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\M0\MSPM0_stepper_test\source\main.c': source file has been changed.
+
+[2026-07-31 18:27:18]	[done]
+	build successfully !
+
+[2026-07-31 18:28:01]	[done]
+	build successfully !
+
+[2026-07-31 19:57:22]	[info] incremental build: 2 source files changed
+These source files will be recompiled
+---
+'d:\M0\MSPM0_stepper_test\source\app\app_key_task.c': source file has been changed.
+'d:\M0\MSPM0_stepper_test\source\main.c': source file has been changed.
+
+[2026-07-31 19:57:23]	[done]
+	build successfully !
+
+[2026-07-31 20:00:06]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\M0\MSPM0_stepper_test\source\main.c': source file has been changed.
+
+[2026-07-31 20:00:07]	[done]
+	build successfully !
+
+[2026-07-31 20:27:44]	[info] incremental build: 2 source files changed
+These source files will be recompiled
+---
+'d:\M0\MSPM0_stepper_test\source\main.c': source file has been changed.
+'d:\M0\MSPM0_stepper_test\source\middle\mid_laptime.c': object (.o) file not exist
+
+[2026-07-31 20:27:45]	[done]
+	build successfully !
+
+[2026-07-31 20:30:07]	[done]
+	build successfully !
+
+[2026-07-31 21:48:44]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\M0\MSPM0_stepper_test\source\main.c': source file has been changed.
+
+[2026-07-31 21:48:45]	[done]
+	build successfully !
+
+[2026-07-31 22:40:04]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\M0\MSPM0_stepper_test\source\app\app_key_task.c': dependence 'd:\M0\MSPM0_stepper_test\source\Hardware\Motor\stepper_motor.h' has been changed.
+
+[2026-07-31 22:40:05]	[done]
+	build successfully !
+
+[2026-07-31 22:59:33]	[done]
+	build successfully !
+
+[2026-08-01 00:32:14]	[done]
+	build successfully !
+
+[2026-08-01 00:34:16]	[info] incremental build: 5 source files changed
+These source files will be recompiled
+---
+'d:\M0\MSPM0_stepper_test\source\CTRL\Jetson\serial_ctrl.c': source file has been changed.
+'d:\M0\MSPM0_stepper_test\source\Hardware\Board\board.c': dependence 'd:\M0\MSPM0_stepper_test\source\CTRL\Jetson\serial_ctrl.h' has been changed.
+'d:\M0\MSPM0_stepper_test\source\Hardware\Motor\stepper_motor.c': source file has been changed.
+'d:\M0\MSPM0_stepper_test\source\app\app_key_task.c': dependence 'd:\M0\MSPM0_stepper_test\source\Hardware\Motor\stepper_motor.h' has been changed.
+'d:\M0\MSPM0_stepper_test\source\main.c': dependence 'd:\M0\MSPM0_stepper_test\source\Hardware\Motor\stepper_motor.h' has been changed.
+
+[2026-08-01 00:34:16]	compilation failed at : "d:\M0\MSPM0_stepper_test\source\Hardware\Motor\stepper_motor.c", exit code: 1
+command: 
+  "C:\Users\22868\.eide\tools\gcc_arm\bin\arm-none-eabi-gcc.exe" -c -xc -std=c11 -I.cmsis/include -Iinclude -Isource -Ilibraries -mcpu=cortex-m0plus -mthumb -O1 -Wall -g -ffunction-sections -fdata-sections -funsigned-char --specs=nosys.specs --specs=nano.specs -D__MSPM0G3507__ -D__USE_SYSCONFIG__ -o ./build/Debug/.obj/source/Hardware/Motor/stepper_motor.o -MMD ./source/Hardware/Motor/stepper_motor.c
+   at unify_builder.Program.Main(String[] args_)
+---
+./source/Hardware/Motor/stepper_motor.c: In function 'LiftMotor_Init':
+./source/Hardware/Motor/stepper_motor.c:116:5: error: too few arguments to function 'Emm_V5_En_Control'; expected 4, have 3
+  116 |     Emm_V5_En_Control(LIFT_MOTOR_ADDR, true, UART_2_INST);
+      |     ^~~~~~~~~~~~~~~~~
+In file included from ./source/Hardware/Motor/stepper_motor.c:1:
+source/Hardware/Motor/42Motor.h:43:6: note: declared here
+   43 | void Emm_V5_En_Control(uint8_t addr, bool state, bool snF,UART_Regs * uart); // 电机使能控制
+      |      ^~~~~~~~~~~~~~~~~
+./source/Hardware/Motor/stepper_motor.c: In function 'LiftMotor_Enable':
+./source/Hardware/Motor/stepper_motor.c:126:5: error: too few arguments to function 'Emm_V5_En_Control'; expected 4, have 3
+  126 |     Emm_V5_En_Control(LIFT_MOTOR_ADDR, enable, UART_2_INST);
+      |     ^~~~~~~~~~~~~~~~~
+source/Hardware/Motor/42Motor.h:43:6: note: declared here
+   43 | void Emm_V5_En_Control(uint8_t addr, bool state, bool snF,UART_Regs * uart); // 电机使能控制
+      |      ^~~~~~~~~~~~~~~~~
+./source/Hardware/Motor/stepper_motor.c: In function 'LiftMotor_MoveRelativePulse':
+./source/Hardware/Motor/stepper_motor.c:181:5: error: too few arguments to function 'Emm_V5_Pos_Control'; expected 8, have 7
+  181 |     Emm_V5_Pos_Control(LIFT_MOTOR_ADDR,
+      |     ^~~~~~~~~~~~~~~~~~
+source/Hardware/Motor/42Motor.h:45:6: note: declared here
+   45 | void Emm_V5_Pos_Control(uint8_t addr, uint8_t dir, uint16_t vel, uint8_t acc, uint32_t clk, bool raF, bool snF,UART_Regs * uart); // 位置模式控制
+      |      ^~~~~~~~~~~~~~~~~~
+./source/Hardware/Motor/stepper_motor.c: In function 'LiftMotor_MoveAbsolutePulse':
+./source/Hardware/Motor/stepper_motor.c:205:5: error: too few arguments to function 'Emm_V5_Pos_Control'; expected 8, have 7
+  205 |     Emm_V5_Pos_Control(LIFT_MOTOR_ADDR,
+      |     ^~~~~~~~~~~~~~~~~~
+source/Hardware/Motor/42Motor.h:45:6: note: declared here
+   45 | void Emm_V5_Pos_Control(uint8_t addr, uint8_t dir, uint16_t vel, uint8_t acc, uint32_t clk, bool raF, bool snF,UART_Regs * uart); // 位置模式控制
+      |      ^~~~~~~~~~~~~~~~~~
+./source/Hardware/Motor/stepper_motor.c: In function 'LiftMotor_Stop':
+./source/Hardware/Motor/stepper_motor.c:220:9: error: too few arguments to function 'Emm_V5_Stop_Now'; expected 3, have 2
+  220 |         Emm_V5_Stop_Now(LIFT_MOTOR_ADDR, UART_2_INST);
+      |         ^~~~~~~~~~~~~~~
+source/Hardware/Motor/42Motor.h:49:6: note: declared here
+   49 | void Emm_V5_Stop_Now(uint8_t addr, bool snF,UART_Regs * uart); // 让电机立即停止运�?      |      ^~~~~~~~~~~~~~~
+
+[2026-08-01 00:41:37]	[info] incremental build: 3 source files changed
+These source files will be recompiled
+---
+'d:\M0\MSPM0_stepper_test\source\app\app_key_task.c': dependence 'd:\M0\MSPM0_stepper_test\source\middle\mid_pid.h' has been changed.
+'d:\M0\MSPM0_stepper_test\source\main.c': dependence 'd:\M0\MSPM0_stepper_test\source\middle\mid_pid.h' has been changed.
+'d:\M0\MSPM0_stepper_test\source\middle\mid_pid.c': dependence 'd:\M0\MSPM0_stepper_test\source\middle\mid_pid.h' has been changed.
+
+[2026-08-01 00:41:38]	[done]
+	build successfully !
+
+[2026-08-01 00:43:58]	[done]
+	build successfully !
+
+[2026-08-01 01:01:14]	[done]
+	build successfully !
+
+[2026-08-01 01:06:52]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\M0\MSPM0_stepper_test\source\app\app_key_task.c': dependence 'd:\M0\MSPM0_stepper_test\source\Hardware\Motor\stepper_motor.h' has been changed.
+
+[2026-08-01 01:06:52]	[done]
+	build successfully !
+
+[2026-08-01 01:08:35]	[done]
+	build successfully !
+
+[2026-08-01 01:11:34]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\M0\MSPM0_stepper_test\source\main.c': source file has been changed.
+
+[2026-08-01 01:11:35]	[done]
+	build successfully !
+
+[2026-08-01 01:20:25]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\M0\MSPM0_stepper_test\source\middle\mid_button.c': dependence 'd:\M0\MSPM0_stepper_test\source\app\app_key_task.h' has been changed.
+
+[2026-08-01 01:20:25]	[done]
+	build successfully !
+
+[2026-08-01 01:24:06]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\M0\MSPM0_stepper_test\source\main.c': source file has been changed.
+
+[2026-08-01 01:24:07]	[done]
+	build successfully !
+
+[2026-08-01 01:25:41]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\M0\MSPM0_stepper_test\source\main.c': source file has been changed.
+
+[2026-08-01 01:25:42]	[done]
+	build successfully !
+
+[2026-08-01 01:28:07]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\M0\MSPM0_stepper_test\source\main.c': source file has been changed.
+
+[2026-08-01 01:28:08]	[done]
+	build successfully !
+
+[2026-08-01 01:28:12]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\M0\MSPM0_stepper_test\source\main.c': source file has been changed.
+
+[2026-08-01 01:28:13]	[done]
+	build successfully !
+
+[2026-08-01 01:30:04]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\M0\MSPM0_stepper_test\source\main.c': source file has been changed.
+
+[2026-08-01 01:30:05]	[done]
+	build successfully !
+
+[2026-08-01 01:31:40]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\M0\MSPM0_stepper_test\source\main.c': source file has been changed.
+
+[2026-08-01 01:31:40]	[done]
+	build successfully !
+

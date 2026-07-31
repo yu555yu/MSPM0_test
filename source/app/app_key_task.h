@@ -13,4 +13,8 @@ void btn_right_cb(flex_button_t *btn);
 void btn_down_cb(flex_button_t *btn);
 void btn_mid_cb(flex_button_t *btn);
 
+/* 中键小球任务由main.c实现，按键层只负责启动或停止。 */
+void BallMotionTask_Start(void);
+void BallMotionTask_Stop(void);
+
 #endif

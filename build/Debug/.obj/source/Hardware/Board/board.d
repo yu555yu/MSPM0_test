@@ -1,7 +1,8 @@
 build/Debug/.obj/source/Hardware/Board/board.o: \
  source/Hardware/Board/board.c source/Hardware/User/User.h \
- source/Hardware/Board/board.h source/ti_msp_dl_config.h \
- libraries/ti/devices/msp/msp.h libraries/ti/devices/DeviceFamily.h \
+ source/CTRL/Jetson/serial_ctrl.h source/Hardware/Board/board.h \
+ source/ti_msp_dl_config.h libraries/ti/devices/msp/msp.h \
+ libraries/ti/devices/DeviceFamily.h \
  libraries/ti/devices/msp/m0p/mspm0g350x.h .cmsis/include/core_cm0plus.h \
  .cmsis/include/cmsis_version.h .cmsis/include/cmsis_compiler.h \
  .cmsis/include/cmsis_gcc.h .cmsis/include/mpu_armv7.h \

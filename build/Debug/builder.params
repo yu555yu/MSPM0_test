@@ -23,6 +23,7 @@
     "defines": [],
     "sourceList": [
         "libraries/ti/devices/msp/m0p/startup_system_files/gcc/startup_mspm0g350x_gcc.c",
+        "source/CTRL/Jetson/serial_ctrl.c",
         "source/Hardware/BlueSerial/DL_30.c",
         "source/Hardware/BlueSerial/bsp_hc05.c",
         "source/Hardware/BlueSerial/bsp_hc05_1.c",
@@ -43,6 +44,7 @@
         "source/main.c",
         "source/middle/mid_button.c",
         "source/middle/mid_debug_led.c",
+        "source/middle/mid_laptime.c",
         "source/middle/mid_pid.c",
         "source/retarget_syscalls.c",
         "source/ti_msp_dl_config.c"
